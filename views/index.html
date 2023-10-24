@@ -3,10 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="app.css"> <!-- Inkluder den genererede CSS-fil -->
     <title>{{title}}</title>
 </head>
-<body>
-    <h1 class="">hello {{user["name"]}}</h1>
+<body class="bg-[#F9FAFC]">
+
+    <section class="w-full p-6">
+        <h1 class="text-3xl font-semibold my-8">Opskrifter</h1>
+        <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-between gap-10">
+
+            % for recipe in recipes:
+            <!-- Recipe Grid -->
+            <section 
+            class="flex flex-col w-[85%] sm:w-[250px] h-[350px] mb-6 border-2 border-black bg-cover" >
+                <a 
+                    href="{{recipe['recipe_id']}}"
+                    class="w-full h-[280px] border-2 border-red-300"
+                    style="background-image: url('../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}'); background-size: cover; background-repeat: no-repeat;"
+                ></a>
+                <section class="">
+                    <h2>{{ recipe["recipe_name"] }}</h2>
+                </section>
+            </section>
+            % end
+        </section>
+    </section>
 </body>
 </html>
