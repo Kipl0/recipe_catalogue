@@ -10,21 +10,13 @@ def _():
 def _(filename):
     return static_file(filename, root="./images")
 
-@get("/")
-def render_index():
-   try:
-       db = x.db()
+@get("/images/recipe_thumbnails/<filename:re:.*\.jpg>")
+def _(filename):
+    return static_file(filename, root="./images/recipe_thumbnails")
 
-       user = db.execute("SELECT * FROM users").fetchall()[0]
-       return template("index", title="Recipes", user=user)
-   
-   except Exception as ex:
-       print(x)
-       return {"error": str(ex)}
-   
-   finally: 
-       if "db" in locals(): db.close()
 
+import routes.recipe
+import routes.recipe_catalogue
 
 
 print("Server running locally")
