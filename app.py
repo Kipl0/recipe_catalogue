@@ -1,4 +1,5 @@
 from bottle import get, run, template, static_file
+import x
 
 @get("/app.css")
 def _():
@@ -11,7 +12,19 @@ def _(filename):
 
 @get("/")
 def render_index():
-   return template("index", title="Recipes")
+   try:
+       db = x.db()
+
+       user = db.execute("SELECT * FROM users").fetchall()[0]
+       return template("index", title="Recipes", user=user)
+   
+   except Exception as ex:
+       print(x)
+       return {"error": str(ex)}
+   
+   finally: 
+       if "db" in locals(): db.close()
+
 
 
 print("Server running locally")
