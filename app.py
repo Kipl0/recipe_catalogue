@@ -1,6 +1,12 @@
 from bottle import get, run, template, static_file
 import x
 
+import routes.recipe
+import routes.home
+import routes.recipe_catalogue
+import routes.login
+import routes.register
+
 @get("/app.css")
 def _():
     return static_file("app.css", root="")
@@ -15,8 +21,7 @@ def _(filename):
     return static_file(filename, root="./images/recipe_thumbnails")
 
 
-import routes.recipe
-import routes.recipe_catalogue
+
 
 
 print("Server running locally")
