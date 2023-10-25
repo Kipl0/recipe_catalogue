@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id                     TEXT NOT NULL UNIQUE, 
     user_email                  TEXT NOT NULL UNIQUE,
+    user_username               TEXT NOT NULL UNIQUE,
     user_first_name             TEXT NOT NULL,
     user_last_name              TEXT NOT NULL,
     user_age                    TEXT NOT NULL,
@@ -110,8 +111,8 @@ CREATE TABLE Recipes_liked_by_users (
 
 ------------------------------------- Inserts
 -- Users
-INSERT INTO users VALUES("1", "maalmaja@gmail.com", "Maja", "Larsen", "26", "123", "1698156869", "1", "unknown_user.jpg", "");
-INSERT INTO users VALUES("2", "voli@hotmail.dk", "Victor", "Larsen", "26", "123", "1698156870", "1", "unknown_user.jpg", "");
+INSERT INTO users VALUES("1", "maalmaja@gmail.com", "Kip", "Maja", "Larsen", "26", "123", "1698156869", "1", "unknown_user.jpg", "");
+INSERT INTO users VALUES("2", "voli@hotmail.dk", "Vic", "Victor", "Larsen", "26", "123", "1698156870", "1", "unknown_user.jpg", "");
 
 -- Recipes
 INSERT INTO recipes VALUES("1", "1", "Indisk dahl med nahn brød", "Dhal er en central ret i det indiske køkken. Retten er for det meste tilberedt af bælgfrugter, særligt linser, men til tider også Kikærter, bønner eller ærter.", "Gryderet", "1 time", "Nem", "0", "1698157635", "438921b73d6b454c82b164922947ffed.jpg");
