@@ -5,17 +5,17 @@ import x
 @get("/opskriftskatalog")
 def _():
    try:
-       db = x.db()
+        db = x.db()
 
-       users = db.execute("SELECT * FROM users").fetchall()
+        users = db.execute("SELECT * FROM users").fetchall()
        
-       recipes = db.execute("SELECT * FROM recipes").fetchall()
+        recipes = db.execute("SELECT * FROM recipes").fetchall()
 
-       return template("recipeCatalogue", title="Opskriftskatalog", users=users, recipes=recipes)
+        return template("recipeCatalogue", title="Opskriftskatalog", users=users, recipes=recipes)
 
    except Exception as ex:
-       print(x)
-       return {"error": str(ex)}
+        print(x)
+        return {"error": str(ex)}
 
    finally: 
-       if "db" in locals(): db.close()
+        if "db" in locals(): db.close()
