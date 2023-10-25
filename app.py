@@ -6,6 +6,7 @@ import routes.home
 import routes.recipe_catalogue
 import routes.login
 import routes.register
+import routes.reset_password
 
 @get("/app.css")
 def _():
