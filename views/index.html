@@ -1,32 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css"> <!-- Inkluder den genererede CSS-fil -->
-    <title>{{title}}</title>
-</head>
-<body class="bg-[#F9FAFC]">
+% include("comp_header_navbar", title="Recipe")
 
-    <section class="w-full p-6">
-        <h1 class="text-3xl font-semibold my-8">Opskrifter</h1>
-        <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-between gap-10">
+    <!-- Container -->
+    <section class="flex flex-row w-full">
+        % include("comp_filtrationbar")
 
-            % for recipe in recipes:
-            <!-- Recipe Grid -->
-            <section 
-            class="flex flex-col w-[85%] sm:w-[250px] h-[350px] mb-6 border-2 border-black bg-cover" >
-                <a 
-                    href="{{recipe['recipe_id']}}"
-                    class="w-full h-[280px] border-2 border-red-300"
-                    style="background-image: url('../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}'); background-size: cover; background-repeat: no-repeat;"
-                ></a>
-                <section class="">
-                    <h2>{{ recipe["recipe_name"] }}</h2>
-                </section>
+        
+        <!-- Recipe grid -->
+        <section class="flex-1 py-8 px-10">
+            <h1 class="text-4xl font-semibold my-4 font-playfair-display text-[#524646]">Opskriftskatalog</h1>
+            <section class="flex w-full justify-between">
+                <h2 class="text-xl font-semibold mb-8 ">Opskriftskatalog</h2>
             </section>
-            % end
+            <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start sm:justify-between gap-10">
+
+                % for recipe in recipes:
+                <!-- Recipe Grid -->
+                <section 
+                class="flex flex-col w-[85%] sm:w-[250px] mb-6 bg-cover"
+                >
+                    <a 
+                    href="{{recipe['recipe_id']}}"
+                    class="w-full h-[280px] rounded-sm shadow-lg shadow-[#00000020]"
+                    style="background-image: url('../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}'); background-size: cover; background-repeat: no-repeat;"
+                    ></a>
+                    <section class="p-2 py-4">
+                        <h2 class="text-xl font-playfair-display ">{{ recipe["recipe_name"] }}</h2>
+                    </section>
+                </section>
+                % end
+            </section>
         </section>
     </section>
-</body>
-</html>
+
+
+<!-- footer -->
+% include("comp_footer")
+
+

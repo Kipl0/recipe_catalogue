@@ -16,26 +16,30 @@
     <link rel="stylesheet" href="/app.css">
     <title>{{title}}</title>
 </head>
-<body class="bg-[#F9FAFC] font-sans">
+<body class="bg-[#F9FAFC] text-[#2a2a2a] font-sans">
 
     <nav class="w-full ">
         <!-- Navbar 1 -->
-        <div class="flex justify-between items-center w-full h-12 bg-[#494141] text-white px-8">
+        <div class="flex justify-between items-center w-full h-14 bg-[#494141] text-white px-8">
             <a href="/">Logo</a>
             <section>ik on er</section>
         </div>
         <!-- Navbar 2 -->
-        <div class="flex items-center w-full h-12 bg-[#F4F1EF] px-8">
-            <section class="flex justify-center w-[80%] ">
-                <section class="flex gap-4">
+        <section class="flex items-center w-full h-14 bg-[#F4F1EF] px-8 shadow-lg shadow-[#00000020]">
+            <section class="flex justify-center w-full items-center">
+                <section class="flex gap-4 pl-[290px] w-full">
                     <a href="/recipes">Opskrifter</a>
                     <a href="/blog">Blogindlæg</a>
                     <a href="/about">Om os</a>
                     <a href="/contact">Kontakt</a>
                 </section>
+                <input 
+                class="w-[250px] ml-auto rounded-full p-1 pl-2 outline-none border-2 border-[#6C6058] bg-[#F4F1EF] h-fit"
+                type="text" 
+                placeholder="Søg efter opskrift"
+                name="" 
+                id=""
+                >
             </section>
-            <section class="flex w-[20%]">
-                <p class="ml-auto">Søgefelt</p>
-            </section>
-        </div>
+        </section>
     </nav>
