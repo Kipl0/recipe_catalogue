@@ -37,6 +37,18 @@ CREATE TABLE recipes (
     PRIMARY KEY(recipe_id)
 ) WITHOUT ROWID;
 
+-- --------------------------
+--    Recipe collections
+-- --------------------------
+DROP TABLE IF EXISTS collections;
+CREATE TABLE collections (
+    collection_id               TEXT NOT NULL UNIQUE,
+    collection_user_fk          TEXT NOT NULL,
+    collection_name             TEXT NOT NULL,
+    collection_created_at       TEXT NOT NULL,
+    collection_thumbnail        TEXT,
+    PRIMARY KEY(collection_id)
+) WITHOUT ROWID;
 
 -- --------------------------
 --        Ingredients
@@ -72,6 +84,17 @@ CREATE TABLE recipe_ingredients (
     PRIMARY KEY(recipe_ingredient_recipe_fk, recipe_ingredient_ingredient_fk)
 ) WITHOUT ROWID;
 
+
+-- --------------------------
+--    Recipes in collections
+-- --------------------------
+DROP TABLE IF EXISTS recipes_in_collections;
+CREATE TABLE recipes_in_collections (
+    recipes_in_collections_recipe_fk            TEXT NOT NULL, -- fk
+    recipes_in_collections_collection_fk        TEXT NOT NULL, -- fk
+    recipes_in_collections_added_at             TEXT NOT NULL,
+    PRIMARY KEY(recipes_in_collections_recipe_fk, recipes_in_collections_collection_fk)
+) WITHOUT ROWID;
 
 -- --------------------------
 --    Recipes_liked_by_users
