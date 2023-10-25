@@ -9,7 +9,7 @@ def _(recipe_id):
        
        recipe = db.execute("SELECT * FROM recipes WHERE recipe_id = ?", (recipe_id,)).fetchone()
 
-       return template("recipe", title="Recipe", recipe=recipe)
+       return template("recipe", title="Opskrift", recipe=recipe)
 
    except Exception as ex:
        print(x)

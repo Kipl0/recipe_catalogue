@@ -2,8 +2,8 @@ from bottle import get, template
 import x
 
 # home page
-@get("/")
-def render_index():
+@get("/opskriftskatalog")
+def _():
    try:
        db = x.db()
 
@@ -11,7 +11,7 @@ def render_index():
        
        recipes = db.execute("SELECT * FROM recipes").fetchall()
 
-       return template("index", title="Recipes", users=users, recipes=recipes)
+       return template("recipeCatalogue", title="Opskriftskatalog", users=users, recipes=recipes)
 
    except Exception as ex:
        print(x)
