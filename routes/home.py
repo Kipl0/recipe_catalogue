@@ -6,7 +6,9 @@ def _():
     try:
         db = x.db()
 
-        return template("home", title="Forside")
+        suggestions = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes LIMIT 3").fetchall()
+
+        return template("home", title="Forside", suggestions=suggestions)
 
     except Exception as ex:
         print(x)
