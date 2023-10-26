@@ -7,6 +7,7 @@ import routes.recipe_catalogue
 import routes.login
 import routes.register
 import routes.reset_password
+import routes.about_us
 
 ##############################
 #         css
