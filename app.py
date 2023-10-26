@@ -8,11 +8,14 @@ import routes.login
 import routes.register
 import routes.reset_password
 
+##############################
+#         css
 @get("/app.css")
 def _():
     return static_file("app.css", root="")
 
-######################## import images - jpg
+##############################
+#      import images - jpg
 @get("/images/<filename:re:.*\.jpg>")
 def _(filename):
     return static_file(filename, root="./images")
@@ -20,6 +23,13 @@ def _(filename):
 @get("/images/recipe_thumbnails/<filename:re:.*\.jpg>")
 def _(filename):
     return static_file(filename, root="./images/recipe_thumbnails")
+
+
+##############################
+#         JS
+@get("/js/<filename>") 
+def _(filename):
+  return static_file(filename, "js")
 
 
 
