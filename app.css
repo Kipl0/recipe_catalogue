@@ -1234,12 +1234,20 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:absolute {
+    position: absolute;
+  }
+
   .lg\:relative {
     position: relative;
   }
 
   .lg\:top-0 {
     top: 0px;
+  }
+
+  .lg\:right-8 {
+    right: 2rem;
   }
 
   .lg\:ml-auto {
@@ -1297,6 +1305,10 @@ video {
 
   .lg\:max-w-\[600px\] {
     max-width: 600px;
+  }
+
+  .lg\:max-w-\[550px\] {
+    max-width: 550px;
   }
 
   .lg\:flex-row {
