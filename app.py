@@ -8,6 +8,7 @@ import routes.login
 import routes.register
 import routes.reset_password
 import routes.about_us
+import routes.contact
 
 ##############################
 #         css
