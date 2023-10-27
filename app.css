@@ -1220,6 +1220,10 @@ video {
     margin-top: 5%;
   }
 
+  .md\:flex {
+    display: flex;
+  }
+
   .md\:w-\[30\%\] {
     width: 30%;
   }
