@@ -558,6 +558,11 @@ video {
   z-index: 10;
 }
 
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
 .my-16 {
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -573,13 +578,12 @@ video {
   margin-bottom: 1.5rem;
 }
 
-.my-10 {
-  margin-top: 2.5rem;
+.mb-10 {
   margin-bottom: 2.5rem;
 }
 
-.mb-10 {
-  margin-bottom: 2.5rem;
+.mb-16 {
+  margin-bottom: 4rem;
 }
 
 .mb-2 {
@@ -638,8 +642,8 @@ video {
   height: 2rem;
 }
 
-.h-\[100px\] {
-  height: 100px;
+.h-\[150px\] {
+  height: 150px;
 }
 
 .h-\[280px\] {
@@ -665,10 +669,6 @@ video {
 
 .h-full {
   height: 100%;
-}
-
-.h-\[150px\] {
-  height: 150px;
 }
 
 .max-h-\[200px\] {
@@ -697,10 +697,6 @@ video {
 
 .w-\[280px\] {
   width: 280px;
-}
-
-.w-\[48\%\] {
-  width: 48%;
 }
 
 .w-\[75\%\] {
@@ -861,11 +857,6 @@ video {
   border-color: rgb(220 220 220 / var(--tw-border-opacity));
 }
 
-.border-black {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
@@ -1018,6 +1009,11 @@ video {
   padding-bottom: 2rem;
 }
 
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -1056,6 +1052,14 @@ video {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 
 .text-center {
@@ -1260,8 +1264,8 @@ video {
     position: absolute;
   }
 
-  .md\:left-16 {
-    left: 4rem;
+  .md\:left-32 {
+    left: 8rem;
   }
 
   .md\:right-4 {
@@ -1300,17 +1304,16 @@ video {
     gap: 1.5rem;
   }
 
-  .md\:pl-64 {
-    padding-left: 16rem;
+  .md\:pl-80 {
+    padding-left: 20rem;
   }
 
   .md\:pt-4 {
     padding-top: 1rem;
   }
 
-  .md\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
+  .md\:text-start {
+    text-align: start;
   }
 
   .md\:text-xl {
@@ -1354,10 +1357,6 @@ video {
 
   .lg\:h-full {
     height: 100%;
-  }
-
-  .lg\:h-\[400px\] {
-    height: 400px;
   }
 
   .lg\:w-\[250px\] {
@@ -1417,8 +1416,16 @@ video {
     justify-content: flex-start;
   }
 
+  .lg\:justify-center {
+    justify-content: center;
+  }
+
   .lg\:justify-around {
     justify-content: space-around;
+  }
+
+  .lg\:gap-14 {
+    gap: 3.5rem;
   }
 
   .lg\:rounded-l-xl {
@@ -1433,6 +1440,14 @@ video {
   .lg\:px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .lg\:pl-0 {
+    padding-left: 0px;
+  }
+
+  .lg\:text-start {
+    text-align: start;
   }
 
   .lg\:text-3xl {
