@@ -27,7 +27,7 @@
         <section class="flex justify-center gap-8 w-[85%]">
             % for suggestion in suggestions:
                 <a href="/{{suggestion['recipe_id']}}" class="w-1/3 lg:w-[250px]">
-                    <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[400px] object-cover shadow-lg shadow-[#00000030]" alt="">
+                    <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
                     <p class="md:text-xl font-playfair-display text-center pt-4" style="overflow-wrap: break-word; white-space: normal;">{{suggestion['recipe_name']}}</p>
                 </a>
             % end
@@ -41,7 +41,7 @@
         <section class="flex justify-center gap-8 w-full py-8">
             % for suggestion in suggestions:
                 <section class="w-1/3 lg:w-[250px]">
-                    <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[400px] object-cover shadow-lg shadow-[#00000030]" alt="">
+                    <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
                     <p class="md:text-xl font-playfair-display text-center pt-4" style="overflow-wrap: break-word; white-space: normal;">{{suggestion['recipe_name']}}</p>
                 </section>
             % end

@@ -10,12 +10,16 @@ CREATE TABLE users (
     user_username               TEXT NOT NULL UNIQUE,
     user_first_name             TEXT NOT NULL,
     user_last_name              TEXT NOT NULL,
-    user_age                    TEXT NOT NULL,
+    user_birthday               TEXT NOT NULL,
     user_password               TEXT NOT NULL,
     user_created_at             TEXT NOT NULL,
     user_active                 BOOLEAN DEFAULT 0,
     user_profilepic             TEXT,
     user_banner                 TEXT,
+    user_total_followers        TEXT DEFAULT 0,
+    user_total_following        TEXT DEFAULT 0,
+    user_total_recipes          TEXT DEFAULT 0,
+    user_total_collections      TEXT DEFAULT 0,
     PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
@@ -111,10 +115,16 @@ CREATE TABLE Recipes_liked_by_users (
 
 ------------------------------------- Inserts
 -- Users
-INSERT INTO users VALUES("1", "maalmaja@gmail.com", "Kip", "Maja", "Larsen", "26", "123", "1698156869", "1", "unknown_user.jpg", "");
-INSERT INTO users VALUES("2", "voli@hotmail.dk", "Vic", "Victor", "Larsen", "26", "123", "1698156870", "1", "unknown_user.jpg", "");
+INSERT INTO users VALUES("1", "maalmaja@gmail.com", "Kip", "Maja", "Larsen", "29-09-97", "123", "1698156869", "1", "user1.jpg", "banner1.jpg", 14, 18, 3, 3);
+INSERT INTO users VALUES("2", "voli@hotmail.dk", "Vic", "Victor", "Larsen", "13-07-97", "123", "1698156870", "1", "unknown_user.jpg", "banner2.png", 11, 21, 3, 3);
 
 -- Recipes
 INSERT INTO recipes VALUES("1", "1", "Indisk dahl med nahn brød", "Dhal er en central ret i det indiske køkken. Retten er for det meste tilberedt af bælgfrugter, særligt linser, men til tider også Kikærter, bønner eller ærter.", "Gryderet", "1 time", "Nem", "0", "1698157635", "438921b73d6b454c82b164922947ffed.jpg");
 INSERT INTO recipes VALUES("2", "1", "Klassisk lasagne", "Lasagne er en pastaret. Den mest kendte version er nok Lasagne Bolognese, der som navnet antyder, stammer fra byen Bologna i Norditalien.", "Pastaret", "2 timer", "Nem", "0", "1698157636", "5cde122617e64defa092321677a4be6a.jpg");
 INSERT INTO recipes VALUES("3", "2", "Grønkålssalat med avocado", "Grønkålssalat er smuk, velsmagende og en af mine dejligste salater at servere i vintermånederne. Grønkål er så lækkert at bruge i køkkenet og jeg er vild den sprøde grønne farve sammen med de rubinrøde granatæble kerner.", "Salat", "30 minutter", "Nem", "0", "1698157638", "9f75b7d1d3054b72a5189d7bc3d9f684.jpg");
+
+
+-- Collections
+INSERT INTO collections VALUES("1", "1", "Gryderetter", "1698157635", "438921b73d6b454c82b164922947ffed.jpg");
+INSERT INTO collections VALUES("2", "1", "Ovnretter", "1698157636", "5cde122617e64defa092321677a4be6a.jpg");
+INSERT INTO collections VALUES("3", "2", "Salater", "1698157638", "9f75b7d1d3054b72a5189d7bc3d9f684.jpg");
