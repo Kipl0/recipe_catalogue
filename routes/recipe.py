@@ -2,7 +2,7 @@ from bottle import get, template
 import x
 
 # recipe page
-@get("/<recipe_id>")
+@get("/opskrift/<recipe_id>")
 def _(recipe_id):
    try:
         db = x.db()

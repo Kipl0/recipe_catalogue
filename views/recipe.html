@@ -7,7 +7,7 @@
             <img src="../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}" alt="">
         </div>
         <div class="flex justify-center w-full lg:w-[40%] bg-[#D3C9C6]">
-            <section class="w-[85%] text-center py-6 pt-8">
+            <section class="flex flex-col justify-around w-[85%] text-center py-6 pt-8">
                 <section class="mb-4"> <!-- afsnit i opskrifts info -->
                     <h1 class="text-2xl sm:text-4xl font-playfair-display font-semibold text-[#524646]">{{recipe['recipe_name']}}</h1>
                     <p class="">Af {{recipe_owner['user_first_name']}} {{recipe_owner['user_last_name']}}</p>
@@ -38,7 +38,7 @@
     </section>
 
     <!-- Ingredienser og fremgangsmåde -->
-    <div class="flex flex-col items-center lg:flex-row lg:justify-around lg:items-start bg-[#DFD7D4] w-full py-10">
+    <div class="flex flex-col items-center lg:flex-row lg:justify-center lg:items-start lg:gap-6 bg-[#DFD7D4] w-full py-10">
         <!-- Ingredienser -->
         <section class="w-[85%] lg:w-[30%] mb-8 lg:mb-0">
             <h2 class="text-2xl lg:text-3xl font-playfair-display font-semibold pb-6 text-[#524646]">Ingredienser</h2>
@@ -60,7 +60,7 @@
             </section>
         </section>
         <!-- Fremgangsmåde -->
-        <section class="w-[85%] lg:w-[50%]">
+        <section class="w-[85%] lg:w-[40%] ">
             <h2 class="text-2xl lg:text-3xl font-playfair-display font-semibold pb-6 text-[#524646]">Fremgangsmåde</h2>
             <ol class="list-decimal pl-5">
                 <li class="pb-4">Skyl de røde linser grundigt og dræn dem.</li>
