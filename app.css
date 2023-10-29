@@ -875,6 +875,11 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.border-red-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(248 113 113 / var(--tw-border-opacity));
+}
+
 .border-r-\[\#E1DFE9\] {
   --tw-border-opacity: 1;
   border-right-color: rgb(225 223 233 / var(--tw-border-opacity));
@@ -936,9 +941,24 @@ video {
   background-size: cover;
 }
 
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-fill {
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+.object-scale-down {
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
 }
 
 .p-1 {
@@ -1370,6 +1390,10 @@ video {
 
   .lg\:h-full {
     height: 100%;
+  }
+
+  .lg\:max-h-\[80vh\] {
+    max-height: 80vh;
   }
 
   .lg\:w-\[250px\] {
