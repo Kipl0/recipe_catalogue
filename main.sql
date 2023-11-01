@@ -16,10 +16,10 @@ CREATE TABLE users (
     user_active                 BOOLEAN DEFAULT 0,
     user_profilepic             TEXT,
     user_banner                 TEXT,
-    user_total_followers        TEXT DEFAULT 0,
-    user_total_following        TEXT DEFAULT 0,
-    user_total_recipes          TEXT DEFAULT 0,
-    user_total_collections      TEXT DEFAULT 0,
+    user_total_followers        INTEGER DEFAULT 0,
+    user_total_following        INTEGER DEFAULT 0,
+    user_total_recipes          INTEGER DEFAULT 0,
+    user_total_collections      INTEGER DEFAULT 0,
     PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
