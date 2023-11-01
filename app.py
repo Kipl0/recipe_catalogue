@@ -5,7 +5,8 @@ import x
 # Static files
 import routes.images
 
-# Pages
+##############################
+#     Routes
 import routes.recipe
 import routes.home
 import routes.recipe_catalogue
@@ -15,6 +16,10 @@ import routes.reset_password
 import routes.about_us
 import routes.contact
 import routes.profile
+
+##############################
+#     API's
+import apis.api_register
 
 ##############################
 #         css
