@@ -3,6 +3,7 @@ import pathlib
 import sqlite3
 import re #regex
 
+COOKIE_SECRET = "cookie-secret"
 
 def dict_factory(cursor, row):
     col_names = [col[0] for col in cursor.description]
