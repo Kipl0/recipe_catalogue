@@ -21,6 +21,10 @@ def _():
 
         user_id = str(uuid.uuid4()).replace("-","")
 
+        # brugere må ikke vælge brugernavne med et brugt end-point navn
+        # passwords må ikke være på top 50 password liste
+        # passwords må ikke indeholde fornavn
+
 
         # bcrypt bruger en hash-funktion sammen med salt, for at generere en hash-værdi, som gemmes i db
         #bruges til at gemme adgangskoder sikkert, da du kun sammenligner hash-værdier for at bekræfte, om adgangskoden er korrekt.
@@ -98,6 +102,7 @@ def _():
 
         if total_rows_inserted != 1 :
             raise Exception("Prøv venligst igen")
+
 
         return {"info": "ok"}
 

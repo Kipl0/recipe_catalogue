@@ -34,6 +34,20 @@ async function register() {
 }
 
 
+// Vis message til brugere ved forkert login
+function showTip(message) {
+    const tip_id = Math.random()
+    const tip = `
+    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-3 mb-4 text-white bg-red-400 rounded-md">
+       ${message}
+    </p>
+    `
+    document.querySelector("#tips").insertAdjacentHTML("afterbegin", tip)
+    setTimeout(function() {
+        document.querySelector(`[data-tip-id='${tip_id}']`).remove()
+    }, 3000)
+}
+
 function show_uploaded_images() {  
     // Hvis billederne i deres kasse, når der er valgt et nyt billede
     // Upload profil billede
