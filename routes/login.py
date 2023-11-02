@@ -5,13 +5,12 @@ import x
 def _():
     try:
         db = x.db()
-        
-        return template("login", title="Login",)
+
+        return template("login", title="Login")
 
     except Exception as ex:
-        print(ex)
+        print(x)
         return {"error": str(ex)}
-
 
     finally:
         if "db" in locals() : db.close()

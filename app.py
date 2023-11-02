@@ -18,6 +18,11 @@ import routes.contact
 import routes.profile
 
 ##############################
+#         Bridges 
+import bridges.login
+
+
+##############################
 #     API's
 import apis.api_register
 
