@@ -1,4 +1,4 @@
-from bottle import get, template
+from bottle import get, request, response, template
 import x
 
 @get("/<user_username>")
@@ -13,7 +13,10 @@ def _(user_username):
         collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 3",(user_id['user_id'],)).fetchall()        
         user = db.execute("SELECT * FROM users WHERE user_username = ? COLLATE NOCASE", (user_username, )).fetchone()
 
-        return template("profile", title="Profil", recipes=recipes, user=user, collections=collections)
+        # user cookie
+        user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+
+        return template("profile", title="Profil", recipes=recipes, user=user, collections=collections, user_cookie=user_cookie)
 
     except Exception as ex:
         print(ex)

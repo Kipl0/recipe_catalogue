@@ -1,4 +1,4 @@
-from bottle import get, template
+from bottle import get, request, template
 import x
 
 # recipe page
@@ -13,7 +13,10 @@ def _(recipe_id):
           ingredients = db.execute("SELECT ingredient_name FROM ingredients WHERE ingredient_recipe_fk = ? ORDER BY ingredient_order", (recipe_id, )).fetchall()
           steps = db.execute("SELECT step_description FROM steps WHERE step_recipe_fk = ? ORDER BY step_order", (recipe_id, )).fetchall()
 
-          return template("recipe", title="Opskrift", recipe=recipe, recipe_owner=recipe_owner, ingredients=ingredients, steps=steps)
+          # user cookie
+          user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+
+          return template("recipe", title="Opskrift", recipe=recipe, recipe_owner=recipe_owner, ingredients=ingredients, steps=steps, user_cookie=user_cookie)
 
      except Exception as ex:
           print(x)

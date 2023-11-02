@@ -1,10 +1,13 @@
-from bottle import get, template
+from bottle import get, request, template
 import x
 
 @get("/opret-bruger")
 def _():
     try:
         db = x.db()
+
+        # user cookie
+        user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
 
         return template(
             "register", 
@@ -18,8 +21,9 @@ def _():
             EMAIL_MIN=x.EMAIL_MIN, 
             EMAIL_MAX=x.EMAIL_MAX, 
             PASSWORD_MIN=x.PASSWORD_MIN, 
-            PASSWORD_MAX=x.PASSWORD_MAX
-            )
+            PASSWORD_MAX=x.PASSWORD_MAX,
+            user_cookie=user_cookie
+        )
     
     except Exception as ex:
         print(ex)

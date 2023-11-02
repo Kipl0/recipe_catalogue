@@ -1,4 +1,4 @@
-from bottle import get, template
+from bottle import get, request, template
 import x
 
 @get("/")
@@ -8,7 +8,10 @@ def _():
 
         suggestions = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes LIMIT 3").fetchall()
 
-        return template("home", title="Forside", suggestions=suggestions)
+        # user cookie
+        user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+
+        return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie)
 
     except Exception as ex:
         print(x)
