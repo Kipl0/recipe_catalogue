@@ -4,29 +4,30 @@
     <section class="flex flex-row w-full">
         % include("comp_filtrationbar")
 
-        
         <!-- Recipe grid -->
         <section class="flex-1 py-8 px-10">
-            <h1 class="text-4xl font-semibold my-4 font-playfair-display text-[#524646]">Opskriftskatalog</h1>
-            <section class="flex w-full justify-between">
-                <h2 class="text-xl font-semibold mb-8 ">Opskriftskatalog</h2>
+            <h1 class="text-4xl font-semibold my-t mb-6 font-playfair-display text-[#524646]">Opskriftskatalog</h1>
+            <section class="flex flex-col gap-4 sm:flex-row w-full justify-between mb-8">
+                <h2 class="text-xl font-semibold">Opskriftskatalog</h2>
+                <input type="search" placeholder="Søg efter opskrift" class="h-fit px-2 py-1 rounded-full outline-none border-2 border-[#6C6058] bg-[#F9FAFC]">
             </section>
             <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start sm:justify-between gap-10">
 
                 % for recipe in recipes:
-                <!-- Recipe Grid -->
-                <section 
-                class="flex flex-col w-[85%] sm:w-[250px] mb-6 bg-cover"
-                >
-                    <a 
-                    href="/opskrift/{{recipe['recipe_id']}}"
-                    class="w-full h-[280px] rounded-sm shadow-lg shadow-[#00000020]"
-                    style="background-image: url('../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}'); background-size: cover; background-repeat: no-repeat;"
-                    ></a>
-                    <section class="p-2 py-4">
-                        <h2 class="text-xl font-playfair-display ">{{ recipe["recipe_name"] }}</h2>
+                    <!-- Recipe Grid -->
+                    <section 
+                    class="flex flex-col w-[85%] sm:w-[250px] mb-6 bg-cover"
+                    >
+                        <a 
+                        href="/opskrift/{{recipe['recipe_id']}}"
+                        class="w-full h-[280px] rounded-sm shadow-lg shadow-[#00000020]"
+                        >
+                            <img src="../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}" class="w-full h-full object-cover" alt="">
+                        </a>
+                        <section class="p-2 py-4">
+                            <h2 class="text-xl font-playfair-display ">{{ recipe["recipe_name"] }}</h2>
+                        </section>
                     </section>
-                </section>
                 % end
             </section>
         </section>
