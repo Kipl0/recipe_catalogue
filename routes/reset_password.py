@@ -1,7 +1,7 @@
 from bottle import get, request, response, template
 import x
 
-@get("/reset-password")
+@get("/nulstil-password")
 def _():
     try:
         db = x.db()

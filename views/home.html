@@ -39,11 +39,19 @@
         <h2 class="text-2xl sm:4xl pb-4 font-semibold">Dine opskriftssamlinger</h2>
         <p class="max-w-[550px] text-center">Saml og kategoriser alle dine yndlingsopskrifter i dine egne opskriftsamlinger, del dem med venner og familie og skab jeres fælles online opskriftskartoteker.</p>
         <section class="flex justify-center gap-8 w-full py-8">
-            % for suggestion in suggestions:
-                <a href="/samling/{{suggestion['recipe_id']}}" class="w-1/3 lg:w-[250px]">
-                    <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
-                    <p class="md:text-xl font-playfair-display text-center pt-4" style="overflow-wrap: break-word; white-space: normal;">{{suggestion['recipe_name']}}</p>
-                </a>
+            % if user_cookie != None :
+                % if user_collections != [] :
+                    % for user_collection in user_collections:
+                        <a href="/samling/{{user_collection['recipe_id']}}" class="w-1/3 lg:w-[250px]">
+                            <img src="../images/recipe_thumbnails/{{user_collection['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
+                            <p class="md:text-xl font-playfair-display text-center pt-4" style="overflow-wrap: break-word; white-space: normal;">{{user_collection['recipe_name']}}</p>
+                        </a>
+                    % end
+                % else :
+                    <p>Ingen samlinger endnu? <a class="hover:border-b-2 hover:border-[#2a2a2a]" href="/{{user_cookie['user_username']}}">Opret en på din profil &#x2192;</a></p>
+                % end
+            % else :
+                <p>Login for at oprette samlinger. <a class="hover:border-b-2 hover:border-[#2a2a2a]" href="/login">Login her &#x2192;</a></p>
             % end
         </section>
     </section>
