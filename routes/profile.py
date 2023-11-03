@@ -1,4 +1,4 @@
-from bottle import get, request, response, template
+from bottle import get, request, template
 import x
 
 @get("/<user_username>")
