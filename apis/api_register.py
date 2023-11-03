@@ -86,6 +86,7 @@ def _():
             "user_active" : 1,
             "user_profilepic" : final_profile_pic,
             "user_banner" : final_banner,
+            "user_role" : "member",
             "user_total_followers" : 0,
             "user_total_following" : 0,
             "user_total_recipes" : 0,
