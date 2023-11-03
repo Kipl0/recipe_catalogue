@@ -32,14 +32,19 @@
             <a href="/" class="font-semibold">Logo</a>
             <section class="flex gap-3 items-center">
                 % if user_cookie != None :
-                    <a href="/mine-samlinger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.5 16q1.175 0 2.288.263T11 17.05V7.2q-1.025-.6-2.175-.9T6.5 6q-.9 0-1.788.175T3 6.7v9.9q.875-.3 1.738-.45T6.5 16Zm6.5 1.05q1.1-.525 2.212-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2v9.85ZM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20Zm-5-8.475ZM14 9.9V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.338T17.5 9q-.95 0-1.825.238T14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65Z"/></svg></a>
+                    <a href="/{{user_cookie['user_username']}}/samlinger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.5 16q1.175 0 2.288.263T11 17.05V7.2q-1.025-.6-2.175-.9T6.5 6q-.9 0-1.788.175T3 6.7v9.9q.875-.3 1.738-.45T6.5 16Zm6.5 1.05q1.1-.525 2.212-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2v9.85ZM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20Zm-5-8.475ZM14 9.9V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.338T17.5 9q-.95 0-1.825.238T14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65Z"/></svg></a>
                     <a href="/mine-favoritter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M178 28c-20.09 0-37.92 7.93-50 21.56C115.92 35.93 98.09 28 78 28a66.08 66.08 0 0 0-66 66c0 72.34 105.81 130.14 110.31 132.57a12 12 0 0 0 11.38 0C138.19 224.14 244 166.34 244 94a66.08 66.08 0 0 0-66-66Zm-5.49 142.36a328.69 328.69 0 0 1-44.51 31.8a328.69 328.69 0 0 1-44.51-31.8C61.82 151.77 36 123.42 36 94a42 42 0 0 1 42-42c17.8 0 32.7 9.4 38.89 24.54a12 12 0 0 0 22.22 0C145.3 61.4 160.2 52 178 52a42 42 0 0 1 42 42c0 29.42-25.82 57.77-47.49 76.36Z"/></svg></a>
-                    <a href="/{{user_cookie['user_username']}}" class="w-8 h-8">
-                        <img src="../images/profile_images/{{user_cookie['user_profilepic']}}" class="rounded-full" alt="">
-                    </a>
+                    <div id="profile_btn" class="w-8 h-8 cursor-pointer">
+                        <img id="profile_btn" src="../images/profile_images/{{user_cookie['user_profilepic']}}" class="rounded-full" alt="">
+                    </div>
                 % else :
                     <a href="/login"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4m-5-4l5-5l-5-5m5 5H3"/></svg></a>
                 % end
+            </section>
+            <section id="profile_dropdown" class="hidden absolute flex-col items-center w-full lg:w-fit right-0 top-14 z-40 bg-[#ded7d3] text-[#2a2a2a] shadow-xl shadow-[#00000030] rounded-b-xl">
+                <p class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Gå til profil</p>
+                <p class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Se mine opskrifter</p>
+                <a href="/{{user_cookie['user_username']}}" class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300 hover:rounded-b-xl">Log ud</a>
             </section>
         </div>
 
@@ -53,7 +58,7 @@
                 name="" 
                 maxlength="150"
                 >
-                <section onclick="toggle_navbar()" id="toggle_navbar_bars" class="absolute right-0 text-[#6C6058] p-4 cursor-pointer lg:hidden" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M13.5 2H.5m13 5H.5m13 5H.5"/></svg></section>
+                <section id="toggle_navbar_bars" class="absolute right-0 text-[#6C6058] p-4 cursor-pointer lg:hidden" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M13.5 2H.5m13 5H.5m13 5H.5"/></svg></section>
                 
                 <section id="navbar_ul" class="hidden absolute w-full top-28 justify-center flex-col  bg-[#F4F1EF] shadow-2xl shadow-[#00000040] lg:relative lg:flex lg:flex-row lg:top-0 lg:w-fit lg:justify-start lg:shadow-none">
                     <a href="/opskriftskatalog" class="w-full py-4 text-center lg:w-fit lg:px-4  hover:bg-[#e9e3de] transition duration-300">Opskrifter</a>
