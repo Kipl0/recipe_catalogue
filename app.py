@@ -16,6 +16,7 @@ import routes.reset_password
 import routes.about_us
 import routes.contact
 import routes.profile
+import routes.collections
 
 ##############################
 #         Bridges 
