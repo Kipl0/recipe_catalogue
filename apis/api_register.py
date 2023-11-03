@@ -104,7 +104,8 @@ def _():
         if total_rows_inserted != 1 :
             raise Exception("Prøv venligst igen")
 
-
+        response.status = 303 #fordi 303 bruges til redirecting
+        response.set_header("Location", "/login")
         return {"info": "ok"}
 
 

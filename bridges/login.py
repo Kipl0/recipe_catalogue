@@ -30,8 +30,9 @@ def _():
         cookie_expiration = int(time.time()) + 7200 #session varer 2 timer
         response.set_cookie("user_cookie", check_user, secret=x.COOKIE_SECRET, httponly=True, expires=cookie_expiration)
 
-        
+        # location af header sker via js i stedet. 
         return {"info": "ok"}
+
     
 
     except Exception as ex:
