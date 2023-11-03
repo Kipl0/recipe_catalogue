@@ -37,14 +37,15 @@
                     <div id="profile_btn" class="w-8 h-8 cursor-pointer">
                         <img id="profile_btn" src="../images/profile_images/{{user_cookie['user_profilepic']}}" class="rounded-full" alt="">
                     </div>
+                    <!-- Drop down - skal bruge user_cookie -->
+                    <section id="profile_dropdown" class="hidden absolute flex-col items-center w-full lg:w-fit right-0 top-14 z-40 bg-[#ded7d3] text-[#2a2a2a] shadow-xl shadow-[#00000030] rounded-b-xl">
+                        <a href="/{{user_cookie['user_username']}}" class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Gå til profil</a>
+                        <a href="/{{user_cookie['user_username']}}/opskrifter" class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Se mine opskrifter</a>
+                        <a href="/log-out" class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300 hover:rounded-b-xl">Log ud</a>
+                    </section>
                 % else :
                     <a href="/login"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4m-5-4l5-5l-5-5m5 5H3"/></svg></a>
                 % end
-            </section>
-            <section id="profile_dropdown" class="hidden absolute flex-col items-center w-full lg:w-fit right-0 top-14 z-40 bg-[#ded7d3] text-[#2a2a2a] shadow-xl shadow-[#00000030] rounded-b-xl">
-                <p class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Gå til profil</p>
-                <p class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Se mine opskrifter</p>
-                <a href="/{{user_cookie['user_username']}}" class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300 hover:rounded-b-xl">Log ud</a>
             </section>
         </div>
 
