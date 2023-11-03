@@ -8,7 +8,7 @@ def _(user_username):
 
         user = db.execute("SELECT * FROM users WHERE user_username = ? COLLATE NOCASE", (user_username, )).fetchone()
             
-        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 3",(user['user_id'],)).fetchall()        
+        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ?",(user['user_id'],)).fetchall()        
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
