@@ -9,8 +9,8 @@ def _(user_username):
         # skal bruges til at få opskrifter og samlinger
         user_id = db.execute("SELECT user_id FROM users WHERE user_username = ?", (user_username, )).fetchone()
         
-        recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 3",(user_id['user_id'],)).fetchall()        
-        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 3",(user_id['user_id'],)).fetchall()        
+        recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 2",(user_id['user_id'],)).fetchall()        
+        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(user_id['user_id'],)).fetchall()        
         user = db.execute("SELECT * FROM users WHERE user_username = ? COLLATE NOCASE", (user_username, )).fetchone()
 
         # user cookie

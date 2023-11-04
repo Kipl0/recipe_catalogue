@@ -17,6 +17,8 @@ import routes.about_us
 import routes.contact
 import routes.profile
 import routes.collections
+import routes.recipes
+import routes.log_out
 
 ##############################
 #         Bridges 
