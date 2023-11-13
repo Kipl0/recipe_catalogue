@@ -9,7 +9,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.8/purify.min.js"></script>
 
     <!-- CSP CONTENT SECURITY POLICY - vi vil ikke tage imod scripts udefra -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+    <meta 
+    http-equiv="Content-Security-Policy" 
+    content="
+        script-src 'self'; 
+        style-src 'self' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com; 
+        default-src 'self';
+        img-src 'self';
+    "
+>
+
 
     <!-- Playfair display font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,4 +80,3 @@
             </section>
         </section>
     </nav>
-
