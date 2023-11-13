@@ -51,33 +51,33 @@ function showTip(message) {
 function show_uploaded_images() {  
     // Hvis billederne i deres kasse, når der er valgt et nyt billede
     // Upload profil billede
-    let uploaded_profil_pic = "";
-    const uploaded_profil_pic_input = document.getElementById("uploaded_profil_pic_input");
+    let uploaded_profil_pic = ""
+    const uploaded_profil_pic_input = document.getElementById("uploaded_profil_pic_input")
 
     uploaded_profil_pic_input.addEventListener("change", function() {
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.addEventListener("load", () => {
-        uploaded_profil_pic = reader.result;
-        document.getElementById("uploaded_profil_pic").src = uploaded_profil_pic;
-        });
-        reader.readAsDataURL(this.files[0]);
-    });
+            uploaded_profil_pic = reader.result
+            document.getElementById("uploaded_profil_pic").src = uploaded_profil_pic
+        })
+        reader.readAsDataURL(this.files[0])
+    })
 
 
     // Upload profil banner
-    let uploaded_banner = "";
-    const uploaded_banner_input = document.getElementById("uploaded_banner_input");
+    let uploaded_banner = ""
+    const uploaded_banner_input = document.getElementById("uploaded_banner_input")
 
     uploaded_banner_input.addEventListener("change", function() {
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.addEventListener("load", () => {
-        uploaded_banner = reader.result;
-        document.getElementById("uploaded_banner").src = uploaded_banner;
-        });
-        reader.readAsDataURL(this.files[0]);
-    });
+        uploaded_banner = reader.result
+        document.getElementById("uploaded_banner").src = uploaded_banner
+        })
+        reader.readAsDataURL(this.files[0])
+    })
 
 }
   
   // Kald når js filen bliver importeret
-  show_uploaded_images();
+  show_uploaded_images()
