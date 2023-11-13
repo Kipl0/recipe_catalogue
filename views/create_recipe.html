@@ -1,0 +1,100 @@
+% include("comp_header_navbar")
+
+% if user_cookie != None :
+    <form method="POST" action="" enctype="multipart/form-data" class="flex flex-col items-center w-full">
+        <!-- splash med info -->
+        <div class="flex flex-col lg:flex-row w-full shadow-lg shadow-[#00000030]">
+            <div class="relative w-full lg:w-[60%] lg:max-h-[60vh]">
+                <img id="image_thumpnail" src="../images/general/upload_image_placeholder.png" class="w-full h-full object-cover" alt="Placeholder uploade billede">
+                <label for="upload_btn" class="absolute top-0 cursor-pointer w-full h-full font-semibold" >
+                    <span class="flex items-center justify-center w-full h-full ">Upload billede til opskrift</span>
+                    <input id="upload_btn" name="uploaded_banner_input" type="file" class="hidden">
+                </label>
+            </div>        
+            <div class="flex justify-center w-full lg:w-[40%] bg-[#D3C9C6]">
+                <section class="flex flex-col justify-around w-[85%] text-center py-6 pt-8">
+                    <section class="mb-4"> <!-- afsnit i opskrifts info -->
+                        <input name="recipe_name" type="text" placeholder="Opskrift navn" maxlength="50" minlength="5" class="w-full max-w-[250px] px-4 py-1 my-4 rounded-full outline-none shadow-lg shadow-[#00000010]">
+                        <p class="">Af {{user_cookie['user_first_name']}} {{user_cookie['user_last_name']}}</p>
+                    </section>
+
+                    <section class="flex flex-col items-center mb-4"> <!-- afsnit i opskrifts info --> 
+                        <label for="categories" class="font-semibold text-lg" >Kategori</label>
+                        <select id="categories" class="w-full max-w-[250px] px-4 py-1 rounded-full outline-none">
+                            <option value="unset">Ubestemt</option>
+                            <option value="salat">Salat</option>
+                            <option value="bagværk">Bagværk</option>
+                            <option value="forret">Forret</option>
+                            <option value="hovedret">Hovedret</option>
+                            <option value="dessert">Dessert</option>
+                            <option value="andet">Andet</option>
+                        </select>
+                    </section>
+
+                    <section class="flex flex-col items-center mb-4"> <!-- afsnit i opskrifts info --> 
+                        <label for="est_time" for="est_time" class="font-semibold text-lg">Estimeret tid</label>
+                        <input id="est_time" name="est_time" class="w-full max-w-[250px] px-4 py-1 rounded-full" type="time">
+                    </section>
+
+                    <section class="flex flex-col items-center mb-4"> <!-- afsnit i opskrifts info --> 
+                        <label for="dificulty" class="font-semibold text-lg">Sværhedsgrad</label>
+                        <select id="dificulty" class="w-full max-w-[250px] px-4 py-1 rounded-full outline-none">
+                            <option value="easy">Let</option>
+                            <option value="moderate">Middel</option>
+                            <option value="difficult">Svær</option>
+                        </select>
+                    </section>
+
+                    <section class="flex gap-1 justify-center items-center"> <!-- afsnit i opskrifts info --> 
+                        <svg class="text-[#524646]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35Z"/></svg>
+                        <p>Likes</p>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <section class="w-[85%] sm:w-[60%] max-w-[550px] text-center py-10">
+            <h2 class="font-playfair-display text-2xl sm:4xl pb-4 font-semibold">Om din opskrift</h2>
+            <textarea name="recipe_description" maxlength="450" minlength="250" placeholder="Beskriv din opskrift til andre brugere ..."   class="bg-[#F9FAFC] px-5 py-4 rounded-3xl max-h-[450px] outline-none shadow-lg shadow-[#00000010] w-full"></textarea>
+        </section>
+
+        <!-- Ingredienser og fremgangsmåde -->
+        <div class="flex flex-col items-center gap-6 bg-[#DFD7D4] w-full py-10">
+            <section class="flex flex-col items-center lg:flex-row lg:justify-center lg:items-start lg:gap-6 w-full">
+
+                <!-- Ingredienser -->
+                <section class="flex flex-col items-center w-[85%] lg:w-[30%] mb-8 lg:mb-0 lg:items-start">
+                    <h2 class="text-2xl lg:text-3xl font-playfair-display font-semibold pb-6 text-[#524646]">Ingredienser</h2>
+                    <ol id="ingredient_ol" class="flex flex-col items-center gap-4 list-decimal w-full lg:items-start">
+                        <!-- Input indsættes her -->
+                        <button id="insertIngredient" type="button" class="flex items-center w-fit px-1 py-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2v-6Z"/></svg>
+                            Tilføj ingrediens
+                        </button>
+                    </ol>     
+                </section>
+
+                <!-- Fremgangsmåde -->
+                <section class="flex flex-col items-center w-[85%] lg:w-[40%] lg:items-start">
+                    <h2 class="text-2xl lg:text-3xl font-playfair-display font-semibold pb-6 text-[#524646]">Fremgangsmåde</h2>
+                    <ol id="step_guide_ol" class="flex flex-col items-center gap-4 list-decimal w-full lg:items-start">
+                        <!-- inputs bliver sat her -->
+                        <button id="insertStep" type="button" class="flex items-center w-fit px-1 py-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2v-6Z"/></svg>
+                            Tilføj fremgangsmåde
+                        </button>
+                    </ol>
+                </section>
+
+            </section>
+
+            <button type="button" id="create_recipe_btn" class="px-8 py-3 rounded-xl my-10 mx-auto bg-[#927F7F] shadow-lg shadow-[#00000030] text-white font-semibold hover:bg-[#877575] transition duration-300">Upload opskrift</button>
+        </div>
+    </form>
+% else :
+    <p class="font-semibold my-10">Login for at oprette opskrifter. <a class="hover:border-b-2 hover:border-[#2a2a2a]" href="/login">Login her &#x2192;</a></p>
+% end
+        
+<script src="../js/create_recipe.js"></script>
+
+% include("comp_footer")
