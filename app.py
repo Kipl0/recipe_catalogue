@@ -7,18 +7,19 @@ import routes.images
 
 ##############################
 #     Routes
-import routes.recipe
 import routes.home
+import routes.recipe
+import routes.recipes
+import routes.create_recipe
 import routes.recipe_catalogue
+import routes.collections
 import routes.login
+import routes.log_out
 import routes.register
 import routes.reset_password
 import routes.about_us
 import routes.contact
 import routes.profile
-import routes.collections
-import routes.recipes
-import routes.log_out
 
 ##############################
 #         Bridges 
@@ -28,6 +29,7 @@ import bridges.login
 ##############################
 #     API's
 import apis.api_register
+import apis.api_create_recipe
 
 ##############################
 #         css

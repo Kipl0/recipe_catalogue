@@ -5,10 +5,10 @@
         <!-- splash med info -->
         <div class="flex flex-col lg:flex-row w-full shadow-lg shadow-[#00000030]">
             <div class="relative w-full lg:w-[60%] lg:max-h-[60vh]">
-                <img id="image_thumpnail" src="../images/general/upload_image_placeholder.png" class="w-full h-full object-cover" alt="Placeholder uploade billede">
-                <label for="upload_btn" class="absolute top-0 cursor-pointer w-full h-full font-semibold" >
+                <img id="image_thumbnail" src="../images/general/upload_image_placeholder.png" class="w-full h-full object-cover" alt="Placeholder uploade billede">
+                <label for="image_thumbnail_input" class="absolute top-0 cursor-pointer w-full h-full font-semibold" >
                     <span class="flex items-center justify-center w-full h-full ">Upload billede til opskrift</span>
-                    <input id="upload_btn" name="uploaded_banner_input" type="file" class="hidden">
+                    <input id="image_thumbnail_input" name="image_thumbnail_input" type="file" class="hidden">
                 </label>
             </div>        
             <div class="flex justify-center w-full lg:w-[40%] bg-[#D3C9C6]">
@@ -19,8 +19,8 @@
                     </section>
 
                     <section class="flex flex-col items-center mb-4"> <!-- afsnit i opskrifts info --> 
-                        <label for="categories" class="font-semibold text-lg" >Kategori</label>
-                        <select id="categories" class="w-full max-w-[250px] px-4 py-1 rounded-full outline-none">
+                        <label for="category" class="font-semibold text-lg" >Kategori</label>
+                        <select id="category" name="category" class="w-full max-w-[250px] px-4 py-1 rounded-full outline-none">
                             <option value="unset">Ubestemt</option>
                             <option value="salat">Salat</option>
                             <option value="bagværk">Bagværk</option>
@@ -38,10 +38,10 @@
 
                     <section class="flex flex-col items-center mb-4"> <!-- afsnit i opskrifts info --> 
                         <label for="dificulty" class="font-semibold text-lg">Sværhedsgrad</label>
-                        <select id="dificulty" class="w-full max-w-[250px] px-4 py-1 rounded-full outline-none">
-                            <option value="easy">Let</option>
-                            <option value="moderate">Middel</option>
-                            <option value="difficult">Svær</option>
+                        <select id="dificulty" name="dificulty" class="w-full max-w-[250px] px-4 py-1 rounded-full outline-none">
+                            <option value="Let">Let</option>
+                            <option value="Middel">Middel</option>
+                            <option value="Svær">Svær</option>
                         </select>
                     </section>
 
