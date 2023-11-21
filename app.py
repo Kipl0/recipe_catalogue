@@ -11,6 +11,7 @@ import routes.home
 import routes.recipe
 import routes.recipes
 import routes.create_recipe
+import routes.create_collection
 import routes.recipe_catalogue
 import routes.collections
 import routes.login

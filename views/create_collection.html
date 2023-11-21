@@ -1,0 +1,41 @@
+% include("comp_header_navbar")
+
+<div class="w-[85%] max-w-[750px] mx-auto my-10">
+
+    <h1 class="w-full text-center mb-8 text-3xl font-semibold font-playfair-display">
+        Opret opskriftsamling
+    </h1>
+    
+    <form action="" class="flex flex-col gap-8 w-full">
+
+        <section class="flex flex-wrap gap-4">
+            <label for="collection_header">Giv din opskrift en navn</label>
+            <input id="collection_header" type="text" name="collection_name" placeholder="Navn på samling" class="px-6 rounded-xl bg-[#F9FAFC] border-2 border-[#524646] shadow-md shadow-[#00000030]">
+        </section>
+    
+    
+        <button 
+        id="create_collection"
+        class="w-fit mx-auto px-6 py-1 rounded-xl font-semibold text-white bg-[#524646] hover:bg-[#493e3e] shadow-md shadow-[#00000030] transition duration-300"
+        type="submit" 
+        data-default="Login" 
+        data-await="Please wait ..."
+        >
+            Opret opskriftsamling
+        </button>
+
+
+        <section class="mt-10">
+            <h2 class="text-center font-semibold text-xl mb-4">Tilføj nogle af dine opskrifter</h2>
+            % if not user_recipes:
+                <p>Du har ikke oprettet nogle opskrifter endnu</p>
+            % else :
+                % for recipe in user_recipes:
+                    {{recipe["recipe_name"]}}
+                % end 
+            % end 
+        </section>
+    </form>
+</div>
+
+%include("comp_footer")
