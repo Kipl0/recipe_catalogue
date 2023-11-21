@@ -10,6 +10,7 @@ def _():
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+        user_cookie = x.validate_user_jwt(user_cookie)
 
         if user_cookie != None :
             # Man kan kun finde user_collections hvis der er en cookie

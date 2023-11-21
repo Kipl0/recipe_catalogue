@@ -8,6 +8,7 @@ def _():
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+        user_cookie = x.validate_user_jwt(user_cookie)
 
         return template("contact", title="Kontakt", user_cookie=user_cookie)
 

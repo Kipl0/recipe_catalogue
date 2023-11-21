@@ -12,7 +12,7 @@ def _(user_username):
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-
+        user_cookie = x.validate_user_jwt(user_cookie)
 
         return template("recipes", title="Opskrifter", user=user, recipes=recipes, user_cookie=user_cookie)
 

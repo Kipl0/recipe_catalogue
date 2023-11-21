@@ -2,8 +2,12 @@ from bottle import request, response
 import pathlib
 import sqlite3
 import re #regex
+import jwt
 
-COOKIE_SECRET = "cookie-secret"
+COOKIE_SECRET = "85b0f43b-3222-4e65-ada1-0e6ebf22bab6"
+
+JWT_SECRET = "2747ac3f-a909-491a-bb11-28b53f0d5473"
+JWT_ALGORITHM = "HS256"
 
 def dict_factory(cursor, row):
     col_names = [col[0] for col in cursor.description]
@@ -24,6 +28,19 @@ def db():
 
 
 
+# #############################
+# Validate jwt
+def validate_user_jwt(user_jwt):
+  try :
+    user_jwt_result = jwt.decode(user_jwt, JWT_SECRET, algorithms=JWT_ALGORITHM)
+    return user_jwt_result
+  except Exception as ex :
+    print(ex, "We cannot verify you")
+  finally:
+    if "db" in locals(): db.close()
+
+
+
 # ##############################
 #    Validate user ved register
 # ##############################
@@ -33,6 +50,7 @@ def db():
 EMAIL_MIN = 6
 EMAIL_MAX = 100
 EMAIL_REGEX = "^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
 
 def validate_email():
     error = f"Venligst indtast en gyldig email"

@@ -15,6 +15,7 @@ def _(recipe_id):
 
           # user cookie
           user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+          user_cookie = x.validate_user_jwt(user_cookie)
 
           return template("recipe", title="Opskrift", recipe=recipe, recipe_owner=recipe_owner, ingredients=ingredients, steps=steps, user_cookie=user_cookie)
 

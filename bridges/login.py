@@ -1,5 +1,6 @@
 from bottle import post, response, request, time, template
 import x
+import jwt
 import bcrypt
 
 @post("/login")
@@ -24,11 +25,15 @@ def _():
             raise Exception(400, "Ugyldigt login")
 
 
-        # ----------------------------
-        #      opret usercookie
-        # ----------------------------
+        # --------------------------------
+        #     opret JWT og usercookie
+        # --------------------------------
+        # JWT - udelad password
+        check_user["user_password"] = ""
+        user_jwt = jwt.encode(check_user, x.JWT_SECRET, algorithm=x.JWT_ALGORITHM)
+
         cookie_expiration = int(time.time()) + 7200 #session varer 2 timer
-        response.set_cookie("user_cookie", check_user, secret=x.COOKIE_SECRET, httponly=True, expires=cookie_expiration)
+        response.set_cookie("user_cookie", user_jwt, secret=x.COOKIE_SECRET, httponly=True, expires=cookie_expiration)
 
         # location af header sker via js i stedet. 
         return {"info": "ok"}
