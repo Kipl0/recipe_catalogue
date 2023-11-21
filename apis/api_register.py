@@ -4,6 +4,7 @@ import uuid
 import time
 import bcrypt
 import os
+import utilities.most_used_passwords as most_used_passwords
 
 @post("/opret-bruger")
 def _():
@@ -21,9 +22,8 @@ def _():
 
         user_id = str(uuid.uuid4()).replace("-","")
 
-        # brugere må ikke vælge brugernavne med et brugt end-point navn
         # passwords må ikke være på top 50 password liste
-        # passwords må ikke indeholde fornavn
+        # brugere må ikke vælge brugernavne med et brugt end-point navn
 
 
         # bcrypt bruger en hash-funktion sammen med salt, for at generere en hash-værdi, som gemmes i db
