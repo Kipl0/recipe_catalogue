@@ -5,7 +5,6 @@ const registerButton = document.getElementById("registerButton")
 registerButton.addEventListener("click", async function() {
     try {
         const frm = event.target.form
-        // console.log(frm)
         const conn = await fetch("/opret-bruger", {
             method: "POST",
             body: new FormData(frm)
@@ -13,18 +12,18 @@ registerButton.addEventListener("click", async function() {
 
         // Hent response fra API
         const data = await conn.json()
-        console.log(data.info)
         if (!conn.ok || data.info != "ok") {
+            console.log("4")
             showTip(data.info)
             return
         }
-
+        
         if(conn.ok && data.info == "ok") {
             // Success
             location.href = "/"
         }
-
-    } catch ({ name, message }) {
+        
+} catch ({ name, message }) {
         console.log(name)
         console.log(message)
     }

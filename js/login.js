@@ -7,26 +7,37 @@ const loginButton = document.getElementById("loginButton")
 loginButton.addEventListener("click", async function() {
     try {
         const frm = event.target.form
-        // console.log(frm)
+        console.log("1") 
+        console.log("frm", frm) 
         const conn = await fetch("/login", {
             method: "POST",
             body: new FormData(frm)
         })
+        console.log("2")
+        console.log("conn", conn)
 
         // Hent response fra API
         const data = await conn.json()
+        console.log("3")
+        console.log("data", data)
         if (!conn.ok || data.info != "ok") {
+            console.log("4")
             showTip(data.info)
             return
         }
 
+        console.log("5")
+        console.log(data.info)
         if(conn.ok && data.info == "ok") {
+            console.log("6")
             // Success
             location.href = "/"
         }
 
+        console.log("7")
     } catch ({ name, message }) {
         console.log(name)
+        console.log("8")
         console.log(message)
     }
 })

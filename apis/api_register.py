@@ -98,17 +98,17 @@ def _():
 
         if total_rows_inserted != 1 :
             return { "info" : "Prøv venligst igen" }
-
-        response.status = 303 #fordi 303 bruges til redirecting
-        response.set_header("Location", "/login")
+        
+        # Redirect sker via js
         return {"info": "ok"}
 
 
     except Exception as ex:
         try: # Controlled exception, usually comming from the x file
-            response.status = 400
+            # response.status = 400
             print(ex)
-            return {"info": ex.args[1]}
+            return {"info": str(ex)}
+            # return {"info": ex.args[1]}
 
         except: # Something unknown went wrong
             if "user_email" in str(ex): 
