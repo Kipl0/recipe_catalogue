@@ -11,8 +11,11 @@ function validate(callback){
     infoText.innerHTML = ""
     infoText.classList.add("hidden")
 
-    const validate_error = "rgba(253, 63, 100, 1)"
+    const validate_error = "bg-[#FF3F64]"
+    
+    console.log(infoText)
     form.querySelectorAll("[data-validate]").forEach(function(element){ 
+      console.log(element)
       element.classList.remove("validate_error")
       element.classList.remove("bg-red-400")
     })

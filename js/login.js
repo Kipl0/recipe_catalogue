@@ -15,14 +15,15 @@ loginButton.addEventListener("click", async function() {
 
         // Hent response fra API
         const data = await conn.json()
-        console.log(data.info)
-        if (!conn.ok) {
-            showTip("Ugyldigt login")
+        if (!conn.ok || data.info != "ok") {
+            showTip(data.info)
             return
         }
 
-        // Success
-        location.href = "/"
+        if(conn.ok && data.info == "ok") {
+            // Success
+            location.href = "/"
+        }
 
     } catch ({ name, message }) {
         console.log(name)
@@ -35,7 +36,7 @@ loginButton.addEventListener("click", async function() {
 function showTip(message) {
     const tip_id = Math.random()
     const tip = `
-    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-3 mb-4 text-white bg-red-400 rounded-md">
+    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-4 text-white">
        ${message}
     </p>
     `

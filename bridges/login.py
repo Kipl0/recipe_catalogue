@@ -18,11 +18,11 @@ def _():
 
         # Hvis brugeren ikke eksisterer i db
         if not check_user:
-            raise Exception(400, "Ugyldigt login")
+            return {"info" : "Ugyldigt login"}
 
         # Matcher den hashede password input med password i db for user
         if not bcrypt.checkpw(password_input, check_user["user_password"]):
-            raise Exception(400, "Ugyldigt login")
+            return {"info" : "Ugyldigt login"}
 
 
         # --------------------------------
