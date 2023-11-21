@@ -43,6 +43,7 @@ def _():
     except Exception as ex:
         response.status = 400
         print(ex)
+
         return {"info": str(ex)}
 
 

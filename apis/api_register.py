@@ -12,6 +12,7 @@ def _():
         db = x.db()
 
         # User data
+        user_id = str(uuid.uuid4()).replace("-","")
         # Hent valideret data fra form
         user_first_name = x.validate_first_name()
         user_last_name = x.validate_last_name()
@@ -19,11 +20,6 @@ def _():
         user_email = x.validate_email()
         user_password = x.validate_password()
         x.validate_confirm_password()
-
-        user_id = str(uuid.uuid4()).replace("-","")
-
-        # passwords må ikke være på top 50 password liste
-        # brugere må ikke vælge brugernavne med et brugt end-point navn
 
 
         # bcrypt bruger en hash-funktion sammen med salt, for at generere en hash-værdi, som gemmes i db
@@ -46,12 +42,10 @@ def _():
             else:
                 if ext not in(".jpg", ".jpeg", ".png"):
                     response.status = 400
-                    print(ext)
-                    return "Venligst vælg et billede med en godkendt filtype"
+                    return { "info" : "Billedetype er ikke tilladt" }
                 final_profile_pic = str(uuid.uuid4().hex)
                 final_profile_pic = final_profile_pic + ext
                 uploaded_profil_pic.save(f"{rootdir}images/profile_images/{final_profile_pic}")
-                # return "Picture uploaded"
         else :
             final_profile_pic = "unknown_user.jpg"
 
@@ -64,13 +58,14 @@ def _():
             else:
                 if ext not in(".jpg", ".jpeg", ".png"):
                     response.status = 400
-                    raise Exception("Picture not allowed")
+                    return { "info" : "Billedetype er ikke tilladt" }
                 final_banner = str(uuid.uuid4().hex)
                 final_banner = final_banner + ext
                 uploaded_banner.save(f"{rootdir}banner/{final_banner}")
-                # return "Picture uploaded"
+
         else :
             final_banner = "default_banner.png"
+
 
 
         # Indsæt til db
@@ -102,7 +97,7 @@ def _():
         db.commit()
 
         if total_rows_inserted != 1 :
-            raise Exception("Prøv venligst igen")
+            return { "info" : "Prøv venligst igen" }
 
         response.status = 303 #fordi 303 bruges til redirecting
         response.set_header("Location", "/login")
@@ -110,19 +105,19 @@ def _():
 
 
     except Exception as ex:
-        print(ex)
         try: # Controlled exception, usually comming from the x file
-            response.status = ex.args[0]
-            return {"info":ex.args[1]}
+            response.status = 400
+            print(ex)
+            return {"info": ex.args[1]}
 
         except: # Something unknown went wrong
             if "user_email" in str(ex): 
                 response.status = 400 
-                return {"info":"user_email already exists"}
+                return {"info":"Email er optaget"}
 
             if "user_username" in str(ex): 
                 response.status = 400 
-                return {"info":"user_name already exists"}
+                return {"info":"Brugernavn er optaget"}
 
             # unknown scenario
             response.status = 500
@@ -130,3 +125,25 @@ def _():
     
     finally:
         if "db" in locals() : db.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

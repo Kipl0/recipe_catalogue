@@ -59,9 +59,9 @@ EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
 def validate_email():
     error = f"Venligst indtast en gyldig email"
     request.forms.email = request.forms.email.strip() #strip fjerner whitespace
-    if len(request.forms.email) < EMAIL_MIN : raise bottle.HTTPError(400, error)
-    if len(request.forms.email) > EMAIL_MAX : raise bottle.HTTPError(400, error)
-    if not re.match(EMAIL_REGEX, request.forms.email) : raise bottle.HTTPError(400, error)
+    if len(request.forms.email) < EMAIL_MIN : raise Exception(400, error)
+    if len(request.forms.email) > EMAIL_MAX : raise Exception(400, error)
+    if not re.match(EMAIL_REGEX, request.forms.email) : raise Exception(400, error)
     return request.forms.email
 
 
@@ -81,23 +81,23 @@ def validate_password():
     user_last_name = request.forms.last_name.strip()
     
     # Hvis password ikke overholder minimum og maksimum
-    if len(user_password) < PASSWORD_MIN : raise bottle.HTTPError(400, error)
-    if len(user_password) > PASSWORD_MAX : raise bottle.HTTPError(400, error)
-    if not re.match(PASSWORD_REGEX, user_password) : raise bottle.HTTPError(400, error) #ikke tjekket om virker endnu
+    if len(user_password) < PASSWORD_MIN : raise Exception(400, error)
+    if len(user_password) > PASSWORD_MAX : raise Exception(400, error)
+    if not re.match(PASSWORD_REGEX, user_password) : raise Exception(400, error) #ikke tjekket om virker endnu
     
     # Password må ikke indeholde for eller efternavn
-    if ( user_first_name.lower() in user_password.lower() or user_last_name.lower() in user_password.lower() ): raise bottle.HTTPError(400, "Password må ikke indeholde for- eller efternavn")
+    if ( user_first_name.lower() in user_password.lower() or user_last_name.lower() in user_password.lower() ): raise Exception(400, "Password må ikke indeholde for- eller efternavn")
     
     # Password må ikke være på top 50 mest brugte passwords
-    if user_password in most_used_passwords.most_used_passwords : raise bottle.HTTPError(400, "Dit valgte password er ikke unikt nok")
+    if user_password in most_used_passwords.most_used_passwords : raise Exception(400, "Dit valgte password er ikke unikt nok")
     
     return user_password
 
 def validate_confirm_password():
-    error = "Passwords matcher ikke"
+    error = f"Passwords matcher ikke"
     user_password = user_password = request.forms.password.strip()
     request.forms.confirm_password = request.forms.confirm_password.strip()
-    if user_password != request.forms.confirm_password : raise bottle.HTTPError(400, error)
+    if user_password != request.forms.confirm_password : raise Exception(400, error)
 
 
 
@@ -110,16 +110,16 @@ USERNAME_MAX = 20
 USERNAME_REGEX = "^[a-zA-Z0-9_]*$" #kun engelske bogstaver og tallene fra 0-9
 
 def validate_username():
-    error = "Indtast venligst et gyldigt brugernavn"
+    error = f"Indtast venligst et gyldigt brugernavn"
     username = request.forms.username.strip()
-    if len(username) < USERNAME_MIN : raise bottle.HTTPError(400, error)
-    if len(username) > USERNAME_MAX : raise bottle.HTTPError(400, error)
-    if not re.match(USERNAME_REGEX, request.forms.username): raise bottle.HTTPError(error)
+    if len(username) < USERNAME_MIN : raise Exception(400, error)
+    if len(username) > USERNAME_MAX : raise Exception(400, error)
+    if not re.match(USERNAME_REGEX, request.forms.username): raise Exception(400, error)
     # henter en liste over alle end points
     all_endpoints = [route.rule for route in bottle.default_app().routes]
 
     # Tjekker om brugernavn findes i end point
-    if username in all_endpoints: raise bottle.HTTPError(400, "Ugyldigt brugernavn")
+    if username in all_endpoints: raise Exception(400, error)
     return username
 
 
@@ -135,15 +135,16 @@ LAST_NAME_MIN = 2
 LAST_NAME_MAX = 20
 
 def validate_first_name():
-    error = "Indtast venligst et gyldigt fornavn"
+    error = f"Indtast venligst et gyldigt fornavn"
     first_name = request.forms.first_name.strip()
-    if len(first_name) < FIRST_NAME_MIN : raise bottle.HTTPError(400, error)
-    if len(first_name) > FIRST_NAME_MAX : raise bottle.HTTPError(400, error)
+    if len(first_name) < FIRST_NAME_MIN or len(first_name) > FIRST_NAME_MAX:
+         raise Exception(400, error)
     return first_name
 
+
 def validate_last_name():
-    error = "Indtast venligst et gyldigt efternavn"
+    error = f"Indtast venligst et gyldigt efternavn"
     last_name = request.forms.last_name.strip()
-    if len(last_name) < LAST_NAME_MIN : raise bottle.HTTPError(400, error)
-    if len(last_name) > LAST_NAME_MAX : raise bottle.HTTPError(400, error)
+    if len(last_name) < LAST_NAME_MIN : raise Exception(400, error)
+    if len(last_name) > LAST_NAME_MAX : raise Exception(400, error)
     return last_name

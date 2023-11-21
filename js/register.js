@@ -1,44 +1,41 @@
 // Registrerer brugeren i systemet
 
-async function register() {
-    try {
-        // Hen event target -> vores form
-        const frm = event.target 
+const registerButton = document.getElementById("registerButton")
 
-        // Lav request til API om at registrerer brugeren
+registerButton.addEventListener("click", async function() {
+    try {
+        const frm = event.target.form
+        // console.log(frm)
         const conn = await fetch("/opret-bruger", {
-            method : "POST",
-            body : new FormData(frm)
+            method: "POST",
+            body: new FormData(frm)
         })
 
         // Hent response fra API
         const data = await conn.json()
-        if (conn.status == 400) {
-            const infoText = document.getElementById("infoText")
-            infoText.innerHTML = data.infoText
-            infoText.classList.remove("hidden")
+        console.log(data.info)
+        if (!conn.ok || data.info != "ok") {
+            showTip(data.info)
             return
-        } 
-        // Tjek om requestet gik igennem og throw en error
-        else if( !conn.ok || data.info != "ok" ) {
-            throw new TypeError("Something went wrong")
         }
-        const infoText = document.getElementById("infoText")
-        infoText.innerHTML = "Bruger oprettet, gå til login"
-        infoText.classList.remove("hidden")
-    }
-    catch({ name, message }) {
+
+        if(conn.ok && data.info == "ok") {
+            // Success
+            location.href = "/"
+        }
+
+    } catch ({ name, message }) {
         console.log(name)
         console.log(message)
     }
-}
+})
 
 
 // Vis message til brugere ved forkert login
 function showTip(message) {
     const tip_id = Math.random()
     const tip = `
-    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-3 mb-4 text-white bg-red-400 rounded-md">
+    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-4 text-white">
        ${message}
     </p>
     `
@@ -47,6 +44,7 @@ function showTip(message) {
         document.querySelector(`[data-tip-id='${tip_id}']`).remove()
     }, 3000)
 }
+
 
 function show_uploaded_images() {  
     // Hvis billederne i deres kasse, når der er valgt et nyt billede
