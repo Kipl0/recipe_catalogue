@@ -20,7 +20,7 @@ registerButton.addEventListener("click", async function() {
         
         if(conn.ok && data.info == "ok") {
             // Success
-            location.href = "/"
+            location.href = "/login"
         }
         
 } catch ({ name, message }) {
