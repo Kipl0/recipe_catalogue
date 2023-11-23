@@ -1,9 +1,15 @@
-from bottle import get, request, template
+from bottle import get, request, response, template
 import x
+from security.csp import get_csp_directives
+
 
 @get("/<user_username>")
 def _(user_username):
     try:
+        # Sæt CSP 
+        csp_directives = get_csp_directives()
+        response.set_header('Content-Security-Policy', csp_directives)
+        
         db = x.db()
 
         # skal bruges til at få opskrifter og samlinger

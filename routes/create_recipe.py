@@ -1,10 +1,16 @@
 from bottle import get, request, response, template
 import x
+from security.csp import get_csp_directives
+
 
 # recipe page
 @get("/opret-opskrift")
 def _():
      try:
+          # Sæt CSP 
+          csp_directives = get_csp_directives()
+          response.set_header('Content-Security-Policy', csp_directives)
+          
           db = x.db()
         
           # user cookie

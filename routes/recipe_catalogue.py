@@ -1,10 +1,16 @@
-from bottle import get, request, template
+from bottle import get, request, response, template
 import x
+from security.csp import get_csp_directives
+
 
 # home page
 @get("/opskriftskatalog")
 def _():
      try:
+          # Sæt CSP 
+          csp_directives = get_csp_directives()
+          response.set_header('Content-Security-Policy', csp_directives)
+          
           db = x.db()
 
           users = db.execute("SELECT * FROM users").fetchall()
