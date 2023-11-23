@@ -121,6 +121,8 @@ CREATE TABLE Recipes_liked_by_users (
 -- Users
 INSERT INTO users VALUES("1", "maalmaja@gmail.com", "Kip", "Maja", "Larsen", "29-09-97", "123", "1698156869", "1", "user1.jpg", "banner1.jpg", "member", 14, 18, 3, 3);
 INSERT INTO users VALUES("2", "voli@hotmail.dk", "Vic", "Victor", "Larsen", "13-07-97", "123", "1698156870", "1", "unknown_user.jpg", "banner2.png", "member", 11, 21, 3, 3);
+-- Admin user
+INSERT INTO users VALUES("3", "admin@gmail.com", "Admin", "Admin", "Admin", "01-01-01", "Admin123", "1698156871", "1", "unknown_user.jpg", "banner2.png", "admin", 0, 0, 0, 0);
 
 -- Recipes
 INSERT INTO recipes VALUES("1", "1", "Indisk dahl med nahn brød", "Dhal er en central ret i det indiske køkken. Retten er for det meste tilberedt af bælgfrugter, særligt linser, men til tider også Kikærter, bønner eller ærter.", "Gryderet", "1 time", "Nem", "0", "1698157635", "438921b73d6b454c82b164922947ffed.jpg");
