@@ -1,26 +1,30 @@
-from bottle import get, run, static_file
+from bottle import get, run, static_file, response
 import x
+import security.csp as csp
 
+# utilities
+import utilities.hash_password # bliver kun brugt af mig selv til udvikling
 
 # Static files
 import routes.images
 
 ##############################
 #     Routes
-import routes.home
-import routes.recipe
-import routes.recipes
-import routes.create_recipe
-import routes.create_collection
-import routes.recipe_catalogue
+import routes.about_us
+import routes.admin
+import routes.contact
 import routes.collections
+import routes.create_collection
+import routes.create_recipe
+import routes.home
 import routes.login
 import routes.log_out
+import routes.profile
+import routes.recipe
+import routes.recipes
+import routes.recipe_catalogue
 import routes.register
 import routes.reset_password
-import routes.about_us
-import routes.contact
-import routes.profile
 
 ##############################
 #         Bridges 
