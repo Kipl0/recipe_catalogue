@@ -44,7 +44,7 @@
                     % for user_collection in user_collections:
                         <a href="/samling/{{user_collection['recipe_id']}}" class="w-1/3 lg:w-[250px]">
                             <img src="../images/recipe_thumbnails/{{user_collection['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
-                            <p class="md:text-xl font-playfair-display text-center pt-4" style="overflow-wrap: break-word; white-space: normal;">{{user_collection['recipe_name']}}</p>
+                            <p class="md:text-xl font-playfair-display text-center pt-4 break-words whitespace-normal">{{ user_collection['recipe_name'] }}</p>
                         </a>
                     % end
                 % else :

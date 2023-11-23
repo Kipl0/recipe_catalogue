@@ -5,11 +5,13 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                'poppins': ['Poppins', 'sans'],
-                'playfair-display': ['Playfair Display', 'serif']
+                sans: ['Poppins', 'sans-serif'],
+                serif: ['Playfair Display', 'serif'],
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 }
 

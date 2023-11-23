@@ -44,7 +44,7 @@ html {
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Poppins, sans-serif;
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -922,6 +922,10 @@ video {
   white-space: normal;
 }
 
+.break-words {
+  overflow-wrap: break-word;
+}
+
 .rounded-3xl {
   border-radius: 1.5rem;
 }
@@ -1066,11 +1070,6 @@ video {
 .bg-\[\#ded7d3\] {
   --tw-bg-opacity: 1;
   background-color: rgb(222 215 211 / var(--tw-bg-opacity));
-}
-
-.bg-blue-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
 
 .bg-red-800 {
@@ -1254,14 +1253,6 @@ video {
 
 .text-center {
   text-align: center;
-}
-
-.font-playfair-display {
-  font-family: Playfair Display, serif;
-}
-
-.font-poppins {
-  font-family: Poppins, sans;
 }
 
 .text-2xl {
