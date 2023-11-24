@@ -37,7 +37,7 @@ def validate_user_jwt(user_jwt):
     user_jwt_result = jwt.decode(user_jwt, JWT_SECRET, algorithms=JWT_ALGORITHM)
     return user_jwt_result
   except Exception as ex :
-    print(ex, "We cannot verify you")
+    print(ex, "Vi kan ikke verificere dig")
   finally:
     if "db" in locals(): db.close()
 

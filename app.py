@@ -35,6 +35,7 @@ import bridges.login
 #     API's
 import apis.api_register
 import apis.api_create_recipe
+import apis.api_create_collection
 
 ##############################
 #         css

@@ -22,12 +22,16 @@ def _():
             return
 
         user_recipes = db.execute("SELECT * FROM recipes WHERE recipe_user_fk = ?", (user_cookie['user_id'],)).fetchall()
-
-        if not user_recipes:
-            user_recipes = ""
-
         if user_recipes is []: 
             user_recipes = "Du har ikke oprettet nogle opskrifter endnu"
+
+
+        # recipes_liked_by_user_ids = db.execute("SELECT recipes_liked_by_users_recipe_fk FROM recipes_liked_by_users WHERE recipes_liked_by_users_user_fk = ?", (user_cookie['user_id'],)).fetchall()
+        # if recipes_liked_by_user_ids != None :
+        #     for recipes_liked_by_user_id in recipes_liked_by_user_ids :
+        #         recipes_liked_by_user = db.execute("SELECT * FROM recipes WHERE recipe_id = ?", (recipes_liked_by_user_id,)).fetchall()
+        # else : 
+        #     user_recipes = "Du har ikke liket nogle opskrifter endnu"
 
         return template("create_collection", title="Opret samling", user_cookie=user_cookie, user_recipes=user_recipes)
 

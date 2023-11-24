@@ -20,7 +20,14 @@ def _():
         if user_cookie != None :
             # Man kan kun finde user_collections hvis der er en cookie
             user_collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ?", (user_cookie['user_id'],)).fetchall()
+            for user_collection in user_collections:
+                print(user_collection['recipe_id'])
+                print(user_collection['recipe_thumbnail'])
+                print(user_collection['collection_name'])
             return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie, user_collections=user_collections)
+
+            
+
 
         return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie)
 

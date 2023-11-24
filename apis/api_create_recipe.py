@@ -10,11 +10,7 @@ def _():
         db = x.db()
 
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-
-        if user_cookie is None:
-            response.status = 303 #fordi 303 bruges til redirecting
-            response.set_header("Location", "/login")
-            return {"info": "ok"}
+        user_cookie = x.validate_user_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
 
         # User data
         # Hent valideret data fra form
@@ -27,9 +23,6 @@ def _():
         recipe_cooking_est = request.forms.get("est_time")
         recipe_difficulty = request.forms.get("dificulty")
 
-        # print(recipe_category)
-        # print(recipe_cooking_est)
-        # print(recipe_difficulty)
 
         # Upload af billeder til profil
         rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"
@@ -87,8 +80,6 @@ def _():
         if total_rows_inserted != 1 :
             raise Exception("Prøv venligst igen")
 
-        # response.status = 303 #fordi 303 bruges til redirecting
-        # response.set_header("Location", "/profil")
         return {"info": "ok"}
 
 

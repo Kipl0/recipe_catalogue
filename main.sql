@@ -108,10 +108,10 @@ CREATE TABLE recipes_in_collections (
 -- --------------------------
 --    Recipes_liked_by_users
 -- --------------------------
-DROP TABLE IF EXISTS Recipes_liked_by_users;
-CREATE TABLE Recipes_liked_by_users (
-    Recipes_liked_by_users_user_fk              TEXT NOT NULL,
-    Recipes_liked_by_users_recipe_fk            TEXT NOT NULL,
+DROP TABLE IF EXISTS recipes_liked_by_users;
+CREATE TABLE recipes_liked_by_users (
+    recipes_liked_by_users_user_fk              TEXT NOT NULL,
+    recipes_liked_by_users_recipe_fk            TEXT NOT NULL,
     PRIMARY KEY(Recipes_liked_by_users_user_fk, Recipes_liked_by_users_recipe_fk)
 ) WITHOUT ROWID;
 

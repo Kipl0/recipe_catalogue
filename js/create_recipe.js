@@ -19,8 +19,11 @@ function create_recipe() {
                 return
             }
 
-            //sucess
-            location.href="/"
+            if(conn.ok && data.info == "ok") {
+                // Success
+                location.href = "/"
+            }
+            
         } catch ({ name, message }) {
             console.log(name)
             console.log(message)
