@@ -12,16 +12,24 @@ def _():
           response.set_header('Content-Security-Policy', csp_directives)
           
           db = x.db()
-
-          users = db.execute("SELECT * FROM users").fetchall()
-       
-          recipes = db.execute("SELECT * FROM recipes").fetchall()
-
           # user cookie
           user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
           user_cookie = x.validate_user_jwt(user_cookie)
+       
+          # recipes = db.execute("SELECT * FROM recipes").fetchall()
 
-          return template("recipeCatalogue", title="Opskriftskatalog", users=users, recipes=recipes, user_cookie=user_cookie)
+          # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
+          all_recipes_query = """
+               SELECT recipes.*, 
+                    CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+               FROM recipes
+               LEFT JOIN recipes_liked_by_users
+               ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+               AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+          """
+          all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()
+ 
+          return template("recipeCatalogue", title="Opskriftskatalog", all_recipes=all_recipes, user_cookie=user_cookie)
 
      except Exception as ex:
           print(x)

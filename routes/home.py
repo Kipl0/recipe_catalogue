@@ -21,6 +21,7 @@ def _():
             # Man kan kun finde user_collections hvis der er en cookie
             user_collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ?", (user_cookie['user_id'],)).fetchall()
 
+            # LEFT JOIN
             recipe_not_liked_query = """
                 SELECT r.recipe_id, r.recipe_name, r.recipe_thumbnail
                 FROM recipes r
