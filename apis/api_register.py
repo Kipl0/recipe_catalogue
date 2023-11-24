@@ -33,7 +33,7 @@ def _():
         rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"
 
         # Profil billede
-        uploaded_profil_pic = request.files.get("uploaded_profil_pic") 
+        uploaded_profil_pic = request.files.get("uploaded_profil_pic_input") 
         if uploaded_profil_pic != None :
             name, ext = os.path.splitext(uploaded_profil_pic.filename)
             if ext == "" : 
@@ -50,7 +50,7 @@ def _():
             final_profile_pic = "unknown_user.jpg"
 
         #Upload banner
-        uploaded_banner = request.files.get("uploaded_banner") #files i formen
+        uploaded_banner = request.files.get("uploaded_banner_input") #files i formen
         if uploaded_banner != None :
             name, ext = os.path.splitext(uploaded_banner.filename)
             if ext == "" : 
@@ -61,7 +61,7 @@ def _():
                     return { "info" : "Billedetype er ikke tilladt" }
                 final_banner = str(uuid.uuid4().hex)
                 final_banner = final_banner + ext
-                uploaded_banner.save(f"{rootdir}banner/{final_banner}")
+                uploaded_banner.save(f"{rootdir}images/profile_banners/{final_banner}")
 
         else :
             final_banner = "default_banner.png"
