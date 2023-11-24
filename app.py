@@ -37,6 +37,7 @@ import apis.api_register
 import apis.api_create_recipe
 import apis.api_create_collection
 import apis.api_update_profile
+import apis.api_like_recipe
 
 ##############################
 #         css

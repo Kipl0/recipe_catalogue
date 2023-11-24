@@ -15,7 +15,7 @@ function create_recipe() {
             //hent respons fra API
             const data = await conn.json()
             if(!conn.ok) {
-                showTip("ugyldigt login")
+                showTip("ugyldigt")
                 return
             }
 
@@ -52,17 +52,17 @@ function show_uploaded_images() {
 
 } 
 // Kald når js filen bliver importeret
-show_uploaded_images();
+show_uploaded_images()
 
 
 
 
 // Ingrediens 
 function add_ingredient() {
-    const insertIngredient = document.getElementById("insertIngredient");
+    const insertIngredient = document.getElementById("insertIngredient")
     insertIngredient.addEventListener("click", function() {
-        // const ingredient_ol = document.getElementById("ingredient_ol");
-        const ingredient_id = Math.random();
+        // const ingredient_ol = document.getElementById("ingredient_ol")
+        const ingredient_id = Math.random()
         const ingredient = `
             <li id="${ingredient_id}" class="ml-5">
                 <div class="flex items-center">
@@ -72,21 +72,21 @@ function add_ingredient() {
                     </svg>
                 </div>
             </li>
-        `;
-        document.querySelector("#ingredient_ol").insertAdjacentHTML("afterbegin", ingredient);
-    });
+        `
+        document.querySelector("#ingredient_ol").insertAdjacentHTML("afterbegin", ingredient)
+    })
 
-    // Tilføj en hændelseslytter til "path" i skraldespands-ikonet ved "mousedown" for at slette li-elementet
+    // Tilføj en eventlistener til "path" i skraldespands-ikonet ved "mousedown" for at slette li-elementet
     document.addEventListener("click", function(event) {
         if (event.target && event.target.tagName === "path" || event.target.classList.contains("delete-ingredient")) {
-            const liToDelete = event.target.closest("li");
+            const liToDelete = event.target.closest("li")
             if (liToDelete) {
-                liToDelete.remove();
+                liToDelete.remove()
             }
         }
-    });
+    })
 }
-add_ingredient();
+add_ingredient()
 
 
 
@@ -112,12 +112,12 @@ function add_step() {
         // Tilføj en hændelseslytter til "path" i skraldespands-ikonet ved "mousedown" for at slette li-elementet
         document.addEventListener("click", function(event) {
             if (event.target && event.target.tagName === "path" || event.target.classList.contains("delete-step")) {
-                const liToDelete = event.target.closest("li");
+                const liToDelete = event.target.closest("li")
                 if (liToDelete) {
-                    liToDelete.remove();
+                    liToDelete.remove()
                 }
             }
-        });
+        })
 }
 add_step()
 
