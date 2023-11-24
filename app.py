@@ -25,6 +25,7 @@ import routes.recipes
 import routes.recipe_catalogue
 import routes.register
 import routes.reset_password
+import routes.favourites
 
 ##############################
 #         Bridges 
