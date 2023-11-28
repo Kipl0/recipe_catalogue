@@ -11,16 +11,16 @@ def _():
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-        user_cookie = x.validate_user_jwt(user_cookie)
+        if user_cookie is not None:
+            user_cookie = x.validate_user_jwt(user_cookie)
+        else:
+            print("Ingen bruger er logget ind.")
 
         # user_first_name = request.forms.get("user_first_name")
         user_first_name = x.validate_first_name()
 
         # user_last_name = request.forms.get("user_last_name")
         user_last_name = x.validate_last_name()
-
-
-
 
 
 
@@ -34,14 +34,20 @@ def _():
                 # Fordi formen bruger enctype, er uploaded_profil_pic ikke "none", men ext er (eller en " " )
                 final_profile_pic = user_cookie["user_profilepic"]
             else:
-                if ext not in(".jpg", ".jpeg", ".png"):
+                if ext not in x.picture_whitelist:
                     response.status = 400
                     return { "info" : "Billedetype er ikke tilladt" }
-                final_profile_pic = str(uuid.uuid4().hex)
-                final_profile_pic = final_profile_pic + ext
+                
+                # Tjek filstørrelsen før upload gemmes
+                if len(uploaded_profil_pic.file.read()) > x.max_profilepic_size:
+                    response.status = 413  # Statuskode 413 betyder "Request Entity Too Large"
+                    return { "info" : "Billede er for stort" }                
+
+                final_profile_pic = str(uuid.uuid4().hex) + ext
                 uploaded_profil_pic.save(f"{rootdir}images/profile_images/{final_profile_pic}")
         else :
             final_profile_pic = user_cookie["user_profilepic"]
+
 
         #Upload banner
         uploaded_banner = request.files.get("uploaded_banner_input") #files i formen
@@ -50,11 +56,16 @@ def _():
             if ext == "" : 
                 final_banner = user_cookie["user_banner"]
             else:
-                if ext not in(".jpg", ".jpeg", ".png"):
+                if ext not in x.picture_whitelist:
                     response.status = 400
                     return { "info" : "Billedetype er ikke tilladt" }
-                final_banner = str(uuid.uuid4().hex)
-                final_banner = final_banner + ext
+                
+                # Tjek filstørrelsen før upload gemmes
+                if len(uploaded_banner.file.read()) > x.max_banner_size:
+                    response.status = 413  # Statuskode 413 betyder "Request Entity Too Large"
+                    return { "info" : "Billede er for stort" }
+                
+                final_banner = str(uuid.uuid4().hex) + ext
                 uploaded_banner.save(f"{rootdir}images/profile_banners/{final_banner}")
 
         else :

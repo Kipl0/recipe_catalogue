@@ -1,4 +1,4 @@
-from bottle import get, run, static_file, response
+from bottle import get, run, static_file
 import x
 import security.csp as csp
 
@@ -26,6 +26,8 @@ import routes.recipe_catalogue
 import routes.register
 import routes.reset_password
 import routes.favourites
+# import routes.error404
+
 
 ##############################
 #         Bridges 

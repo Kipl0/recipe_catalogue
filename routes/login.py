@@ -14,6 +14,10 @@ def _():
 
         # Brugeren skal ikke være på login siden, hvis brugeren er logget ind allerede
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+        if user_cookie is not None:
+            user_cookie = x.validate_user_jwt(user_cookie)
+        else:
+            print("Ingen bruger er logget ind.")
 
         if user_cookie:
             response.status = 303 #fordi 303 bruges til redirecting

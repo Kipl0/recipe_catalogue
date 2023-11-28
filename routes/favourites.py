@@ -14,7 +14,10 @@ def _():
         db = x.db()
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-        user_cookie = x.validate_user_jwt(user_cookie)
+        if user_cookie is not None:
+            user_cookie = x.validate_user_jwt(user_cookie)
+        else:
+            print("Ingen bruger er logget ind.")
     
         recipes_liked_by_users = db.execute("SELECT * FROM recipes_liked_by_users WHERE recipes_liked_by_users_user_fk = ?",(user_cookie['user_id'],)).fetchall()
 

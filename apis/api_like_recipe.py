@@ -6,7 +6,10 @@ import x
 def _():
     try:
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-        user_cookie = x.validate_user_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
+        if user_cookie is not None:
+            user_cookie = x.validate_user_jwt(user_cookie)
+        else:
+            print("Ingen bruger er logget ind.")
         
         if user_cookie is None : 
             return {"info" : "Du skal logge ind for at kunne like tweets"}
@@ -14,9 +17,8 @@ def _():
 
         db = x.db()
         recipe_id = request.forms.get("recipe_id")
-        print(recipe_id)
         
-        
+
         recipes_liked_by_user_record = db.execute("SELECT * FROM recipes_liked_by_users WHERE recipes_liked_by_users_user_fk = ? AND recipes_liked_by_users_recipe_fk = ?",(user_cookie["user_id"], recipe_id)).fetchone()
         
         recipe_liked = db.execute("SELECT * FROM recipes WHERE recipe_id = ?",(recipe_id,)).fetchone()

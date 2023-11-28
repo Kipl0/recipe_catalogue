@@ -2,14 +2,15 @@ from bottle import post, response, request, time, template
 import x
 import jwt
 import bcrypt
+import html
 
 @post("/login")
 def _():
     try:
         db = x.db()
 
-        username_input = request.forms.get("username-input")
-        password_input = request.forms.get("password-input")
+        username_input = x.validate_username()
+        password_input = request.forms.get("password")
 
         # Hvis password er blevet udfyld -> encode
         password_input = password_input.encode("utf-8")
@@ -18,7 +19,7 @@ def _():
 
         # Hvis brugeren ikke eksisterer i db
         if not check_user:
-            return {"info" : "Ugyldigt login"}
+            return {"info" : "Bruger eksisterer ikke"}
 
         # Matcher den hashede password input med password i db for user
         if not bcrypt.checkpw(password_input, check_user["user_password"]):

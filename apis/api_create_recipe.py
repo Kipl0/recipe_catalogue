@@ -10,7 +10,10 @@ def _():
         db = x.db()
 
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-        user_cookie = x.validate_user_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
+        if user_cookie is not None:
+            user_cookie = x.validate_user_jwt(user_cookie)
+        else:
+            print("Ingen bruger er logget ind.")
 
         # User data
         # Hent valideret data fra form
