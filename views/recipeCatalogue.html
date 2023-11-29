@@ -16,15 +16,15 @@
                 % for recipe in all_recipes:
                     <!-- Recipe Grid -->
                     <section 
-                    class="relative flex flex-col w-[85%] sm:w-[250px] mb-6 bg-cover"
+                    class="relative flex flex-col w-[85%] sm:w-1/3 max-w-[250px] mb-6 bg-cover rounded-xl"
                     >
                         <a 
                         href="/opskrift/{{recipe['recipe_id']}}"
-                        class="w-full h-[280px] rounded-sm shadow-lg shadow-[#00000020]"
+                        class="w-full h-[280px] shadow-xl shadow-[#00000030] rounded-xl"
                         >
-                            <img src="../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}" class="w-full h-full object-cover" alt="">
+                            <img src="../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}" class="w-full h-full object-cover rounded-xl" alt="">
                         </a>
-                        <section class="p-2 py-4">
+                        <section class="p-2 py-4 text-center">
                             <h2 class="text-xl font-playfair-display ">{{ recipe["recipe_name"] }}</h2>
                         </section>
                         % if user_cookie is not None : 

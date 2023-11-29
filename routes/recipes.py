@@ -13,8 +13,6 @@ def _(user_username):
         db = x.db()
 
         user = db.execute("SELECT * FROM users WHERE user_username = ? COLLATE NOCASE", (user_username, )).fetchone()
-            
-        recipes = db.execute("SELECT * FROM recipes WHERE recipe_user_fk = ?",(user['user_id'],)).fetchall()        
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -23,7 +21,17 @@ def _(user_username):
         else:
             print("Ingen bruger er logget ind.")
 
-        return template("recipes", title="Opskrifter", user=user, recipes=recipes, user_cookie=user_cookie)
+        all_recipes_query = """
+            SELECT recipes.*, 
+                CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+            FROM recipes
+            LEFT JOIN recipes_liked_by_users
+            ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+            AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+        """
+        all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()         
+
+        return template("recipes", title="Opskrifter", user=user, recipes=all_recipes, user_cookie=user_cookie, csrf_token=request.csrf_token)
 
     except Exception as ex:
         print(ex)
