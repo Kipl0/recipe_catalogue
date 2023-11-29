@@ -28,7 +28,7 @@ def _(user_username):
         else:
             print("Ingen bruger er logget ind.")
 
-        return template("profile", title="Profil", recipes=recipes, user=check_user, collections=collections, user_cookie=user_cookie)
+        return template("profile", title="Profil", recipes=recipes, user=check_user, collections=collections, user_cookie=user_cookie, csrf_token=request.csrf_token)
 
 
     except Exception as ex:

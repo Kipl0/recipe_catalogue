@@ -16,12 +16,16 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
+
+        user_csrf_token = request.forms.get('csrf_token')
+        if user_csrf_token != request.csrf_token:
+            return {"info": "Ugyldigt CSRF-token! Handling afvist."}
+        
+
         # user_first_name = request.forms.get("user_first_name")
         user_first_name = x.validate_first_name()
-
         # user_last_name = request.forms.get("user_last_name")
         user_last_name = x.validate_last_name()
-
 
 
         # Upload af billeder til profil
