@@ -38,7 +38,7 @@ def _():
         user_jwt = jwt.encode(check_user, x.JWT_SECRET, algorithm=x.JWT_ALGORITHM)
 
         cookie_expiration = int(time.time()) + 7200 #session varer 2 timer
-        response.set_cookie("user_cookie", user_jwt, secret=x.COOKIE_SECRET, httponly=True, expires=cookie_expiration)
+        response.set_cookie("user_cookie", user_jwt, secret=x.COOKIE_SECRET, httponly=True, expires=cookie_expiration, csrf_token=request.csrf_token)
 
         # location af header sker via js i stedet. 
         return {"info": "ok"}

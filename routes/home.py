@@ -37,13 +37,11 @@ def _():
             """
             suggestions = db.execute(recipe_not_liked_query, (user_cookie['user_id'],)).fetchall()
 
-            # suggestions = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_id != ? LIMIT 3", (recipe_liked['recipes_liked_by_users_recipe_fk'])).fetchall()            
-            print(suggestions)
-            print("cake")
+
             # Hvis den er 0, så har de ikke liket opskriften
-            return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie, user_collections=user_collections)
+            return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie, user_collections=user_collections, csrf_token=request.csrf_token)
         
-        return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie)
+        return template("home", title="Forside", suggestions=suggestions, user_cookie=user_cookie, csrf_token=request.csrf_token)
 
     except Exception as ex:
         print(x)
