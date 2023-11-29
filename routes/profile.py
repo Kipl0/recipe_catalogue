@@ -18,7 +18,21 @@ def _(user_username):
             raise Exception
 
         
-        recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()        
+        # recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()     
+        # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
+        recipes = """
+            SELECT recipes.*, 
+            CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+            FROM recipes
+            LEFT JOIN recipes_liked_by_users
+            ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+            AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+            WHERE recipes.recipe_user_fk = ?
+            LIMIT 2
+        """
+        recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()
+
+
         collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()        
 
         # user cookie
