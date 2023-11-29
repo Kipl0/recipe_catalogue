@@ -21,6 +21,11 @@ def _():
         x.validate_confirm_password()
 
 
+        user_csrf_token = request.forms.get('csrf_token')
+        if user_csrf_token != request.csrf_token:
+            return {"info": "Ugyldigt CSRF-token! Handling afvist."}
+        
+
         # bcrypt bruger en hash-funktion sammen med salt, for at generere en hash-værdi, som gemmes i db
         #bruges til at gemme adgangskoder sikkert, da du kun sammenligner hash-værdier for at bekræfte, om adgangskoden er korrekt.
         user_password_input = user_password.encode('utf') #Konverter password til bytes
