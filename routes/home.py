@@ -1,6 +1,6 @@
 from bottle import get, request, template, response
 import x
-from security.csp import get_csp_directives
+from utilities.csp import get_csp_directives
 
 @get("/")
 def _():

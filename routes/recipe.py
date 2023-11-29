@@ -1,6 +1,6 @@
 from bottle import get, request, response, template
 import x
-from security.csp import get_csp_directives
+from utilities.csp import get_csp_directives
 
 # recipe page
 @get("/opskrift/<recipe_id>")

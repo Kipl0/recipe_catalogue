@@ -1,6 +1,6 @@
-from bottle import get, request, response, template
+from bottle import get, request, response, template, HTTPError
 import x
-from security.csp import get_csp_directives
+from utilities.csp import get_csp_directives
 
 
 @get("/<user_username>")
@@ -12,12 +12,14 @@ def _(user_username):
         
         db = x.db()
 
-        # skal bruges til at få opskrifter og samlinger
-        user_id = db.execute("SELECT user_id FROM users WHERE user_username = ?", (user_username, )).fetchone()
+        check_user = db.execute("SELECT * FROM users WHERE user_username = ?",(user_username, )).fetchone()
+        # Til 404 error handling, hvis ikke brugeren findes
+        if check_user is None:
+            raise Exception
+
         
-        recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 2",(user_id['user_id'],)).fetchall()        
-        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(user_id['user_id'],)).fetchall()        
-        user = db.execute("SELECT * FROM users WHERE user_username = ? COLLATE NOCASE", (user_username, )).fetchone()
+        recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()        
+        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()        
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -26,11 +28,12 @@ def _(user_username):
         else:
             print("Ingen bruger er logget ind.")
 
-        return template("profile", title="Profil", recipes=recipes, user=user, collections=collections, user_cookie=user_cookie)
+        return template("profile", title="Profil", recipes=recipes, user=check_user, collections=collections, user_cookie=user_cookie)
+
 
     except Exception as ex:
         print(ex)
-        return {"error": str(ex)}
+        raise HTTPError(404, "Brugernavn ikke fundet")
 
 
     finally:

@@ -9,7 +9,7 @@ from bottle import get
 import x
 import bcrypt
 
-@get("/hash_password/<user_username>")
+@get("/hash-password/<user_username>")
 def _(user_username):
     db = x.db()
     user_password = "123"

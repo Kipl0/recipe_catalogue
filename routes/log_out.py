@@ -1,5 +1,5 @@
 from bottle import get, response
-from security.csp import get_csp_directives
+from utilities.csp import get_csp_directives
 
 
 @get("/log-out")
