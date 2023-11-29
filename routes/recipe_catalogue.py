@@ -19,7 +19,6 @@ def _():
           else:
                print("Ingen bruger er logget ind.")
        
-          # recipes = db.execute("SELECT * FROM recipes").fetchall()
 
           # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
           all_recipes_query = """
@@ -32,7 +31,7 @@ def _():
           """
           all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()
  
-          return template("recipeCatalogue", title="Opskriftskatalog", all_recipes=all_recipes, user_cookie=user_cookie)
+          return template("recipeCatalogue", title="Opskriftskatalog", all_recipes=all_recipes, user_cookie=user_cookie, csrf_token=request.csrf_token)
 
      except Exception as ex:
           print(x)
