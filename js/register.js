@@ -5,6 +5,8 @@ const registerButton = document.getElementById("registerButton")
 registerButton.addEventListener("click", async function() {
     try {
         const frm = event.target.form
+        sanitizeInputs()
+
         const conn = await fetch("/opret-bruger", {
             method: "POST",
             body: new FormData(frm)

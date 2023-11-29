@@ -1,6 +1,6 @@
 from bottle import get, request, response, template
 import x
-from security.csp import get_csp_directives
+from utilities.csp import get_csp_directives
 
 
 @get("/opret-bruger")
@@ -40,7 +40,8 @@ def _():
             EMAIL_MAX=x.EMAIL_MAX, 
             PASSWORD_MIN=x.PASSWORD_MIN, 
             PASSWORD_MAX=x.PASSWORD_MAX,
-            user_cookie=user_cookie
+            user_cookie=user_cookie,
+            csrf_token=request.csrf_token
         )
     
     except Exception as ex:
