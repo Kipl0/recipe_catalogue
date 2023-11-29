@@ -6,6 +6,8 @@ function create_collection() {
     create_collection_btn.addEventListener("click", async function() {
         try {
             const frm = event.target.form
+            sanitizeInputs()
+            
             const conn = await fetch("/opret-samling", {
                 method: "POST",
                 body: new FormData(frm)
