@@ -6,7 +6,8 @@ function create_recipe() {
     create_recipe_btn.addEventListener("click", async function() {
         try {
             const frm = event.target.form
-            console.log(frm)
+            sanitizeInputs()
+
             const conn = await fetch("/opret-opskrift", {
                 method: "POST",
                 body: new FormData(frm)
