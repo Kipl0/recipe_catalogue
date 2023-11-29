@@ -7,6 +7,8 @@ const loginButton = document.getElementById("loginButton")
 loginButton.addEventListener("click", async function() {
     try {
         const frm = event.target.form
+        sanitizeInputs()
+
         const conn = await fetch("/login", {
             method: "POST",
             body: new FormData(frm)
