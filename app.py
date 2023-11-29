@@ -1,9 +1,10 @@
-from bottle import get, run, static_file
+from bottle import error, get, run, static_file, template
 import x
-import security.csp as csp
+import utilities.csp as csp
 
 # utilities
 import utilities.hash_password # bliver kun brugt af mig selv til udvikling
+import utilities.csrf
 
 # Static files
 import routes.images
@@ -26,8 +27,7 @@ import routes.recipe_catalogue
 import routes.register
 import routes.reset_password
 import routes.favourites
-# import routes.error404
-
+import routes.error404
 
 ##############################
 #         Bridges 
@@ -54,7 +54,6 @@ def _():
 @get("/js/<filename>") 
 def _(filename):
   return static_file(filename, "js")
-
 
 
 
