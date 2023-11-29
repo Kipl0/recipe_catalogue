@@ -7,6 +7,8 @@ class="flex flex-1 text-[#2a2a2a] w-full"
     <div class="flex justify-center flex-1 bg-[#00000070]">
         <form method="POST" action="" class="relative flex flex-col items-center w-[85%] max-w-[500px] h-fit bg-[#F9FAFC99] p-10 rounded-xl mt-[10%] md:mt-[5%] shadow-2xl shadow-[#00000090]">
             <h2 class="text-xl font-semibold pb-8">Login til Alle Vores Opskrifter</h2>
+
+            <input type="hidden" name="csrf_token" value="{{csrf_token}}">
             
             <!-- show message, hvis det er forkert -->
             <section id="tips" class="absolute z-40 top-10 flex flex-col justify-center items-center bg-[#FF3F64] gap-4 w-full"></section>

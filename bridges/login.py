@@ -12,6 +12,10 @@ def _():
         username_input = x.validate_username()
         password_input = request.forms.get("password")
 
+        user_csrf_token = request.forms.get('csrf_token')
+        if user_csrf_token != request.csrf_token:
+            return {"info": "Ugyldigt CSRF-token! Handling afvist."}
+
         # Hvis password er blevet udfyld -> encode
         password_input = password_input.encode("utf-8")
 

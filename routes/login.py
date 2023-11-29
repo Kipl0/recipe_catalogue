@@ -24,7 +24,7 @@ def _():
             response.set_header("Location", "/")
             return
 
-        return template("login", title="Login", user_cookie=user_cookie)
+        return template("login", title="Login", user_cookie=user_cookie, csrf_token=request.csrf_token)
 
     except Exception as ex:
         print(x)
