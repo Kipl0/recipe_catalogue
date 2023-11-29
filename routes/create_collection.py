@@ -36,7 +36,7 @@ def _():
         # else : 
         #     user_recipes = "Du har ikke liket nogle opskrifter endnu"
 
-        return template("create_collection", title="Opret samling", user_cookie=user_cookie, user_recipes=user_recipes)
+        return template("create_collection", title="Opret samling", user_cookie=user_cookie, user_recipes=user_recipes, csrf_token=request.csrf_token)
 
     except Exception as ex:
         print(x)

@@ -15,6 +15,10 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
+        user_csrf_token = request.forms.get('csrf_token')
+        if user_csrf_token != request.csrf_token:
+            return {"info": "Ugyldigt CSRF-token! Handling afvist."}
+
         # User data
         # Hent valideret data fra form
         recipe_id = str(uuid.uuid4()).replace("-","")
