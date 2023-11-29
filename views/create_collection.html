@@ -8,6 +8,8 @@
     
     <form method="POST" action="" enctype="multipart/form-data" class="flex flex-col items-center gap-8 w-full">
 
+        <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+
         <!-- show message, hvis det er forkert -->
         <section id="tips" class="absolute z-40 top-10 flex flex-col justify-center items-center bg-[#FF3F64] gap-4 w-full"></section>
 

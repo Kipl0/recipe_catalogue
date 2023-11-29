@@ -16,6 +16,11 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
+        user_csrf_token = request.forms.get('csrf_token')
+        if user_csrf_token != request.csrf_token:
+            return {"info": "Ugyldigt CSRF-token! Handling afvist."}
+        
+
         # skal bruges til redirect til side med username
         username = user_cookie['user_username']
 
