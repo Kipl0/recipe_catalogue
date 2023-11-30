@@ -6,7 +6,7 @@ from utilities.csp import get_csp_directives
 @get("/kontakt")
 def _():
     try:
-        # Sæt CSP 
+        # Sæt CSP
         csp_directives = get_csp_directives()
         response.set_header('Content-Security-Policy', csp_directives)
         db = x.db()
@@ -25,4 +25,5 @@ def _():
         return {"error": str(ex)}
 
     finally:
-        if "db" in locals() : db.close()
+        if "db" in locals():
+            db.close()

@@ -1,9 +1,7 @@
-from bottle import error, get, run, static_file, template
-import x
-import utilities.csp as csp
+from bottle import get, run, static_file
 
 # utilities
-import utilities.hash_password # bliver kun brugt af mig selv til udvikling
+import utilities.hash_password  # bruges kun til udvikling
 import utilities.csrf
 
 # Static files
@@ -30,9 +28,8 @@ import routes.favourites
 import routes.error404
 
 ##############################
-#         Bridges 
+#         Bridges
 import bridges.login
-
 
 ##############################
 #     API's
@@ -42,20 +39,19 @@ import apis.api_create_collection
 import apis.api_update_profile
 import apis.api_like_recipe
 
-##############################
+
+# #############################
 #         css
 @get("/app.css")
 def _():
     return static_file("app.css", root="")
 
 
-##############################
+# #############################
 #         JS
-@get("/js/<filename>") 
+@get("/js/<filename>")
 def _(filename):
-  return static_file(filename, "js")
-
-
+    return static_file(filename, "js")
 
 
 print("Server running locally")

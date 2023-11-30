@@ -1,6 +1,7 @@
 from bottle import hook, request, response
 from uuid import uuid4
 
+
 @hook('before_request')
 def setup_csrf():
     csrf_token = request.get_cookie('csrf_token', secret='some-secret-key')

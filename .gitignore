@@ -10,3 +10,4 @@ production.py
 tailwindcss/node_modules
 Scripts
 node_modules
+.flake8

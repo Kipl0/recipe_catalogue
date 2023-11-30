@@ -1,13 +1,14 @@
-#######################################
-#           UPDATE PASSWORDS 
-#######################################
-# koden her er blevet brugt til at opdatere de passwords der manuelt er indtastet fra main.sql, til at blive decrypted, så jeg kan logge ind correct.
+# ######################################
+#           UPDATE PASSWORDS
+# ######################################
+# koden her er blevet brugt til at opdatere de passwords der manuelt er indtastet fra main.sql, til at blive decrypted, så jeg kan logge ind correct.  # noqa
 # ved brug ---> husk at imorterer routen på ny i app.py
 
 
 from bottle import get
 import x
 import bcrypt
+
 
 @get("/hash-password/<user_username>")
 def _(user_username):
@@ -20,5 +21,7 @@ def _(user_username):
     hashed_password = bcrypt.hashpw(user_input_password, salt)
 
 
-    update_user = db.execute("UPDATE users SET user_password=? WHERE user_username=?", (hashed_password,user_username))
+    update_user = db.execute("UPDATE users SET user_password=? WHERE user_username=?", (hashed_password, user_username))  # noqa
+    print(update_user)
+
     db.commit()

@@ -6,12 +6,12 @@ from utilities.csp import get_csp_directives
 @get("/om-os")
 def _():
     try:
-        # Sæt CSP 
+        # Sæt CSP
         csp_directives = get_csp_directives()
         response.set_header('Content-Security-Policy', csp_directives)
-        
+
         db = x.db()
-        
+
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
         if user_cookie is not None:
@@ -25,6 +25,6 @@ def _():
         print(ex)
         return {"error": str(ex)}
 
-
     finally:
-        if "db" in locals() : db.close()
+        if "db" in locals():
+            db.close()

@@ -6,23 +6,23 @@ from utilities.csp import get_csp_directives
 @get("/<user_username>")
 def _(user_username):
     try:
-        # Sæt CSP 
+        # Sæt CSP
         csp_directives = get_csp_directives()
         response.set_header('Content-Security-Policy', csp_directives)
-        
+
         db = x.db()
 
-        check_user = db.execute("SELECT * FROM users WHERE user_username = ?",(user_username, )).fetchone()
+        check_user = db.execute("SELECT * FROM users WHERE user_username = ?",(user_username, )).fetchone()  # noqa
         # Til 404 error handling, hvis ikke brugeren findes
         if check_user is None:
             raise Exception
 
-        
-        # recipes = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes WHERE recipe_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()     
-        # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
+        # Hent alle opskrifter med information om,
+        # hvorvidt de er 'liket' af brugeren
         recipes = """
-            SELECT recipes.*, 
-            CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+            SELECT recipes.*,
+            CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
+            IS NOT NULL THEN 1 ELSE 0 END AS is_liked
             FROM recipes
             LEFT JOIN recipes_liked_by_users
             ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
@@ -30,10 +30,9 @@ def _(user_username):
             WHERE recipes.recipe_user_fk = ?
             LIMIT 2
         """
-        recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()
+        recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
 
-
-        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()        
+        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()  # noqa  
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -42,13 +41,20 @@ def _(user_username):
         else:
             print("Ingen bruger er logget ind.")
 
-        return template("profile", title="Profil", recipes=recipes, user=check_user, collections=collections, user_cookie=user_cookie, csrf_token=request.csrf_token)
-
+        return template(
+            "profile",
+            title="Profil",
+            recipes=recipes,
+            user=check_user,
+            collections=collections,
+            user_cookie=user_cookie,
+            csrf_token=request.csrf_token
+        )
 
     except Exception as ex:
         print(ex)
         raise HTTPError(404, "Brugernavn ikke fundet")
 
-
     finally:
-        if "db" in locals() : db.close()
+        if "db" in locals():
+            db.close()
