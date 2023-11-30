@@ -12,7 +12,7 @@ def _():
             print("Ingen bruger er logget ind.")
 
         if user_cookie is None:
-            return {"info": "Du skal logge ind for at kunne like tweets"}
+            return {"info": "Du skal logge ind for at kunne like opskrifter"}
 
         db = x.db()
         recipe_id = request.forms.get("recipe_id")

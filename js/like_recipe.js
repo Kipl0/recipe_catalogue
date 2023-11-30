@@ -1,12 +1,12 @@
-const likeForms = document.querySelectorAll('.like-form');
+const likeForms = document.querySelectorAll('.like-form')
 
 // Add a submit event listener to each form
 likeForms.forEach(function (form) {
     form.addEventListener('submit', async function (event) {
-        event.preventDefault();
+        event.preventDefault()
 
-        const form_id_split = form.id.split("form_like_recipe_");
-        const recipe_id = form_id_split[1];
+        const form_id_split = form.id.split("form_like_recipe_")
+        const recipe_id = form_id_split[1]
 
         try {
             const frm = form
@@ -41,5 +41,5 @@ likeForms.forEach(function (form) {
             console.log(name)
             console.log(message)
         }        
-    });
-});
+    })
+})
