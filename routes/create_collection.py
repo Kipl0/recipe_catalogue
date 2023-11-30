@@ -28,11 +28,17 @@ def _():
         if user_recipes is []:
             user_recipes = "Du har ikke oprettet nogle opskrifter endnu"
 
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
+
         return template(
             "create_collection",
             title="Opret samling",
             user_cookie=user_cookie,
             user_recipes=user_recipes,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 

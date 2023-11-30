@@ -19,6 +19,11 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
+
         users = db.execute("SELECT * FROM users WHERE user_role = ? AND user_username != ?",("member", user_cookie['user_username'] )).fetchall()  # noqa
 
         return template(
@@ -26,6 +31,7 @@ def _():
             title="Fællesskab",
             user_cookie=user_cookie,
             users=users,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 

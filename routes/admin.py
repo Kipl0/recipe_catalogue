@@ -30,6 +30,11 @@ def _():
             response.status = 303  # fordi 303 bruges til redirecting
             response.set_header("Location", "/")
             return
+        
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
 
         all_users = db.execute("SELECT * FROM users WHERE user_role != ?", ("admin",)).fetchall()  # noqa
 
@@ -37,6 +42,7 @@ def _():
             "admin",
             title="Admin side",
             user_cookie=user_cookie,
+            admin=admin,
             all_users=all_users
         )
 

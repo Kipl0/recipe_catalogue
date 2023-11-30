@@ -25,10 +25,16 @@ def _():
             response.set_header("Location", "/")
             return
 
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
+
         return template(
             "create_recipe",
             title="Opskrift",
             user_cookie=user_cookie,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 

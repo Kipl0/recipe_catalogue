@@ -32,11 +32,17 @@ def _():
         """
         all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()  # noqa
 
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
+
         return template(
             "recipeCatalogue",
             title="Opskriftskatalog",
             all_recipes=all_recipes,
             user_cookie=user_cookie,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 

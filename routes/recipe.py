@@ -26,6 +26,11 @@ def _(recipe_id):
         else:
             print("Ingen bruger er logget ind.")
 
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
+
         return template(
             "recipe",
             title="Opskrift",
@@ -33,6 +38,7 @@ def _(recipe_id):
             recipe_owner=recipe_owner,
             ingredients=ingredients,
             steps=steps,
+            admin=admin,
             user_cookie=user_cookie
         )
 

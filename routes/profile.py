@@ -57,6 +57,11 @@ def _(user_username):
 
         collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()  # noqa  
 
+        if user_cookie['user_role'] == 'admin':
+            admin = True
+        else:
+            admin = False
+
         return template(
             "profile",
             title="Profil",
@@ -64,6 +69,7 @@ def _(user_username):
             user=check_user,
             collections=collections,
             user_cookie=user_cookie,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 
