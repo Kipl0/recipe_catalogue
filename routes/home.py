@@ -38,6 +38,9 @@ def _():
             """
             suggestions = db.execute(recipe_not_liked_query, (user_cookie['user_id'],)).fetchall()  # noqa
 
+            if user_cookie['user_role'] == 'admin':
+                admin = True
+
             # Hvis den er 0, så har de ikke liket opskriften
             return template(
                 "home",
@@ -45,14 +48,18 @@ def _():
                 suggestions=suggestions,
                 user_cookie=user_cookie,
                 user_collections=user_collections,
+                admin=admin,
                 csrf_token=request.csrf_token
             )
+
+        admin = False
 
         return template(
             "home",
             title="Forside",
             suggestions=suggestions,
             user_cookie=user_cookie,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 

@@ -13,8 +13,11 @@ import routes.about_us
 import routes.admin
 import routes.contact
 import routes.collections
+import routes.community
 import routes.create_collection
 import routes.create_recipe
+import routes.error404
+import routes.favourites
 import routes.home
 import routes.login
 import routes.log_out
@@ -24,8 +27,6 @@ import routes.recipes
 import routes.recipe_catalogue
 import routes.register
 import routes.reset_password
-import routes.favourites
-import routes.error404
 
 ##############################
 #         Bridges
