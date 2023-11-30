@@ -38,6 +38,7 @@ CREATE TABLE recipes (
     recipe_cooking_est          TEXT NOT NULL,
     recipe_difficulty           TEXT NOT NULL,
     recipe_total_likes          INTEGER DEFAULT 0,
+    recipe_visibility           BOOLEAN DEFAULT TRUE,
     recipe_created_at           TEXT,
     recipe_thumbnail            TEXT,
     PRIMARY KEY(recipe_id)
@@ -57,15 +58,6 @@ CREATE TABLE collections (
 ) WITHOUT ROWID;
 
 
--- --------------------------
---       User recipe
--- --------------------------
-DROP TABLE IF EXISTS user_recipes;
-CREATE TABLE user_recipes (
-    user_recipe_user_fk             TEXT NOT NULL, -- fk
-    user_recipe_recipe_fk           TEXT NOT NULL UNIQUE, -- fk
-    PRIMARY KEY(user_recipe_user_fk, user_recipe_recipe_fk)
-) WITHOUT ROWID;
 
 
 -- --------------------------
@@ -125,12 +117,12 @@ INSERT INTO users VALUES("2", "voli@hotmail.dk", "Vic", "Victor", "Larsen", "13-
 INSERT INTO users VALUES("3", "admin@gmail.com", "Admin", "Admin", "Admin", "01-01-01", "Admin123", "1698156871", "1", "unknown_user.jpg", "banner2.png", "admin", 0, 0, 0, 0);
 
 -- Recipes
-INSERT INTO recipes VALUES("1", "1", "Indisk dahl med nahn brød", "Dhal er en central ret i det indiske køkken. Retten er for det meste tilberedt af bælgfrugter, særligt linser, men til tider også Kikærter, bønner eller ærter.", "Gryderet", "1 time", "Nem", "0", "1698157635", "438921b73d6b454c82b164922947ffed.jpg");
-INSERT INTO recipes VALUES("2", "1", "Klassisk lasagne", "Lasagne er en pastaret. Den mest kendte version er nok Lasagne Bolognese, der som navnet antyder, stammer fra byen Bologna i Norditalien.", "Pastaret", "2 timer", "Nem", "0", "1698157636", "5cde122617e64defa092321677a4be6a.jpg");
-INSERT INTO recipes VALUES("3", "2", "Grønkålssalat med avocado", "Grønkålssalat er smuk, velsmagende og en af mine dejligste salater at servere i vintermånederne. Grønkål er så lækkert at bruge i køkkenet og jeg er vild den sprøde grønne farve sammen med de rubinrøde granatæble kerner.", "Salat", "30 minutter", "Nem", "0", "1698157638", "9f75b7d1d3054b72a5189d7bc3d9f684.jpg");
-INSERT INTO recipes VALUES("4", "2", "Hjemmelavet Brød", "Dette hjemmelavede brød er luftigt og lækkert med en sprød skorpe. Perfekt til morgenmad eller som tilbehør til dine yndlingsretter.", "Brød", "2 timer", "Middel", "0", "1698157639", "pexels-wendy-wei-1656680.jpg");
-INSERT INTO recipes VALUES("5", "1", "Hjemmelavede Pandekager", "Disse pandekager er lette, fluffy og helt uimodståelige. Server dem med ahornsirup eller dit foretrukne fyld for en lækker morgenmad.", "Pandekager", "30 minutter", "Nem", "0", "1698157640", "pexels-kader-d-kahraman-15564188.jpg");
-INSERT INTO recipes VALUES("6", "1", "Kyllingewraps med Tortillabrød", "Disse kyllingewraps er fyldt med saftig kylling, friske grøntsager og lækre tortillabrød. Perfekte til en hurtig og velsmagende frokost eller aftensmad.", "Wraps", "45 minutter", "Nem", "0", "1698157641", "pexels-nishant-aneja-2955819.jpg");
+INSERT INTO recipes VALUES("1", "1", "Indisk dahl med nahn brød", "Dhal er en central ret i det indiske køkken. Retten er for det meste tilberedt af bælgfrugter, særligt linser, men til tider også Kikærter, bønner eller ærter.", "Gryderet", "1 time", "Nem", "0", TRUE, "1698157635", "438921b73d6b454c82b164922947ffed.jpg");
+INSERT INTO recipes VALUES("2", "1", "Klassisk lasagne", "Lasagne er en pastaret. Den mest kendte version er nok Lasagne Bolognese, der som navnet antyder, stammer fra byen Bologna i Norditalien.", "Pastaret", "2 timer", "Nem", "0", TRUE, "1698157636", "5cde122617e64defa092321677a4be6a.jpg");
+INSERT INTO recipes VALUES("3", "2", "Grønkålssalat med avocado", "Grønkålssalat er smuk, velsmagende og en af mine dejligste salater at servere i vintermånederne. Grønkål er så lækkert at bruge i køkkenet og jeg er vild den sprøde grønne farve sammen med de rubinrøde granatæble kerner.", "Salat", "30 minutter", "Nem", "0", TRUE, "1698157638", "9f75b7d1d3054b72a5189d7bc3d9f684.jpg");
+INSERT INTO recipes VALUES("4", "2", "Hjemmelavet Brød", "Dette hjemmelavede brød er luftigt og lækkert med en sprød skorpe. Perfekt til morgenmad eller som tilbehør til dine yndlingsretter.", "Brød", "2 timer", "Middel", "0", TRUE, "1698157639", "pexels-wendy-wei-1656680.jpg");
+INSERT INTO recipes VALUES("5", "1", "Hjemmelavede Pandekager", "Disse pandekager er lette, fluffy og helt uimodståelige. Server dem med ahornsirup eller dit foretrukne fyld for en lækker morgenmad.", "Pandekager", "30 minutter", "Nem", "0", TRUE, "1698157640", "pexels-kader-d-kahraman-15564188.jpg");
+INSERT INTO recipes VALUES("6", "1", "Kyllingewraps med Tortillabrød", "Disse kyllingewraps er fyldt med saftig kylling, friske grøntsager og lækre tortillabrød. Perfekte til en hurtig og velsmagende frokost eller aftensmad.", "Wraps", "45 minutter", "Nem", "0", TRUE, "1698157641", "pexels-nishant-aneja-2955819.jpg");
 
 
 -- Collections

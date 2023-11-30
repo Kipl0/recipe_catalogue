@@ -28,6 +28,7 @@ def _():
             LEFT JOIN recipes_liked_by_users
             ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
             AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+            WHERE recipe_visibility = TRUE
         """
         all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()  # noqa
 

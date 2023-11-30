@@ -30,6 +30,7 @@ def _():
         recipe_category = request.forms.get("category")
         recipe_cooking_est = request.forms.get("est_time")
         recipe_difficulty = request.forms.get("dificulty")
+        recipe_visibility = request.forms.get("visibility")
 
         # Upload af billeder til profil
         rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
@@ -60,6 +61,7 @@ def _():
             "recipe_cooking_est": recipe_cooking_est,
             "recipe_difficulty": recipe_difficulty,
             "recipe_total_likes": 0,
+            "recipe_visibility": recipe_visibility,
             "recipe_created_at": int(time.time()),
             "recipe_thumbnail": final_thumbnail
         }

@@ -27,8 +27,8 @@
         <section id="suggestion_recipes" class="flex justify-center gap-8 w-[85%]">
             % for suggestion in suggestions:
                 <section class="relative w-1/3 lg:w-[250px]">
-                    <a href="/opskrift/{{suggestion['recipe_id']}}" class="w-1/3 lg:w-[250px]">
-                        <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
+                    <a href="/opskrift/{{suggestion['recipe_id']}}" class="w-1/3 lg:w-[250px] rounded-xl">
+                        <img src="../images/recipe_thumbnails/{{suggestion['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover rounded-xl shadow-lg shadow-[#00000030]" alt="">
                         <p class="md:text-xl font-playfair-display text-center pt-4 overflow-wrap-normal whitespace-normal">{{ suggestion['recipe_name'] }}</p>
                     </a>
 

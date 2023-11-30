@@ -782,6 +782,14 @@ video {
   max-height: 60vh;
 }
 
+.max-h-\[80vh\] {
+  max-height: 80vh;
+}
+
+.max-h-\[75vh\] {
+  max-height: 75vh;
+}
+
 .min-h-fit {
   min-height: -moz-fit-content;
   min-height: fit-content;
@@ -1659,6 +1667,10 @@ video {
 
   .lg\:max-h-\[60vh\] {
     max-height: 60vh;
+  }
+
+  .lg\:max-h-\[70vh\] {
+    max-height: 70vh;
   }
 
   .lg\:w-\[250px\] {

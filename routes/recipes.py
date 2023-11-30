@@ -21,22 +21,38 @@ def _(user_username):
         else:
             print("Ingen bruger er logget ind.")
 
-        all_recipes_query = """
-            SELECT recipes.*,
-                CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
-                IS NOT NULL THEN 1 ELSE 0 END AS is_liked
-            FROM recipes
-            LEFT JOIN recipes_liked_by_users
-            ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
-            AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
-        """
-        all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()
+        # Hvis man er på egen profil, se ALLE opskrifter
+        if user_cookie['user_username'] == user_username:
+            recipes_query = """
+                SELECT recipes.*,
+                    CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
+                    IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+                FROM recipes
+                LEFT JOIN recipes_liked_by_users
+                ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+                AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+            """
+            recipes = db.execute(recipes_query, (user_cookie['user_id'],)).fetchall()
+
+        # Hvis man er på anden profil, se kun visible opskrifter
+        else:
+            recipes_query = """
+                SELECT recipes.*,
+                    CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
+                    IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+                FROM recipes
+                LEFT JOIN recipes_liked_by_users
+                ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+                AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+                WHERE recipe_visibility = TRUE
+            """
+            recipes = db.execute(recipes_query, (user_cookie['user_id'],)).fetchall()
 
         return template(
             "recipes",
             title="Opskrifter",
             user=user,
-            recipes=all_recipes,
+            recipes=recipes,
             user_cookie=user_cookie,
             csrf_token=request.csrf_token
         )

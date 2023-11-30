@@ -34,6 +34,7 @@ def _():
                     AND l.recipes_liked_by_users_user_fk = ?
                 WHERE l.recipes_liked_by_users_user_fk IS NULL
                 LIMIT 3;
+                WHERE recipe_visibility = TRUE
             """
             suggestions = db.execute(recipe_not_liked_query, (user_cookie['user_id'],)).fetchall()  # noqa
 
