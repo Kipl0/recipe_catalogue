@@ -16,7 +16,6 @@ registerButton.addEventListener("click", async function() {
         // Hent response fra API
         const data = await conn.json()
         if (!conn.ok || data.info != "ok") {
-            console.log("4")
             showTip(data.info)
             return
         }

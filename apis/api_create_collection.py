@@ -35,7 +35,7 @@ def _():
         uploaded_thumbnail = request.files.get("collection_thumbnail_input")
         if uploaded_thumbnail is not None:
             name, ext = os.path.splitext(uploaded_thumbnail.filename)
-            if ext is "":
+            if ext == "":
                 final_thumbnail = "default_collection.jpg"
             else:
                 if ext not in (".jpg", ".jpeg", ".png"):

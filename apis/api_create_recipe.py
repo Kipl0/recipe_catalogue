@@ -38,7 +38,7 @@ def _():
         uploaded_thumbnail = request.files.get("image_thumbnail_input")
         if uploaded_thumbnail is not None:
             name, ext = os.path.splitext(uploaded_thumbnail.filename)
-            if ext is "":
+            if ext == "":
                 final_thumbnail = "default_recipe.jpg"
             else:
                 if ext not in (".jpg", ".jpeg", ".png"):
