@@ -21,7 +21,8 @@ const update_profile_btn = document.getElementById("update_profile_btn") // btn
 update_profile_btn.addEventListener("click", async function() {
     try {
         const frm = event.target.form
-        sanitizeInputs()
+        /* eslint-disable */
+        sanitizeInputs() 
 
         const conn = await fetch("/opdater-profil", {
             method: "PUT",

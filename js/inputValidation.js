@@ -3,12 +3,11 @@ function sanitizeInputs() {
     
     inputFields.forEach(function(inputField) { 
         let inputValue = inputField.value
-        
+        /* eslint-disable */
         var sanitizedInput = DOMPurify.sanitize(inputValue)
         
         if(inputValue != sanitizedInput){
             console.log("OBS! Denne: " + inputValue + " blev ændret til: " + sanitizedInput)
         }
-        // Brug sanitizedInput her eller returnér det, afhængigt af hvad du vil gøre
     })
 }

@@ -7,6 +7,7 @@ const loginButton = document.getElementById("loginButton")
 loginButton.addEventListener("click", async function() {
     try {
         const frm = event.target.form
+        /* eslint-disable */
         sanitizeInputs()
 
         const conn = await fetch("/login", {

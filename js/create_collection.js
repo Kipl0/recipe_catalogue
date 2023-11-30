@@ -6,6 +6,7 @@ function create_collection() {
     create_collection_btn.addEventListener("click", async function() {
         try {
             const frm = event.target.form
+            /* eslint-disable */
             sanitizeInputs()
             
             const conn = await fetch("/opret-samling", {

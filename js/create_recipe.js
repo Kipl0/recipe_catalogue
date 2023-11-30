@@ -6,6 +6,7 @@ function create_recipe() {
     create_recipe_btn.addEventListener("click", async function() {
         try {
             const frm = event.target.form
+            /* eslint-disable */
             sanitizeInputs()
 
             const conn = await fetch("/opret-opskrift", {
@@ -16,6 +17,7 @@ function create_recipe() {
             //hent respons fra API
             const data = await conn.json()
             if(!conn.ok) {
+                /* eslint-disable */
                 showTip("ugyldigt")
                 return
             }

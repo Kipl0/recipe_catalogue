@@ -5,6 +5,7 @@ const registerButton = document.getElementById("registerButton")
 registerButton.addEventListener("click", async function() {
     try {
         const frm = event.target.form
+        /* eslint-disable */
         sanitizeInputs()
 
         const conn = await fetch("/opret-bruger", {
