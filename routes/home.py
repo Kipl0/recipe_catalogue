@@ -41,6 +41,8 @@ def _():
 
             if user_cookie['user_role'] == 'admin':
                 admin = True
+            else:
+                admin = False
 
             # Hvis den er 0, så har de ikke liket opskriften
             return template(

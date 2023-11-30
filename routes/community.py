@@ -26,11 +26,29 @@ def _():
 
         users = db.execute("SELECT * FROM users WHERE user_role = ? AND user_username != ?",("member", user_cookie['user_username'] )).fetchall()  # noqa
 
+
+
+
+        # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
+        all_users_query = """
+            SELECT users.*,
+                CASE WHEN follower_following.ff_following_fk
+                IS NOT NULL THEN 1 ELSE 0 END AS is_followed
+            FROM users
+            LEFT JOIN follower_following
+            ON users.user_id = follower_following.ff_following_fk
+            AND follower_following.ff_follower_fk = ?
+            WHERE user_role = 'member'
+        """
+        all_users = db.execute(all_users_query, (user_cookie['user_id'],)).fetchall()  # noqa
+
+
+
         return template(
             "community",
             title="Fællesskab",
             user_cookie=user_cookie,
-            users=users,
+            users=all_users,
             admin=admin,
             csrf_token=request.csrf_token
         )

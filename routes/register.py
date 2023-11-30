@@ -20,8 +20,12 @@ def _():
         # via knapper, men har adgang via manuelt indskrevet end-point
         if user_cookie is not None:
             user_cookie = x.validate_user_jwt(user_cookie)
+            if user_cookie['user_role'] == 'admin':
+                admin = True
         else:
+            admin = False
             print("Ingen bruger er logget ind.")
+
 
         if user_cookie:
             response.status = 303  # fordi 303 bruges til redirecting
@@ -42,6 +46,7 @@ def _():
             PASSWORD_MIN=x.PASSWORD_MIN,
             PASSWORD_MAX=x.PASSWORD_MAX,
             user_cookie=user_cookie,
+            admin=admin,
             csrf_token=request.csrf_token
         )
 
