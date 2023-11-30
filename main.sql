@@ -107,7 +107,15 @@ CREATE TABLE recipes_liked_by_users (
     PRIMARY KEY(Recipes_liked_by_users_user_fk, Recipes_liked_by_users_recipe_fk)
 ) WITHOUT ROWID;
 
-
+-- --------------------------
+--    follower table
+-- --------------------------
+DROP TABLE IF EXISTS follower_following;
+CREATE TABLE follower_following (
+    ff_follower_fk              TEXT NOT NULL,
+    ff_following_fk             TEXT NOT NULL,
+    PRIMARY KEY(ff_follower_fk, ff_following_fk)
+) WITHOUT ROWID;
 
 ------------------------------------- Inserts
 -- Users

@@ -1,11 +1,50 @@
 % include("comp_header_navbar")
-
-<div>
     
-% for user in all_users : 
-    <p>{{user['user_first_name']}}</p>
-% end
+<div class="flex flex-col items-center w-full h-full">
+    <section class="flex-1 py-8 px-14 max-w-[1000px]">
+        <h1 class="text-4xl font-semibold my-t mb-6 font-playfair-display text-[#524646]">Administration</h1>
+        <h2 class="text-xl font-semibold mb-10 text-[#524646]">Slet en bruger fra systemet!</h2>
+        <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start sm:justify-between gap-10">
 
+            % for user in all_users :
+                <!-- administration Grid -->
+                <section 
+                class="relative flex flex-col w-[85%] sm:w-1/3 min-w-[200px] max-w-[250px] mb-6 bg-cover rounded-xl"
+                id="user_card_{{user['user_id']}}"
+                >
+                    <a 
+                    href="/{{user['user_username']}}"
+                    class="w-full h-[280px] shadow-xl shadow-[#00000030] rounded-xl"
+                    >
+                        <img src="../images/profile_images/{{user['user_profilepic']}}" class="w-full h-full object-cover rounded-xl" alt="">
+                    </a>
+                    <section class="p-2 py-4 text-center">
+                        <h2 class="text-xl font-playfair-display ">{{user['user_first_name']}} {{user['user_last_name']}}</h2>
+                    </section>
+                    % if user_cookie is not None : 
+                        <!-- Slet bruger -->
+                        <form id="form_delete_user_{{user['user_id']}}" name="{{user['user_id']}}" class="delete-form absolute flex justify-center items-center right-0 top-6 rounded-l-xl bg-[#FEFDFD]">
+                            <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                                
+                            <input type="text" name="user_id" value="{{user['user_id']}}" class="hidden">
+                            <button type="button" id="trashcan_{{user['user_id']}}" class="w-full h-full px-5 py-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6.524c0-.395.327-.714.73-.714h4.788c.006-.842.098-1.995.932-2.793A3.68 3.68 0 0 1 12 2a3.68 3.68 0 0 1 2.55 1.017c.834.798.926 1.951.932 2.793h4.788c.403 0 .73.32.73.714a.722.722 0 0 1-.73.714H3.73A.722.722 0 0 1 3 6.524Z"/><path fill="currentColor" fill-rule="evenodd" d="M11.596 22h.808c2.783 0 4.174 0 5.08-.886c.904-.886.996-2.34 1.181-5.246l.267-4.187c.1-1.577.15-2.366-.303-2.866c-.454-.5-1.22-.5-2.753-.5H8.124c-1.533 0-2.3 0-2.753.5c-.454.5-.404 1.289-.303 2.866l.267 4.188c.185 2.906.277 4.36 1.182 5.245c.905.886 2.296.886 5.079.886Zm-1.35-9.811c-.04-.434-.408-.75-.82-.707c-.413.043-.713.43-.672.864l.5 5.263c.04.434.408.75.82.707c.413-.044.713-.43.672-.864l-.5-5.264Zm4.329-.707c.412.043.713.43.671.864l-.5 5.263c-.04.434-.409.75-.82.707c-.413-.044-.713-.43-.672-.864l.5-5.264c.04-.433.409-.75.82-.707Z" clip-rule="evenodd"/></svg>
+                            </button>
+                            <div id="buttons_con_{{user['user_id']}}" class="hidden flex-row w-full h-full">
+                                <button id="confirm_{{user['user_id']}}" class="flex items-center justify-center w-1/2 px-4 py-2">Bekræft</button>
+                                <button id="cancel_{{user['user_id']}}" class="flex items-center justify-center w-1/2 px-4 py-2">Annuller</button>
+                            </div>
+                        </form>
+                    % end
+                </section>
+            % end
+        </section>
+    </section>
 </div>
+
+<!-- Slet bruger -->
+
+
+<script src="/js/delete_user.js"></script>
 
 % include("comp_footer")

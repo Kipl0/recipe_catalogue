@@ -3,7 +3,7 @@ import x
 from utilities.csp import get_csp_directives
 
 
-@get("/admin")
+@get("/adminstration")
 def _():
     try:
         # Sæt CSP
@@ -43,7 +43,8 @@ def _():
             title="Admin side",
             user_cookie=user_cookie,
             admin=admin,
-            all_users=all_users
+            all_users=all_users,
+            csrf_token=request.csrf_token
         )
 
     except Exception as ex:
