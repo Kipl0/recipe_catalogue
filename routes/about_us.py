@@ -19,15 +19,10 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-        if user_cookie['user_role'] == 'admin':
-            admin = True
-        else:
-            admin = False
 
         return template(
             "about_us",
             title="Om os",
-            admin=admin,
             user_cookie=user_cookie
         )
 

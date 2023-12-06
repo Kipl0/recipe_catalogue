@@ -48,18 +48,12 @@ def _(user_username):
             """
             recipes = db.execute(recipes_query, (user_cookie['user_id'],)).fetchall()
 
-        if user_cookie['user_role'] == 'admin':
-            admin = True
-        else:
-            admin = False
-
         return template(
             "recipes",
             title="Opskrifter",
             user=user,
             recipes=recipes,
             user_cookie=user_cookie,
-            admin=admin,
             csrf_token=request.csrf_token
         )
 

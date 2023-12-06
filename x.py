@@ -65,7 +65,7 @@ BLACKLIST = ["'", '"', ';', '!', '?', '--', '/*', '*/', 'OR 1=1', 'OR TRUE', 'UN
 def check_blacklist(input_str):
     for forbidden_str in BLACKLIST:
         if forbidden_str in input_str:
-            raise Exception("Input må ikke indeholde specifikke tegn")
+            raise Exception("Input må ikke indeholde specieltegn")
 
 
 # -------------------------------

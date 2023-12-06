@@ -22,16 +22,10 @@ def _():
         recipes_liked_by_users = db.execute("SELECT * FROM recipes_liked_by_users WHERE recipes_liked_by_users_user_fk = ?",(user_cookie['user_id'],)).fetchall()  # noqa
 
 
-        if user_cookie['user_role'] == 'admin':
-            admin = True
-        else:
-            admin = False
-
         return template(
             "favourites",
             title="Mine favouritter",
             all_liked_recipes=recipes_liked_by_users,
-            admin=admin,
             user_cookie=user_cookie
         )
 

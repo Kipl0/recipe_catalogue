@@ -18,10 +18,7 @@ def _():
         if user_cookie is not None:
             user_cookie = x.validate_user_jwt(user_cookie)
 
-            if user_cookie['user_role'] == 'admin':
-                admin = True
         else:
-            admin = False
             print("Ingen bruger er logget ind.")
 
         if user_cookie:
@@ -33,7 +30,6 @@ def _():
             "login",
             title="Login",
             user_cookie=user_cookie,
-            admin=admin,
             csrf_token=request.csrf_token
         )
 

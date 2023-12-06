@@ -11,7 +11,6 @@ def _():
         csp_directives = get_csp_directives()
         response.set_header('Content-Security-Policy', csp_directives)
 
-        db = x.db()
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
         if user_cookie is not None:
@@ -19,6 +18,8 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
+        db = x.db()
+        
         # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
         all_recipes_query = """
             SELECT recipes.*,
@@ -32,17 +33,12 @@ def _():
         """
         all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()  # noqa
 
-        if user_cookie['user_role'] == 'admin':
-            admin = True
-        else:
-            admin = False
 
         return template(
             "recipeCatalogue",
             title="Opskriftskatalog",
             all_recipes=all_recipes,
             user_cookie=user_cookie,
-            admin=admin,
             csrf_token=request.csrf_token
         )
 

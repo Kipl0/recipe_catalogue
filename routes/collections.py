@@ -23,17 +23,11 @@ def _(user_username):
         else:
             print("Ingen bruger er logget ind.")
 
-        if user_cookie['user_role'] == 'admin':
-            admin = True
-        else:
-            admin = False
-
         return template(
             "collections",
             title="Samlinger",
             user=user,
             collections=collections,
-            admin=admin,
             user_cookie=user_cookie
             )
 

@@ -19,15 +19,6 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-        if user_cookie['user_role'] == 'admin':
-            admin = True
-        else:
-            admin = False
-
-        users = db.execute("SELECT * FROM users WHERE user_role = ? AND user_username != ?",("member", user_cookie['user_username'] )).fetchall()  # noqa
-
-
-
 
         # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
         all_users_query = """
@@ -49,7 +40,6 @@ def _():
             title="Fællesskab",
             user_cookie=user_cookie,
             users=all_users,
-            admin=admin,
             csrf_token=request.csrf_token
         )
 
