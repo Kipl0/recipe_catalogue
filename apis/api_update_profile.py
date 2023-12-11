@@ -46,6 +46,7 @@ def _():
                     response.status = 413  # Statuskode 413 betyder "Request Entity Too Large"  # noqa
                     return {"info": "Billede er for stort"}
 
+                uploaded_profil_pic.file.seek(0)
                 final_profile_pic = str(uuid.uuid4().hex) + ext
                 uploaded_profil_pic.save(f"{rootdir}images/profile_images/{final_profile_pic}")  # noqa
         else:
@@ -67,6 +68,7 @@ def _():
                     response.status = 413   # Statuskode 413 betyder "Request Entity Too Large"  # noqa
                     return {"info": "Billede er for stort"}
 
+                uploaded_banner.file.seek(0)
                 final_banner = str(uuid.uuid4().hex) + ext
                 uploaded_banner.save(f"{rootdir}images/profile_banners/{final_banner}")  # noqa
 
