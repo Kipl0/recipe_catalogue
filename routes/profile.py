@@ -19,6 +19,7 @@ def _(user_username):
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+
         if user_cookie is not None:
             user_cookie = x.validate_user_jwt(user_cookie)
             # Hent alle opskrifter med information om,
