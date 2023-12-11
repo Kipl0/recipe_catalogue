@@ -41,7 +41,8 @@ import apis.api_update_profile
 import apis.api_like_recipe
 import apis.api_follow
 import apis.api_delete
-import apis.api_search
+import apis.api_search_user
+import apis.api_search_recipe
 
 
 # #############################

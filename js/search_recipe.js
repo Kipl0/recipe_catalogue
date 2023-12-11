@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const frm = event.target.form
 
         the_timer = setTimeout(async function () {
-            const conn = await fetch("/search-user", {
+            const conn = await fetch("/search-recipe", {
                 method: "POST",
                 body: new FormData(frm),
             })
@@ -26,12 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.querySelector("#search_results").innerHTML = ""
             data.forEach((item) => {
-                results += `<a href="/${item.user_username}" class="flex flex-col px-4 py-3 hover:bg-[#c7bbb8]">
+                results += `<a href="/${item.recipe_name}" class="flex flex-col px-4 py-3 hover:bg-[#c7bbb8]">
                                 <section class="flex items-center gap-6">
-                                    <img src="/images/profile_images/${item.user_profilepic}" alt="" class="w-12 rounded-full aspect-square">
+                                    <img src="/images/recipe_thumbnails/${item.recipe_thumbnail}" alt="" class="w-12 rounded-full aspect-square">
                                     <section >
-                                        <div>${item.user_first_name} ${item.user_last_name}</div>
-                                        <div class="text-sm"><i>${item.user_username}</i></div>              
+                                        <div>${item.recipe_name}</div>         
                                     </section>
                                 </section>
                             </a>

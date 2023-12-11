@@ -126,7 +126,7 @@ CREATE TABLE follower_following (
 
 
 -- -----------------------------------------------
---               Full Text Search
+--          Full Text Search users
 -- -----------------------------------------------
 -- ----------- Virtual Users Table --------------
 -- Opret the users_search virtuelle tabel
@@ -172,6 +172,44 @@ END;
 
 
 
+-- -----------------------------------------------
+--           Full Text Search recipes
+-- -----------------------------------------------
+-- ----------- Virtual Users Table --------------
+-- Opret the recipes_search virtuelle tabel
+DROP TABLE IF EXISTS recipes_search;
+CREATE VIRTUAL TABLE recipes_search USING FTS5(
+    recipe_virtual_id,
+    recipe_name,
+    recipe_thumbnail
+);
+
+-- Opret en trigger til automatisk at opdatere user_search virtuelle tabel ved INSERT
+DROP TRIGGER IF EXISTS insert_recipe_in_recipes_search;
+CREATE TRIGGER insert_recipe_in_recipes_search
+AFTER INSERT ON recipes
+BEGIN
+    INSERT INTO recipes_search (recipe_virtual_id, recipe_name, recipe_thumbnail)
+    VALUES (NEW.recipe_id, NEW.recipe_name, NEW.recipe_thumbnail);
+END;
+
+-- Opret trigger til automatisk at opdatere user_search V tabel on UPDATE
+DROP TRIGGER IF EXISTS update_recipe_in_recipes_search;
+CREATE TRIGGER update_recipe_in_recipes_search
+AFTER UPDATE ON recipes
+BEGIN
+    UPDATE recipes_search
+    SET recipe_name = NEW.recipe_name,
+        recipe_thumbnail = NEW.recipe_thumbnail;
+END;
+
+-- Opret en trigger til automatisk at opdatere user_search v tabellen ved DELETE
+DROP TRIGGER IF EXISTS delete_recipe_in_recipes_search;
+CREATE TRIGGER delete_recipe_in_recipes_search
+AFTER DELETE ON recipes
+BEGIN
+  DELETE FROM recipes_search WHERE recipe_virtual_id = OLD.recipe_id;
+END;
 
 
 

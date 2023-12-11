@@ -3,14 +3,14 @@ from bottle import post, request, response
 import json #bruges for at kunne returnere en list i try
 import x
 
-@post("/search")
+@post("/search-recipe")
 def _() :
     try :
         db = x.db()
 
         search_input = request.forms.get("search_input")
 
-        search_results = db.execute(f"SELECT * FROM users_search WHERE users_search MATCH 'user_username:{search_input}* OR user_first_name:{search_input}* OR user_last_name:{search_input}*'").fetchall()
+        search_results = db.execute(f"SELECT * FROM recipes_search WHERE recipes_search MATCH 'recipe_name:{search_input}*'").fetchall()
 
         response.set_header("Content-type","application/json") #fortæller js at der returneres json - det bruges ikke endnu på js - før linje 20 kunne man lave et tjek om resultatet faktisk er json
         return json.dumps(search_results)
