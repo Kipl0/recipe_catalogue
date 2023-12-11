@@ -39,7 +39,7 @@ CREATE TABLE recipes (
     recipe_difficulty           TEXT NOT NULL,
     recipe_total_likes          INTEGER DEFAULT 0,
     recipe_visibility           BOOLEAN DEFAULT TRUE,
-    recipe_created_at           TEXT,
+    recipe_created_at           TEXT NOT NULL,
     recipe_thumbnail            TEXT,
     PRIMARY KEY(recipe_id)
 ) WITHOUT ROWID;

@@ -21,12 +21,37 @@ def _(user_username):
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
         if user_cookie is not None:
             user_cookie = x.validate_user_jwt(user_cookie)
+            # Hent alle opskrifter med information om,
+            # hvorvidt de er 'liket' af brugeren
+            if user_cookie['user_username'] == user_username:
+                recipes = """
+                    SELECT recipes.*,
+                    CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
+                    IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+                    FROM recipes
+                    LEFT JOIN recipes_liked_by_users
+                    ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+                    AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+                    WHERE recipes.recipe_user_fk = ?
+                    LIMIT 2
+                """
+                recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
+            else:
+                recipes = """
+                    SELECT recipes.*,
+                    CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
+                    IS NOT NULL THEN 1 ELSE 0 END AS is_liked
+                    FROM recipes
+                    LEFT JOIN recipes_liked_by_users
+                    ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
+                    AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
+                    WHERE recipes.recipe_user_fk = ?
+                    AND recipe_visibility = TRUE
+                    LIMIT 2
+                """
+                recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
         else:
             print("Ingen bruger er logget ind.")
-
-        # Hent alle opskrifter med information om,
-        # hvorvidt de er 'liket' af brugeren
-        if user_cookie['user_username'] == user_username:
             recipes = """
                 SELECT recipes.*,
                 CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
@@ -36,24 +61,11 @@ def _(user_username):
                 ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
                 AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
                 WHERE recipes.recipe_user_fk = ?
+                AND recipe_visibility = TRUE
                 LIMIT 2
             """
             recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
 
-        else:
-            recipes = """
-                SELECT recipes.*,
-                CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
-                IS NOT NULL THEN 1 ELSE 0 END AS is_liked
-                FROM recipes
-                LEFT JOIN recipes_liked_by_users
-                ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
-                AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
-                WHERE recipes.recipe_user_fk = ?
-                AND WHERE recipe_visibility = TRUE
-                LIMIT 2
-            """
-            recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
 
         collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()  # noqa  
 

@@ -73,7 +73,8 @@ def check_blacklist(input_str):
 # -------------------------------
 EMAIL_MIN = 6
 EMAIL_MAX = 100
-EMAIL_REGEX = "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"  # noqa
+# EMAIL_REGEX = "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"  # noqa
+EMAIL_REGEX = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
 
 def validate_email():
