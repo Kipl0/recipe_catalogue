@@ -117,6 +117,70 @@ CREATE TABLE follower_following (
     PRIMARY KEY(ff_follower_fk, ff_following_fk)
 ) WITHOUT ROWID;
 
+
+
+
+
+
+
+
+
+-- -----------------------------------------------
+--               Full Text Search
+-- -----------------------------------------------
+-- ----------- Virtual Users Table --------------
+-- Opret the users_search virtuelle tabel
+DROP TABLE IF EXISTS users_search;
+CREATE VIRTUAL TABLE users_search USING FTS5(
+    user_virtual_id,
+    user_username,
+    user_first_name,
+    user_last_name,
+    user_profilepic
+);
+
+-- Opret en trigger til automatisk at opdatere user_search virtuelle tabel ved INSERT
+DROP TRIGGER IF EXISTS insert_user_in_users_search;
+CREATE TRIGGER insert_user_in_users_search
+AFTER INSERT ON users
+BEGIN
+    INSERT INTO users_search (user_virtual_id, user_username, user_first_name, user_last_name, user_profilepic)
+    VALUES (NEW.user_id, NEW.user_username, NEW.user_first_name, NEW.user_last_name, NEW.user_profilepic);
+END;
+
+-- Opret trigger til automatisk at opdatere user_search V tabel on UPDATE
+DROP TRIGGER IF EXISTS update_user_in_users_search;
+CREATE TRIGGER update_user_in_users_search
+AFTER UPDATE ON users
+BEGIN
+    UPDATE users_search
+    SET user_username = NEW.user_username,
+        user_first_name = NEW.user_first_name,
+        user_last_name = NEW.user_last_name,
+        user_profilepic = NEW.user_profilepic
+    WHERE user_virtual_id = NEW.user_id;
+END;
+
+-- Opret en trigger til automatisk at opdatere user_search v tabellen ved DELETE
+DROP TRIGGER IF EXISTS delete_user_in_users_search;
+CREATE TRIGGER delete_user_in_users_search
+AFTER DELETE ON users
+BEGIN
+  DELETE FROM users_search WHERE user_virtual_id = OLD.user_id;
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
 ------------------------------------- Inserts
 -- Users
 INSERT INTO users VALUES("1", "maalmaja@gmail.com", "Kip", "Maja", "Larsen", "29-09-97", "Login123", "1698156869", "1", "user1.jpg", "banner1.jpg", "member", 14, 18, 3, 3);
@@ -253,3 +317,6 @@ INSERT INTO steps VALUES("35", "6", 2, "Skær kyllingebrystene i strimler.");
 INSERT INTO steps VALUES("36", "6", 3, "Varm tortillapandekagerne i en tør pande.");
 INSERT INTO steps VALUES("37", "6", 4, "Fordel salatblade, tomater, agurk og kylling på pandekagerne.");
 INSERT INTO steps VALUES("38", "6", 5, "Rul pandekagerne sammen og server dem som wraps.");
+
+
+

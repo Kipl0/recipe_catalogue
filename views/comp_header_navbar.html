@@ -20,6 +20,7 @@
                     <div id="profile_btn" class="w-8 h-8 cursor-pointer">
                         <img id="profile_img" src="../images/profile_images/{{user_cookie['user_profilepic']}}" class="rounded-full w-full h-full object-cover" alt="">
                     </div>
+                    
                     <!-- Drop down - skal bruge user_cookie -->
                     <section id="profile_dropdown" class="hidden absolute flex-col items-center w-full lg:w-fit right-0 top-14 z-40 bg-[#ded7d3] text-[#2a2a2a] shadow-xl shadow-[#00000030] rounded-b-xl">
                         <a href="/{{user_cookie['user_username']}}" class="w-full py-3 px-10 text-center cursor-pointer hover:bg-[#d2c7c1] transition duration-300">Gå til profil</a>
@@ -51,3 +52,4 @@
             </section>
         </section>
     </nav>
+    
