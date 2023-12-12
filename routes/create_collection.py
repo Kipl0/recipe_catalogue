@@ -28,15 +28,14 @@ def _():
         if user_recipes is []:
             user_recipes = "Du har ikke oprettet nogle opskrifter endnu"
 
-        tester = db.execute("SELECT * FROM users WHERE user_id = ?",("6d3e2a6484ce47f9a871600f7dedc35d",)).fetchone()
-        print("#"*40)
-        print(tester)
+        all_recipes = db.execute("SELECT * FROM recipes LIMIT 6").fetchall()
 
         return template(
             "create_collection",
             title="Opret samling",
             user_cookie=user_cookie,
             user_recipes=user_recipes,
+            all_recipes=all_recipes,
             csrf_token=request.csrf_token
         )
 

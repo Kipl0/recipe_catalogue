@@ -48,15 +48,67 @@
         </div>
 
 
-        <section class="flex flex-col items-center w-[85%] max-w-[750px] pb-10 border-2 border-black">
+        <section class="flex flex-col items-center w-[85%] max-w-[1000px] pb-10">
+            
             <section class="mt-10">
-                <h2 class="text-center font-semibold text-xl mb-4">Tilføj nogle af dine opskrifter</h2>
+                
+                <!-- Tilføj opskrifter fra kataloget -->
                 % if not user_recipes:
-                    <p>Du har ikke oprettet nogle opskrifter endnu</p>
+                    <h2 class="text-center font-semibold text-2xl my-4">Du har ikke oprettet nogle opskrifter endnu</h2>
+                    <p class="text-center font-semibold my-4 mb-10">Tilføj fra kataloget i stedet</p>
+                    <!-- Recipe Grid -->
+                    <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start sm:justify-between gap-10">
+
+                        % for recipe in all_recipes:
+                            <section 
+                            class="relative flex flex-col w-[85%] max-w-[250px] mb-6 bg-cover rounded-xl"
+                            >
+                                <a 
+                                href="/opskrift/{{recipe['recipe_id']}}"
+                                class="w-full h-[280px] shadow-xl shadow-[#00000030] rounded-xl"
+                                >
+                                    <img src="../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}" class="w-full h-full object-cover rounded-xl" alt="">
+                                </a>
+                                <section class="p-2 py-4 text-center">
+                                    <h2 class="text-xl font-playfair-display ">{{ recipe["recipe_name"] }}</h2>
+                                </section>
+
+                                <!-- Tilføj recipe -->
+                                <div id="" name="" class="absolute flex justify-center items-center right-0 top-6 rounded-l-xl bg-[#FEFDFD]">
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                                    <input type="text" name="recipe_id" value="{{recipe['recipe_id']}}" class="hidden">
+                                    <button disabled type="submit" id="like_recipe_{{recipe['recipe_id']}}" class="w-full h-full px-3 py-1.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Zm0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20Zm0-8Z"/></svg>
+                                    </button>
+                                </div>
+                            </section>
+                        % end
+                    </section>
                 % else :
+
+                <h2 class="text-center font-semibold text-2xl mt-4 mb-10">Tilføj nogle af dine opskrifter</h2>
+                <!-- Tilføj Egne opskrifter -->
+                <section class="w-full flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start sm:justify-between gap-10">
                     % for recipe in user_recipes:
-                        <p>{{recipe["recipe_id"]}}</p>
+                        <section class="relative flex flex-col w-[85%] max-w-[250px] mb-6 bg-cover rounded-xl">
+                            <a href="/opskrift/{{recipe['recipe_id']}}" class="w-full h-[280px] shadow-xl shadow-[#00000030] rounded-xl">
+                                <img src="../images/recipe_thumbnails/{{recipe['recipe_thumbnail']}}" class="w-full h-full object-cover rounded-xl" alt="">
+                            </a>
+                            <section class="p-2 py-4 text-center">
+                                <h2 class="text-xl font-playfair-display">{{ recipe["recipe_name"] }}</h2>
+                            </section>
+                            
+                            <!-- Tilføj recipe -->
+                            <div id="" name="" class="absolute flex justify-center items-center right-0 top-6 rounded-l-xl bg-[#FEFDFD]">
+                                <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                                <input type="text" name="recipe_id" value="{{recipe['recipe_id']}}" class="hidden">
+                                <button disabled type="submit" id="like_recipe_{{recipe['recipe_id']}}" class="w-full h-full px-3 py-1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Zm0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20Zm0-8Z"/></svg>
+                                </button>
+                            </div>
+                        </section>
                     % end 
+                </section>
                 % end 
             </section>
         </section>

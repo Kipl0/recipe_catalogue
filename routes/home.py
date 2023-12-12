@@ -22,7 +22,7 @@ def _():
         suggestions = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes LIMIT 3").fetchall()  # noqa
 
         if user_cookie is not None:
-            # Man kan kun finde user_collections hvis der er en cookie
+            # Man kan kun finde user_collections, hvis der er en cookie
             user_collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ?", (user_cookie['user_id'],)).fetchall()  # noqa
 
             # LEFT JOIN
@@ -60,7 +60,7 @@ def _():
         )
 
     except Exception as ex:
-        print(x)
+        print(ex)
         return {"error": str(ex)}
 
     finally:

@@ -59,8 +59,8 @@
             % if user_cookie != None :
                 % if user_collections != [] :
                     % for user_collection in user_collections :
-                        <a href="/samling/{{user_collection['recipe_id']}}" class="w-full">
-                            <img src="../images/recipe_thumbnails/{{user_collection['recipe_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover shadow-lg shadow-[#00000030]" alt="">
+                        <a href="/samling/{{user_collection['collection_id']}}" class="w-full max-w-[250px]">
+                            <img src="../images/recipe_thumbnails/{{user_collection['collection_thumbnail']}}" class="w-full h-[150px] lg:h-[350px] object-cover rounded-xl shadow-lg shadow-[#00000030]" alt="">
                             <p class="md:text-xl font-playfair-display text-center pt-4 overflow-wrap-normal whitespace-normal">{{user_collection['collection_name']}}</p>
                         </a>
                     % end
