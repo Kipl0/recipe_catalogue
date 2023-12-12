@@ -184,7 +184,7 @@ CREATE VIRTUAL TABLE recipes_search USING FTS5(
     recipe_thumbnail
 );
 
--- Opret en trigger til automatisk at opdatere user_search virtuelle tabel ved INSERT
+-- Opret en trigger til automatisk at opdatere recipe_search virtuelle tabel ved INSERT
 DROP TRIGGER IF EXISTS insert_recipe_in_recipes_search;
 CREATE TRIGGER insert_recipe_in_recipes_search
 AFTER INSERT ON recipes
@@ -193,7 +193,7 @@ BEGIN
     VALUES (NEW.recipe_id, NEW.recipe_name, NEW.recipe_thumbnail);
 END;
 
--- Opret trigger til automatisk at opdatere user_search V tabel on UPDATE
+-- Opret trigger til automatisk at opdatere recipe_search V tabel on UPDATE
 DROP TRIGGER IF EXISTS update_recipe_in_recipes_search;
 CREATE TRIGGER update_recipe_in_recipes_search
 AFTER UPDATE ON recipes
@@ -203,7 +203,7 @@ BEGIN
         recipe_thumbnail = NEW.recipe_thumbnail;
 END;
 
--- Opret en trigger til automatisk at opdatere user_search v tabellen ved DELETE
+-- Opret en trigger til automatisk at opdatere recipe_search v tabellen ved DELETE
 DROP TRIGGER IF EXISTS delete_recipe_in_recipes_search;
 CREATE TRIGGER delete_recipe_in_recipes_search
 AFTER DELETE ON recipes

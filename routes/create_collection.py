@@ -28,6 +28,9 @@ def _():
         if user_recipes is []:
             user_recipes = "Du har ikke oprettet nogle opskrifter endnu"
 
+        tester = db.execute("SELECT * FROM users WHERE user_id = ?",("6d3e2a6484ce47f9a871600f7dedc35d",)).fetchone()
+        print("#"*40)
+        print(tester)
 
         return template(
             "create_collection",

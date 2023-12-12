@@ -13,7 +13,7 @@ import bcrypt
 @get("/hash-password/<user_username>")
 def _(user_username):
     db = x.db()
-    user_password = "Login123"
+    user_password = "Kage1234"
     user_input_password = user_password.encode('utf-8')
 
     salt = bcrypt.gensalt()

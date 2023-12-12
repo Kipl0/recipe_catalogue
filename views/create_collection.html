@@ -1,10 +1,8 @@
 % include("comp_header_navbar")
 
-<div class="w-[85%] max-w-[750px] mx-auto my-10">
+<div class="w-full">
 
-    <h1 class="w-full text-center mb-8 text-3xl font-semibold font-playfair-display">
-        Opret opskriftsamling
-    </h1>
+
     
     <form method="POST" action="" enctype="multipart/form-data" class="flex flex-col items-center gap-8 w-full">
 
@@ -14,42 +12,56 @@
         <section id="tips" class="absolute z-40 top-10 flex flex-col justify-center items-center bg-[#FF3F64] gap-4 w-full"></section>
 
 
-        <div class="w-full lg:w-[60%] ">
-            <section class="relative w-full max-h-[60vh]">
-                <img id="collection_thumbnail" src="../images/collection_thumbnails/default_collection.jpg" alt="Opret ny opskriftssamling" class="w-full h-full max-h-[60vh] object-cover shadow-xl shadow-[#00000030] rounded-xl">
-                <label for="collection_thumbnail_input" class="absolute top-0 cursor-pointer w-full h-full font-semibold " >
-                    <span class="flex items-center justify-center w-full h-full ">Upload billede til opskrift</span>
+        <!-- splash med info -->
+        <div class="flex flex-col lg:flex-row w-full shadow-lg shadow-[#00000030]">
+            <div class="relative w-full lg:w-[60%] lg:max-h-[70vh]">
+                <img id="collection_thumbnail" src="../images/collection_thumbnails/default_collection.jpg" class="w-full h-full object-cover" alt="Placeholder uploade billede">
+                <label for="collection_thumbnail_input" class="absolute top-0 cursor-pointer w-full h-full font-semibold" >
+                    <span class="flex items-center justify-center w-full h-full ">Upload billede til samling</span>
                     <input id="collection_thumbnail_input" name="collection_thumbnail_input" type="file" class="hidden">
                 </label>
-            </section>
-            <section class="flex flex-col items-center w-full gap-4 mt-4">
-                <label for="collection_header" class="font-semibold text-xl">Giv din samling et navn</label>
-                <input id="collection_header" name="collection_name" type="text" placeholder="Navn på samling" class="w-full max-w-[350px] px-4 rounded-xl bg-[#F9FAFC] border-2 border-[#524646] shadow-md outline-none shadow-[#00000030]">
-            </section>
-        </div> 
+            </div>        
+            <div class="flex justify-center w-full lg:w-[40%] bg-[#D3C9C6]">
+                <section class="flex flex-col  w-[85%] text-center py-6 pt-8">
+                    <h1 class="w-full text-center mb-8 text-3xl font-semibold font-playfair-display">
+                        Opret opskriftsamling
+                    </h1>
+                    <section class="mb-4"> <!-- afsnit i opskrifts info -->
+                        <input name="collection_name" type="text" placeholder="Samling navn" maxlength="50" minlength="5" class="w-full max-w-[250px] px-4 py-1 my-4 rounded-full outline-none shadow-lg shadow-[#00000010]">
+                        <p class="">Af {{user_cookie['user_first_name']}} {{user_cookie['user_last_name']}}</p>
+                    </section>
+                    <section class="mt-auto pb-10">
+                        <p class="mt-10"><i>Funktion ikke tilføjet endnu</i></p>
+                        <button 
+                        id="create_collection_btn"
+                        disabled
+                        class="w-fit mx-auto px-6 py-1 mt-6 rounded-xl font-semibold text-white bg-[#524646] hover:bg-[#493e3e] shadow-md shadow-[#00000030] transition duration-300"
+                        type="submit" 
+                        data-default="Login" 
+                        data-await="Please wait ..."
+                        >
+                            Opret opskriftsamling
+                        </button>
+                    </section>
+                </section>
+            </div>
+        </div>
 
 
-        <button 
-        id="create_collection_btn"
-        class="w-fit mx-auto px-6 py-1 mt-6 rounded-xl font-semibold text-white bg-[#524646] hover:bg-[#493e3e] shadow-md shadow-[#00000030] transition duration-300"
-        type="submit" 
-        data-default="Login" 
-        data-await="Please wait ..."
-        >
-            Opret opskriftsamling
-        </button>
+        <section class="flex flex-col items-center w-[85%] max-w-[750px] pb-10 border-2 border-black">
+            <section class="mt-10">
+                <h2 class="text-center font-semibold text-xl mb-4">Tilføj nogle af dine opskrifter</h2>
+                % if not user_recipes:
+                    <p>Du har ikke oprettet nogle opskrifter endnu</p>
+                % else :
+                    % for recipe in user_recipes:
+                        <p>{{recipe["recipe_id"]}}</p>
+                    % end 
+                % end 
+            </section>
+        </section>
     </form>
 
-    <section class="mt-10">
-        <h2 class="text-center font-semibold text-xl mb-4">Tilføj nogle af dine opskrifter</h2>
-        % if not user_recipes:
-            <p>Du har ikke oprettet nogle opskrifter endnu</p>
-        % else :
-            % for recipe in user_recipes:
-                {{recipe["recipe_name"]}}
-            % end 
-        % end 
-    </section>
 
 </div>
 
