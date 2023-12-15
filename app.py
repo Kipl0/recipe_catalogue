@@ -1,4 +1,5 @@
-from bottle import get, run, static_file
+from bottle import default_app, get, run, static_file, post
+import git
 
 # utilities
 import utilities.hash_password  # bruges kun til udvikling
@@ -69,10 +70,12 @@ def _(filename):
 
 
 ###################################
-#Run in AWS
+# Run in AWS
+# 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
+# https://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@github.com/Kipl0/recipe_catalogue.git
 try:
-    import production #If this production is found, the next line should run
-    print("Server running on AWS") #You will never see this line in your own computer - only on amazon
+    import production # If this production is found, the next line should run
+    print("Server running on AWS") # You will never see this line in your own computer - only on amazon
     application = default_app()
 # Run in local computer
 except Exception as ex:    
