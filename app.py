@@ -45,6 +45,13 @@ import apis.api_search_user
 import apis.api_search_recipe
 
 
+
+##############################
+def dict_factory(cursor, row):
+  col_names = [col[0] for col in cursor.description]
+  return {key: value for key, value in zip(col_names, row)}
+
+
 # #############################
 #         css
 @get("/app.css")
@@ -59,5 +66,26 @@ def _(filename):
     return static_file(filename, "js")
 
 
-print("Server running locally")
-run(host="127.0.0.1", port=3000, debug=True, reloader=True)
+
+
+###################################
+#Run in AWS
+try:
+    import production #If this production is found, the next line should run
+    print("Server running on AWS") #You will never see this line in your own computer - only on amazon
+    application = default_app()
+# Run in local computer
+except Exception as ex:    
+    print("Server running locally")
+    run(host="127.0.0.1", port=3000, debug=True, reloader=True) #If it cant run it will run locally
+
+
+###################################
+#Continously interation from Github to python anywhere
+@post('/secret_url_for_git_hook')
+def git_update():
+    repo = git.Repo('./recipe_catalogue')
+    origin = repo.remotes.origin
+    repo.create_head('main', origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
+    origin.pull()
+    return ""
