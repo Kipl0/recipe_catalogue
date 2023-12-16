@@ -71,7 +71,7 @@ def _(filename):
 
 ###################################
 # Run in AWS
-# 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
+
 try:
     import production # If this production is found, the next line should run
     print("Server running on AWS") # You will never see this line in your own computer - only on amazon
