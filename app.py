@@ -72,7 +72,6 @@ def _(filename):
 ###################################
 # Run in AWS
 # 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
-# https://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@github.com/Kipl0/recipe_catalogue.git
 try:
     import production # If this production is found, the next line should run
     print("Server running on AWS") # You will never see this line in your own computer - only on amazon
@@ -84,7 +83,7 @@ except Exception as ex:
 
  
 ###################################
-#Continously interation from Github to python anywhere
+# Continously interation from Github to python anywhere
 @post('/secret_url_for_git_hook')
 def git_update():
     repo = git.Repo('./recipe_catalogue')
