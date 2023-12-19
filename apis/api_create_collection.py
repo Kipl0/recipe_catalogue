@@ -29,8 +29,12 @@ def _():
         collection_name = request.forms.get("collection_name")
 
         # Upload af billeder til profil
-        rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
-
+        try:
+            import production  # If this production is found, the next line should run
+            rootdir = "/home/MajaILarsen/recipe_catalogue/"     
+        except Exception as ex:    
+            rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
+    
         # Upload thumbnail
         uploaded_thumbnail = request.files.get("collection_thumbnail_input")
         if uploaded_thumbnail is not None:
@@ -43,7 +47,7 @@ def _():
                     raise Exception("Picture not allowed")
                 final_thumbnail = str(uuid.uuid4().hex)
                 final_thumbnail = final_thumbnail + ext
-                uploaded_thumbnail.save(f"{rootdir}/images/collection_thumbnails/{final_thumbnail}")  # noqa
+                uploaded_thumbnail.save(f"{rootdir}images/collection_thumbnails/{final_thumbnail}")  # noqa
         else:
             final_thumbnail = "default_collection.jpg"
 

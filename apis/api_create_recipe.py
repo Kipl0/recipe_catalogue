@@ -36,7 +36,11 @@ def _():
         else:
             recipe_visibility = 0
         # Upload af billeder til profil
-        rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
+        try:
+            import production  # If this production is found, the next line should run
+            rootdir = "/home/MajaILarsen/recipe_catalogue/"     
+        except Exception as ex:    
+            rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
 
         # Upload banner
         uploaded_thumbnail = request.files.get("image_thumbnail_input")
@@ -50,7 +54,7 @@ def _():
                     raise Exception("Picture not allowed")
                 final_thumbnail = str(uuid.uuid4().hex)
                 final_thumbnail = final_thumbnail + ext
-                uploaded_thumbnail.save(f"{rootdir}/images/recipe_thumbnails/{final_thumbnail}")  # noqa
+                uploaded_thumbnail.save(f"{rootdir}images/recipe_thumbnails/{final_thumbnail}")  # noqa
         else:
             final_thumbnail = "default_recipe.jpg"
 

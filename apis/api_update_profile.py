@@ -27,7 +27,12 @@ def _():
         user_last_name = x.validate_last_name()
 
         # Upload af billeder til profil
-        rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
+        try:
+            import production  # If this production is found, the next line should run
+            rootdir = "/home/MajaILarsen/recipe_catalogue/"     
+        except Exception as ex:    
+            rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
+            
         # Profil billede
         uploaded_profil_pic = request.files.get("uploaded_profil_pic_input")
         if uploaded_profil_pic is not None:
