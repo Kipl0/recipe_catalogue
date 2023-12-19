@@ -31,7 +31,10 @@ def _():
         recipe_cooking_est = request.forms.get("est_time")
         recipe_difficulty = request.forms.get("dificulty")
         recipe_visibility = request.forms.get("visibility")
-
+        if recipe_visibility == "visbile":
+            recipe_visibility = 1
+        else:
+            recipe_visibility = 0
         # Upload af billeder til profil
         rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
 
@@ -76,6 +79,20 @@ def _():
 
         if total_rows_inserted != 1:  # noqa
             raise Exception("Prøv venligst igen")
+        
+        
+
+        form_dict = dict(request.forms)
+        for key, value in form_dict.items():
+            if "ingredient" in key:
+                parts = key.split('_')
+                db.execute("INSERT INTO ingredients VALUES(?,?,?,?)",(str(uuid.uuid4()).replace("-", ""), recipe_id, parts[1], value,))  # noqa
+                db.commit()
+
+            if "step" in key:
+                parts = key.split('_')
+                db.execute("INSERT INTO steps VALUES(?,?,?,?)",(str(uuid.uuid4()).replace("-", ""), recipe_id, parts[1], value,))  # noqa
+                db.commit()
 
         return {"info": "ok"}
 

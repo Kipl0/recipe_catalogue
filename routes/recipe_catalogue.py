@@ -33,7 +33,6 @@ def _():
             print("Ingen bruger er logget ind.")
             all_recipes = db.execute("SELECT * FROM recipes").fetchall()
 
-
         
 
 
