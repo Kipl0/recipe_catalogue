@@ -21,7 +21,6 @@ def _():
 
         recipes_liked_by_users = db.execute("SELECT * FROM recipes_liked_by_users WHERE recipes_liked_by_users_user_fk = ?",(user_cookie['user_id'],)).fetchall()  # noqa
 
-
         return template(
             "favourites",
             title="Mine favouritter",

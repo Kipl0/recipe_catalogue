@@ -23,7 +23,6 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-
         if user_cookie:
             response.status = 303  # fordi 303 bruges til redirecting
             response.set_header("Location", "/")

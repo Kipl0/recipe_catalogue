@@ -16,7 +16,8 @@ def _():
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
         if user_cookie is not None:
             user_cookie = x.validate_user_jwt(user_cookie)
-            # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
+            # Hent alle opskrifter med information om,
+            # hvorvidt de er 'liket' af brugeren
             all_users_query = """
                 SELECT users.*,
                     CASE WHEN follower_following.ff_following_fk
@@ -28,14 +29,12 @@ def _():
                 WHERE user_role = 'member'
             """
             all_users = db.execute(all_users_query, (user_cookie['user_id'],)).fetchall()  # noqa
-            
+
         else:
             print("Ingen bruger er logget ind.")
-            all_users = db.execute("SELECT * FROM users WHERE user_role = ?",("member",)).fetchall()
-
-
-
-
+            all_users = db.execute(
+                "SELECT * FROM users WHERE user_role = ?", ("member", )
+            ).fetchall()
 
         return template(
             "community",

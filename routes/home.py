@@ -39,7 +39,6 @@ def _():
 
             suggestions = db.execute(recipe_not_liked_query, (user_cookie['user_id'],)).fetchall()  # noqa
 
-
             # Hvis den er 0, så har de ikke liket opskriften
             return template(
                 "home",
@@ -49,7 +48,6 @@ def _():
                 user_collections=user_collections,
                 csrf_token=request.csrf_token
             )
-
 
         return template(
             "home",

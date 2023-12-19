@@ -30,7 +30,7 @@ def _():
             response.status = 303  # fordi 303 bruges til redirecting
             response.set_header("Location", "/")
             return
-        
+
 
         all_users = db.execute("SELECT * FROM users WHERE user_role != ?", ("admin",)).fetchall()  # noqa
 

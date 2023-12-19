@@ -19,7 +19,6 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-
         return template(
             "about_us",
             title="Om os",

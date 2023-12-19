@@ -77,7 +77,7 @@ def _():
 
         # Indsæt til db
         db.execute(
-            "UPDATE users SET user_first_name=?, user_last_name=?, user_profilepic=?, user_banner=? WHERE user_id = ?",
+            "UPDATE users SET user_first_name=?, user_last_name=?, user_profilepic=?, user_banner=? WHERE user_id = ?", # noqa
             (
                 user_first_name,
                 user_last_name,

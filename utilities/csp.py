@@ -8,7 +8,7 @@ def get_csp_directives():
         "img-src 'self' http://localhost:3000 data:; "
         # "object-src 'none'; "  # Forhindrer brug af <object> tags
         # "media-src 'none'; "   # Forhindrer brug af <audio> og <video> tags
-        # "child-src 'none'; "   # Forhindrer indlejring af ressourcer i <frame>, <iframe>, <object>
+        # "child-src 'none'; "   # Forhindrer indlejring af ressourcer i <frame>, <iframe>, <object> # noqa
         # "connect-src 'self'; "  # Tillader kun forbindelser til samme origin
         # "frame-src 'none'; "   # Forhindrer brug af <frame> og <iframe>
     )

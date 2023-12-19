@@ -18,7 +18,6 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-
         return template(
             "contact",
             title="Kontakt",

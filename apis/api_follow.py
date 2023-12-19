@@ -39,7 +39,7 @@ def _():
                 "info": "ok",
                 "user_id": user_id,
                 "user_total_followers": int(user_total_followers) + 1
-            } 
+            }
 
         db.execute("DELETE FROM follower_following WHERE ff_follower_fk = ? AND ff_following_fk = ?", (user_cookie['user_id'], user_id))  # noqa
         db.commit()

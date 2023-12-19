@@ -1,3 +1,4 @@
+# flake8: noqa
 from bottle import get, request, response, template, HTTPError
 import x
 from utilities.csp import get_csp_directives
@@ -67,9 +68,7 @@ def _(user_username):
             """
             recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
 
-
         collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()  # noqa  
-
 
         return template(
             "profile",

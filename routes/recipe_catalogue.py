@@ -1,3 +1,4 @@
+# flake8: noqa
 from bottle import get, request, response, template
 import x
 from utilities.csp import get_csp_directives
@@ -17,7 +18,8 @@ def _():
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
         if user_cookie is not None:
             user_cookie = x.validate_user_jwt(user_cookie)
-            # Hent alle opskrifter med information om, hvorvidt de er 'liket' af brugeren
+            # Hent alle opskrifter med information om,
+            # hvorvidt de er 'liket' af brugeren
             all_recipes_query = """
                 SELECT recipes.*,
                     CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
@@ -32,9 +34,6 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
             all_recipes = db.execute("SELECT * FROM recipes").fetchall()
-
-        
-
 
         return template(
             "recipeCatalogue",

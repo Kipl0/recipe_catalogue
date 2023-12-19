@@ -26,7 +26,6 @@ def _(recipe_id):
         else:
             print("Ingen bruger er logget ind.")
 
-
         return template(
             "recipe",
             title="Opskrift",

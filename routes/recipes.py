@@ -1,3 +1,4 @@
+# flake8: noqa
 from bottle import get, request, response, template
 import x
 from utilities.csp import get_csp_directives
@@ -46,7 +47,10 @@ def _(user_username):
                 AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
                 WHERE recipe_visibility = TRUE
             """
-            recipes = db.execute(recipes_query, (user_cookie['user_id'],)).fetchall()
+            recipes = db.execute(
+                recipes_query,
+                (user_cookie['user_id'],)
+            ).fetchall()
 
         return template(
             "recipes",

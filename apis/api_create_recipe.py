@@ -79,8 +79,6 @@ def _():
 
         if total_rows_inserted != 1:  # noqa
             raise Exception("Prøv venligst igen")
-        
-        
 
         form_dict = dict(request.forms)
         for key, value in form_dict.items():

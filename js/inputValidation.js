@@ -1,4 +1,4 @@
-function sanitizeInputs() { 
+function sanitizeInputs() {  // eslint-disable-line no-unused-vars
     const inputFields = document.querySelectorAll('input[type="text"], input[type="password"], textarea')
     
     inputFields.forEach(function(inputField) { 

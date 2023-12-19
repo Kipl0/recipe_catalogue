@@ -1,4 +1,3 @@
-import pathlib
 import bottle
 from bottle import request
 # import pathlib
