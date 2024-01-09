@@ -1,4 +1,5 @@
 from bottle import post, request, response
+
 # normalt ville man bruge "get" fordi man skal "get" noget fra db.
 # Men fordi get har det med at cache, bruger vi post
 import json  # bruges for at kunne returnere en list i try
@@ -13,7 +14,7 @@ def _():
         search_input = request.forms.get("search_input")
 
         search_results = db.execute(
-            f"SELECT * FROM recipes_search WHERE recipes_search MATCH 'recipe_name:{search_input}*'" # noqa
+            f"SELECT * FROM recipes_search WHERE recipes_search MATCH 'recipe_name:{search_input}*'"  # noqa
         ).fetchall()
 
         # fortæller js at der returneres json - det bruges ikke endnu på js -

@@ -4,3 +4,4 @@ PyJWT==2.8.0
 pip-audit
 gitpython==3.1.37
 flake8
+black

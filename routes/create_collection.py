@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
@@ -24,7 +24,10 @@ def _():
             response.set_header("Location", "/")
             return
 
-        user_recipes = db.execute("SELECT * FROM recipes WHERE recipe_user_fk = ?", (user_cookie['user_id'],)).fetchall()  # noqa
+        user_recipes = db.execute(
+            "SELECT * FROM recipes WHERE recipe_user_fk = ?",
+            (user_cookie["user_id"],)
+        ).fetchall()  # noqa
         if user_recipes is []:
             user_recipes = "Du har ikke oprettet nogle opskrifter endnu"
 
@@ -36,7 +39,7 @@ def _():
             user_cookie=user_cookie,
             user_recipes=user_recipes,
             all_recipes=all_recipes,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

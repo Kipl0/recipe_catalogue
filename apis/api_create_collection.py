@@ -16,25 +16,26 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-        user_csrf_token = request.forms.get('csrf_token')
+        user_csrf_token = request.forms.get("csrf_token")
         if user_csrf_token != request.csrf_token:
             return {"info": "Ugyldigt CSRF-token! Handling afvist."}
 
         # skal bruges til redirect til side med username
-        username = user_cookie['user_username']
+        username = user_cookie["user_username"]
 
         # Hent valideret data fra form
         collection_id = str(uuid.uuid4()).replace("-", "")
-        collection_user_fk = user_cookie['user_id']
+        collection_user_fk = user_cookie["user_id"]
         collection_name = request.forms.get("collection_name")
 
         # Upload af billeder til profil
         try:
-            import production  # If this production is found, the next line should run
-            rootdir = "/home/MajaILarsen/recipe_catalogue/"     
-        except Exception as ex:    
+            import production  # If this production is found, the next line should run  # noqa
+
+            rootdir = "/home/MajaILarsen/recipe_catalogue/"
+        except Exception:
             rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
-    
+
         # Upload thumbnail
         uploaded_thumbnail = request.files.get("collection_thumbnail_input")
         if uploaded_thumbnail is not None:
@@ -47,7 +48,9 @@ def _():
                     raise Exception("Picture not allowed")
                 final_thumbnail = str(uuid.uuid4().hex)
                 final_thumbnail = final_thumbnail + ext
-                uploaded_thumbnail.save(f"{rootdir}images/collection_thumbnails/{final_thumbnail}")  # noqa
+                uploaded_thumbnail.save(
+                    f"{rootdir}images/collection_thumbnails/{final_thumbnail}"
+                )  # noqa
         else:
             final_thumbnail = "default_collection.jpg"
 
@@ -57,15 +60,17 @@ def _():
             "collection_user_fk": collection_user_fk,
             "collection_name": collection_name,
             "collection_created_at": int(time.time()),
-            "collection_thumbnail": final_thumbnail
+            "collection_thumbnail": final_thumbnail,
         }
 
         values = ""
         for key in collection:
-            values += f':{key},'
+            values += f":{key},"
         values = values.rstrip(",")
 
-        total_rows_inserted = db.execute(f"INSERT INTO collections VALUES({values})", collection).rowcount  # noqa
+        total_rows_inserted = db.execute(
+            f"INSERT INTO collections VALUES({values})", collection
+        ).rowcount  # noqa
         db.commit()
 
         if total_rows_inserted != 1:  # noqa

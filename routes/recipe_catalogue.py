@@ -10,7 +10,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
@@ -30,7 +30,9 @@ def _():
                 AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
                 WHERE recipe_visibility = TRUE
             """
-            all_recipes = db.execute(all_recipes_query, (user_cookie['user_id'],)).fetchall()  # noqa
+            all_recipes = db.execute(
+                all_recipes_query, (user_cookie["user_id"],)
+            ).fetchall()  # noqa
         else:
             print("Ingen bruger er logget ind.")
             all_recipes = db.execute("SELECT * FROM recipes").fetchall()
@@ -40,7 +42,7 @@ def _():
             title="Opskriftskatalog",
             all_recipes=all_recipes,
             user_cookie=user_cookie,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

@@ -1,5 +1,6 @@
 import bottle
 from bottle import request
+
 # import pathlib
 import sqlite3
 import re  # regex
@@ -46,7 +47,9 @@ def db():
 # Validate jwt
 def validate_user_jwt(user_jwt):
     try:
-        user_jwt_result = jwt.decode(user_jwt, JWT_SECRET, algorithms=JWT_ALGORITHM)  # noqa
+        user_jwt_result = jwt.decode(
+            user_jwt, JWT_SECRET, algorithms=JWT_ALGORITHM
+        )  # noqa
         return user_jwt_result
     except Exception as ex:
         print(ex, "Vi kan ikke verificere dig")
@@ -58,7 +61,22 @@ def validate_user_jwt(user_jwt):
 # ###########################################
 #    Validate inputs, og user ved register
 # ###########################################
-BLACKLIST = ["'", '"', ';', '!', '?', '--', '/*', '*/', 'OR 1=1', 'OR TRUE', 'UNION', 'UNION SELECT', 'DROP', 'DELETE']  # noqa
+BLACKLIST = [
+    "'",
+    '"',
+    ";",
+    "!",
+    "?",
+    "--",
+    "/*",
+    "*/",
+    "OR 1=1",
+    "OR TRUE",
+    "UNION",
+    "UNION SELECT",
+    "DROP",
+    "DELETE",
+]  # noqa
 
 
 def check_blacklist(input_str):
@@ -78,7 +96,9 @@ EMAIL_REGEX = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
 def validate_email():
     error = "Venligst indtast en gyldig email"
-    email_input = html.escape(request.forms.email.strip())  # strip fjerner whitespace  # noqa
+    email_input = html.escape(
+        request.forms.email.strip()
+    )  # strip fjerner whitespace  # noqa
     check_blacklist(email_input)
     if len(email_input) < EMAIL_MIN:
         raise Exception(error)
@@ -98,8 +118,12 @@ PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9_]*$"  # bogstaver og tal, mi
 
 
 def validate_password():
-    length_error = f"Password skal være mellem {PASSWORD_MIN} og {PASSWORD_MAX} karakterer"  # noqa
-    regex_error = "Password skal indeholde mindst 1 tal og mindst 1 stort bogstav"  # noqa
+    length_error = (
+        f"Password skal være mellem {PASSWORD_MIN} og {PASSWORD_MAX} karakterer"  # noqa
+    )
+    regex_error = (
+        "Password skal indeholde mindst 1 tal og mindst 1 stort bogstav"  # noqa
+    )
     user_password = html.escape(request.forms.password.strip())
     check_blacklist(user_password)
     user_first_name = request.forms.first_name.strip()
@@ -114,7 +138,10 @@ def validate_password():
         raise Exception(regex_error)  # ikke tjekket om virker endnu
 
     # Password må ikke indeholde for eller efternavn
-    if (user_first_name.lower() in user_password.lower() or user_last_name.lower() in user_password.lower()):  # noqa
+    if (
+        user_first_name.lower() in user_password.lower()
+        or user_last_name.lower() in user_password.lower()
+    ):  # noqa
         raise Exception("Password må ikke indeholde for- eller efternavn")
 
     # Password må ikke være på top 50 mest brugte passwords

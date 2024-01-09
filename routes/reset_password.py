@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
@@ -29,9 +29,7 @@ def _():
             return
 
         return template(
-            "reset_password",
-            title="Reset password",
-            user_cookie=user_cookie
+            "reset_password", title="Reset password", user_cookie=user_cookie
         )
 
     except Exception as ex:

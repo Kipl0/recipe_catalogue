@@ -49,5 +49,5 @@ most_used_passwords = [
     "1q2w3e",
     "usr",
     "Liman1000",
-    "1111111"
+    "1111111",
 ]

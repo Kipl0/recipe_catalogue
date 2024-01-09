@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
@@ -28,12 +28,14 @@ def _():
                 AND follower_following.ff_follower_fk = ?
                 WHERE user_role = 'member'
             """
-            all_users = db.execute(all_users_query, (user_cookie['user_id'],)).fetchall()  # noqa
+            all_users = db.execute(
+                all_users_query, (user_cookie["user_id"],)
+            ).fetchall()  # noqa
 
         else:
             print("Ingen bruger er logget ind.")
             all_users = db.execute(
-                "SELECT * FROM users WHERE user_role = ?", ("member", )
+                "SELECT * FROM users WHERE user_role = ?", ("member",)
             ).fetchall()
 
         return template(
@@ -41,7 +43,7 @@ def _():
             title="Fællesskab",
             user_cookie=user_cookie,
             users=all_users,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

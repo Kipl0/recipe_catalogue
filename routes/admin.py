@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
@@ -21,7 +21,7 @@ def _():
 
         # Er der en cookie og i så fald er det admin
         if user_cookie:
-            if user_cookie['user_role'] != "admin":
+            if user_cookie["user_role"] != "admin":
                 response.status = 303  # fordi 303 bruges til redirecting
                 response.set_header("Location", "/")
                 return
@@ -31,15 +31,16 @@ def _():
             response.set_header("Location", "/")
             return
 
-
-        all_users = db.execute("SELECT * FROM users WHERE user_role != ?", ("admin",)).fetchall()  # noqa
+        all_users = db.execute(
+            "SELECT * FROM users WHERE user_role != ?", ("admin",)
+        ).fetchall()  # noqa
 
         return template(
             "admin",
             title="Admin side",
             user_cookie=user_cookie,
             all_users=all_users,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:
