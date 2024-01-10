@@ -1,3 +1,4 @@
+import warnings
 from bottle import post, response, request
 import x
 import uuid
@@ -46,8 +47,9 @@ def _():
 
 
         # Til scanning af billeder senere
-        # clamd = pyclamd.ClamdUnixSocket()
-
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed", module="bottle")
+        clamd = pyclamd.ClamdNetworkSocket('127.0.0.1', 3310)
+        
         # Profil billede
         uploaded_profil_pic = request.files.get("uploaded_profil_pic_input")  # noqa
         if uploaded_profil_pic is not None:
@@ -67,19 +69,19 @@ def _():
                     )
                     return {"info": "Billede er for stort"}
 
-                # Scan billedet for farligt indhold
-                # scan_result = clamd.scan_file(uploaded_profil_pic.file.name)
 
-                # if scan_result is not None and scan_result['stream'] == 'FOUND':
-                #     # Farligt indhold blev fundet
-                #     response.status = 400
-                #     return {"info": "Farligt indhold blev fundet i billedet"}
 
                 uploaded_profil_pic.file.seek(0)
                 final_profile_pic = str(uuid.uuid4().hex) + ext
                 uploaded_profil_pic.save(
                     f"{rootdir}images/profile_images/{final_profile_pic}"
                 )  # noqa
+                # Scan billedet for farligt indhold
+                scan_result = clamd.scan_file(f"C:\\Users\\maalm\\OneDrive\\Dokumenter\\kea\\2_semester\\recipe_catalogue\\images\\profile_images\\{final_profile_pic}")
+                if scan_result is not None and scan_result['stream'] == 'FOUND':
+                    # Farligt indhold blev fundet
+                    response.status = 400
+                    return {"info": "Farligt indhold blev fundet i billedet"}
         else:
             final_profile_pic = "unknown_user.jpg"
 
@@ -149,7 +151,7 @@ def _():
     except Exception as ex:
         try:  # Controlled exception, usually from the x file
             print(ex)
-            return {"info": str(ex)}
+            return {"info": str(ex)} 
 
         except Exception as ex:  # Something unknown went wrong
             if "user_email" in str(ex):
