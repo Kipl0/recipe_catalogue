@@ -1,3 +1,4 @@
+import html
 from bottle import post, response, request
 import x
 import uuid
@@ -24,13 +25,13 @@ def _():
         # Hent valideret data fra form
         recipe_id = str(uuid.uuid4()).replace("-", "")
 
-        recipe_user_fk = user_cookie['user_id']
-        recipe_name = request.forms.get("recipe_name")
-        recipe_description = request.forms.get("recipe_description")
-        recipe_category = request.forms.get("category")
-        recipe_cooking_est = request.forms.get("est_time")
-        recipe_difficulty = request.forms.get("dificulty")
-        recipe_visibility = request.forms.get("visibility")
+        recipe_user_fk = html.escape(user_cookie['user_id'])
+        recipe_name = html.escape(request.forms.get("recipe_name"))
+        recipe_description = html.escape(request.forms.get("recipe_description"))
+        recipe_category = html.escape(request.forms.get("category"))
+        recipe_cooking_est = html.escape(request.forms.get("est_time"))
+        recipe_difficulty = html.escape(request.forms.get("dificulty"))
+        recipe_visibility = html.escape(request.forms.get("visibility"))
         if recipe_visibility == "visbile":
             recipe_visibility = 1
         else:

@@ -4,6 +4,7 @@ import uuid
 import time
 import bcrypt
 import os
+import pyclamd
 
 
 @post("/opret-bruger")
@@ -39,7 +40,10 @@ def _():
             rootdir = "/home/MajaILarsen/recipe_catalogue/"     
         except Exception as ex:    
             rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
-    
+
+        # Til scanning af billeder senere
+        # clamd = pyclamd.ClamdUnixSocket()
+
         # Profil billede
         uploaded_profil_pic = request.files.get("uploaded_profil_pic_input")  # noqa
         if uploaded_profil_pic is not None:
@@ -56,6 +60,14 @@ def _():
                 if len(uploaded_profil_pic.file.read()) > x.max_profilepic_size:  # noqa
                     response.status = 413  # Statuskode 413 betyder "Request Entity Too Large"  # noqa
                     return {"info": "Billede er for stort"}
+
+                # Scan billedet for farligt indhold
+                # scan_result = clamd.scan_file(uploaded_profil_pic.file.name)
+
+                # if scan_result is not None and scan_result['stream'] == 'FOUND':
+                #     # Farligt indhold blev fundet
+                #     response.status = 400
+                #     return {"info": "Farligt indhold blev fundet i billedet"}
 
                 uploaded_profil_pic.file.seek(0)
                 final_profile_pic = str(uuid.uuid4().hex) + ext

@@ -1,6 +1,5 @@
 import bottle
 from bottle import request
-# import pathlib
 import sqlite3
 import re  # regex
 import jwt
@@ -58,8 +57,7 @@ def validate_user_jwt(user_jwt):
 # ###########################################
 #    Validate inputs, og user ved register
 # ###########################################
-BLACKLIST = ["'", '"', ';', '!', '?', '--', '/*', '*/', 'OR 1=1', 'OR TRUE', 'UNION', 'UNION SELECT', 'DROP', 'DELETE']  # noqa
-
+BLACKLIST = ["'", '"', ';', '!', '?', '--', '/*', '*/', '(', ')', '<', '>', 'OR 1=1', 'OR TRUE', 'UNION', 'UNION SELECT', 'DROP', 'DELETE']  # noqa
 
 def check_blacklist(input_str):
     for forbidden_str in BLACKLIST:
