@@ -36,7 +36,7 @@ registerButton.addEventListener("click", async function() {
 function showTip(message) {
     const tip_id = Math.random()
     const tip = `
-    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-4 text-white">
+    <p data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 mx-auto py-6 text-white">
        ${message}
     </p>
     `
