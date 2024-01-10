@@ -14,14 +14,16 @@ import bcrypt
 def _(user_username):
     db = x.db()
     user_password = "Kage1234"
-    user_input_password = user_password.encode('utf-8')
+    user_input_password = user_password.encode("utf-8")
 
     salt = bcrypt.gensalt()
 
     hashed_password = bcrypt.hashpw(user_input_password, salt)
 
-
-    update_user = db.execute("UPDATE users SET user_password=? WHERE user_username=?", (hashed_password, user_username))  # noqa
+    update_user = db.execute(
+        "UPDATE users SET user_password=? WHERE user_username=?",
+        (hashed_password, user_username),
+    )  # noqa
     print(update_user)
 
     db.commit()

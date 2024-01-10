@@ -3,7 +3,7 @@ import git
 
 # utilities
 import utilities.hash_password  # bruges kun til udvikling
-import utilities.csrf # noqa
+import utilities.csrf  # noqa
 
 # Static files
 import routes.images
@@ -27,11 +27,11 @@ import routes.recipe
 import routes.recipes
 import routes.recipe_catalogue
 import routes.register
-import routes.reset_password # noqa
+import routes.reset_password  # noqa
 
 ##############################
 #         Bridges
-import bridges.login # noqa
+import bridges.login  # noqa
 
 ##############################
 #     API's
@@ -43,7 +43,7 @@ import apis.api_like_recipe
 import apis.api_follow
 import apis.api_delete
 import apis.api_search_user
-import apis.api_search_recipe # noqa
+import apis.api_search_recipe  # noqa
 
 
 ##############################
@@ -70,11 +70,12 @@ def _(filename):
 # Run in AWS
 try:
     import production  # If this production is found, the next line should run # noqa
+
     # You will never see this line in your own computer - only on amazon
     print("Server running on AWS")
     application = default_app()
 # Run in local computer
-except Exception as _: # noqa
+except Exception as _:  # noqa
     print("Server running locally")
     # If it cant run it will run locally
     run(host="127.0.0.1", port=3000, debug=True, reloader=True)
@@ -82,14 +83,11 @@ except Exception as _: # noqa
 
 ###################################
 # Continously interation from Github to python anywhere
-@post('/secret_url_for_git_hook')
+@post("/secret_url_for_git_hook")
 def git_update():
-    repo = git.Repo('./recipe_catalogue')
+    repo = git.Repo("./recipe_catalogue")
     origin = repo.remotes.origin
-    repo.create_head(
-        'main',
-        origin.refs.main
-    ).set_tracking_branch(
+    repo.create_head("main", origin.refs.main).set_tracking_branch(
         origin.refs.main
     ).checkout()
     origin.pull()

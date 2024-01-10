@@ -9,11 +9,14 @@ def _(user_username):
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
-        user = db.execute("SELECT * FROM users WHERE user_username = ? COLLATE NOCASE", (user_username, )).fetchone()  # noqa
+        user = db.execute(
+            "SELECT * FROM users WHERE user_username = ? COLLATE NOCASE",
+            (user_username,),
+        ).fetchone()  # noqa
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -23,7 +26,7 @@ def _(user_username):
             print("Ingen bruger er logget ind.")
 
         # Hvis man er på egen profil, se ALLE opskrifter
-        if user_cookie['user_username'] == user_username:
+        if user_cookie["user_username"] == user_username:
             recipes_query = """
                 SELECT recipes.*,
                     CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
@@ -33,7 +36,7 @@ def _(user_username):
                 ON recipes.recipe_id = recipes_liked_by_users.recipes_liked_by_users_recipe_fk
                 AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
             """
-            recipes = db.execute(recipes_query, (user_cookie['user_id'],)).fetchall()
+            recipes = db.execute(recipes_query, (user_cookie["user_id"],)).fetchall()
 
         # Hvis man er på anden profil, se kun visible opskrifter
         else:
@@ -47,10 +50,7 @@ def _(user_username):
                 AND recipes_liked_by_users.recipes_liked_by_users_user_fk = ?
                 WHERE recipe_visibility = TRUE
             """
-            recipes = db.execute(
-                recipes_query,
-                (user_cookie['user_id'],)
-            ).fetchall()
+            recipes = db.execute(recipes_query, (user_cookie["user_id"],)).fetchall()
 
         return template(
             "recipes",
@@ -58,7 +58,7 @@ def _(user_username):
             user=user,
             recipes=recipes,
             user_cookie=user_cookie,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

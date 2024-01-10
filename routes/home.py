@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         # user cookie
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -19,11 +19,17 @@ def _():
 
         db = x.db()
 
-        suggestions = db.execute("SELECT recipe_id, recipe_name, recipe_thumbnail FROM recipes LIMIT 3").fetchall()  # noqa
+        suggestions = db.execute(
+            """SELECT recipe_id, recipe_name, recipe_thumbnail
+            FROM recipes LIMIT 3"""
+        ).fetchall()  # noqa
 
         if user_cookie is not None:
             # Man kan kun finde user_collections, hvis der er en cookie
-            user_collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ?", (user_cookie['user_id'],)).fetchall()  # noqa
+            user_collections = db.execute(
+                "SELECT * FROM collections WHERE collection_user_fk = ?",
+                (user_cookie["user_id"],),
+            ).fetchall()  # noqa
 
             # LEFT JOIN
             recipe_not_liked_query = """
@@ -37,7 +43,9 @@ def _():
                 LIMIT 3;
             """
 
-            suggestions = db.execute(recipe_not_liked_query, (user_cookie['user_id'],)).fetchall()  # noqa
+            suggestions = db.execute(
+                recipe_not_liked_query, (user_cookie["user_id"],)
+            ).fetchall()  # noqa
 
             # Hvis den er 0, så har de ikke liket opskriften
             return template(
@@ -46,7 +54,7 @@ def _():
                 suggestions=suggestions,
                 user_cookie=user_cookie,
                 user_collections=user_collections,
-                csrf_token=request.csrf_token
+                csrf_token=request.csrf_token,
             )
 
         return template(
@@ -54,7 +62,7 @@ def _():
             title="Forside",
             suggestions=suggestions,
             user_cookie=user_cookie,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

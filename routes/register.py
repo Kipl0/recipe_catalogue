@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
@@ -42,7 +42,7 @@ def _():
             PASSWORD_MIN=x.PASSWORD_MIN,
             PASSWORD_MAX=x.PASSWORD_MAX,
             user_cookie=user_cookie,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

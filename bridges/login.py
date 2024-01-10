@@ -12,14 +12,17 @@ def _():
         username_input = x.validate_username()
         password_input = request.forms.get("password")
 
-        user_csrf_token = request.forms.get('csrf_token')
+        user_csrf_token = request.forms.get("csrf_token")
         if user_csrf_token != request.csrf_token:
             return {"info": "Ugyldigt CSRF-token! Handling afvist."}
 
         # Hvis password er blevet udfyld -> encode
         password_input = password_input.encode("utf-8")
 
-        check_user = db.execute("SELECT * FROM users WHERE user_username = ? LIMIT 1", (username_input,)).fetchone()  # noqa
+        check_user = db.execute(
+            "SELECT * FROM users WHERE user_username = ? LIMIT 1",
+            (username_input,)
+        ).fetchone()  # noqa
 
         # Hvis brugeren ikke eksisterer i db
         if not check_user:
@@ -46,8 +49,8 @@ def _():
             user_jwt,
             secret=x.COOKIE_SECRET,
             httponly=True,
-            expires=cookie_expiration
-            )
+            expires=cookie_expiration,
+        )
 
         # location af header sker via js i stedet.
         return {"info": "ok"}

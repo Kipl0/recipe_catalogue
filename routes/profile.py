@@ -9,11 +9,13 @@ def _(user_username):
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
 
-        check_user = db.execute("SELECT * FROM users WHERE user_username = ?",(user_username, )).fetchone()  # noqa
+        check_user = db.execute(
+            "SELECT * FROM users WHERE user_username = ?", (user_username,)
+        ).fetchone()  # noqa
         # Til 404 error handling, hvis ikke brugeren findes
         if check_user is None:
             raise Exception
@@ -25,7 +27,7 @@ def _(user_username):
             user_cookie = x.validate_user_jwt(user_cookie)
             # Hent alle opskrifter med information om,
             # hvorvidt de er 'liket' af brugeren
-            if user_cookie['user_username'] == user_username:
+            if user_cookie["user_username"] == user_username:
                 recipes = """
                     SELECT recipes.*,
                     CASE WHEN recipes_liked_by_users.recipes_liked_by_users_user_fk
@@ -37,7 +39,9 @@ def _(user_username):
                     WHERE recipes.recipe_user_fk = ?
                     LIMIT 2
                 """
-                recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
+                recipes = db.execute(
+                    recipes, (check_user["user_id"], check_user["user_id"])
+                ).fetchall()  # noqa
             else:
                 recipes = """
                     SELECT recipes.*,
@@ -51,7 +55,9 @@ def _(user_username):
                     AND recipe_visibility = TRUE
                     LIMIT 2
                 """
-                recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
+                recipes = db.execute(
+                    recipes, (check_user["user_id"], check_user["user_id"])
+                ).fetchall()  # noqa
         else:
             print("Ingen bruger er logget ind.")
             recipes = """
@@ -66,9 +72,14 @@ def _(user_username):
                 AND recipe_visibility = TRUE
                 LIMIT 2
             """
-            recipes = db.execute(recipes, (check_user['user_id'], check_user['user_id'])).fetchall()  # noqa
+            recipes = db.execute(
+                recipes, (check_user["user_id"], check_user["user_id"])
+            ).fetchall()  # noqa
 
-        collections = db.execute("SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",(check_user['user_id'],)).fetchall()  # noqa  
+        collections = db.execute(
+            "SELECT * FROM collections WHERE collection_user_fk = ? LIMIT 2",
+            (check_user["user_id"],),
+        ).fetchall()  # noqa
 
         return template(
             "profile",
@@ -77,7 +88,7 @@ def _(user_username):
             user=check_user,
             collections=collections,
             user_cookie=user_cookie,
-            csrf_token=request.csrf_token
+            csrf_token=request.csrf_token,
         )
 
     except Exception as ex:

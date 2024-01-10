@@ -9,7 +9,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
 
         db = x.db()
         # user cookie
@@ -19,13 +19,17 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-        recipes_liked_by_users = db.execute("SELECT * FROM recipes_liked_by_users WHERE recipes_liked_by_users_user_fk = ?",(user_cookie['user_id'],)).fetchall()  # noqa
+        recipes_liked_by_users = db.execute(
+            """SELECT * FROM recipes_liked_by_users
+            WHERE recipes_liked_by_users_user_fk = ?""",
+            (user_cookie["user_id"],),
+        ).fetchall()  # noqa
 
         return template(
             "favourites",
             title="Mine favouritter",
             all_liked_recipes=recipes_liked_by_users,
-            user_cookie=user_cookie
+            user_cookie=user_cookie,
         )
 
     except Exception as ex:

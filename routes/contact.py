@@ -8,7 +8,7 @@ def _():
     try:
         # Sæt CSP
         csp_directives = get_csp_directives()
-        response.set_header('Content-Security-Policy', csp_directives)
+        response.set_header("Content-Security-Policy", csp_directives)
         db = x.db()
 
         # user cookie
@@ -18,11 +18,7 @@ def _():
         else:
             print("Ingen bruger er logget ind.")
 
-        return template(
-            "contact",
-            title="Kontakt",
-            user_cookie=user_cookie
-        )
+        return template("contact", title="Kontakt", user_cookie=user_cookie)
 
     except Exception as ex:
         print(x)

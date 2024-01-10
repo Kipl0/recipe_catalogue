@@ -22,7 +22,7 @@ def _():
         user_password = x.validate_password()
         x.validate_confirm_password()
 
-        user_csrf_token = request.forms.get('csrf_token')
+        user_csrf_token = request.forms.get("csrf_token")
         if user_csrf_token != request.csrf_token:
             return {"info": "Ugyldigt CSRF-token! Handling afvist."}
 
@@ -30,16 +30,20 @@ def _():
         # generere en hash-værdi, som gemmes i db bruges til at gemme
         # adgangskoder sikkert, da du kun sammenligner hash-værdier
         # for at bekræfte, om adgangskoden er korrekt.
-        user_password_input = user_password.encode('utf') #Konverter password til bytes  # noqa
+        user_password_input = user_password.encode(
+            "utf"
+        )  # Konverter password til bytes  # noqa
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(user_password_input, salt)
 
         # Upload af billeder til profil
         try:
-            import production  # If this production is found, the next line should run
-            rootdir = "/home/MajaILarsen/recipe_catalogue/"     
-        except Exception as ex:    
+            import production  # If this production is found, the next line should run  # noqa
+
+            rootdir = "/home/MajaILarsen/recipe_catalogue/"
+        except Exception:
             rootdir = "C:/Users/maalm/OneDrive/Dokumenter/kea/2_semester/recipe_catalogue/"  # noqa
+
 
         # Til scanning af billeder senere
         # clamd = pyclamd.ClamdUnixSocket()
@@ -58,7 +62,9 @@ def _():
 
                 # Tjek filstørrelsen før upload gemmes
                 if len(uploaded_profil_pic.file.read()) > x.max_profilepic_size:  # noqa
-                    response.status = 413  # Statuskode 413 betyder "Request Entity Too Large"  # noqa
+                    response.status = (
+                        413  # Statuskode 413 betyder "Request Entity Too Large"  # noqa
+                    )
                     return {"info": "Billede er for stort"}
 
                 # Scan billedet for farligt indhold
@@ -71,7 +77,9 @@ def _():
 
                 uploaded_profil_pic.file.seek(0)
                 final_profile_pic = str(uuid.uuid4().hex) + ext
-                uploaded_profil_pic.save(f"{rootdir}images/profile_images/{final_profile_pic}")  # noqa
+                uploaded_profil_pic.save(
+                    f"{rootdir}images/profile_images/{final_profile_pic}"
+                )  # noqa
         else:
             final_profile_pic = "unknown_user.jpg"
 
@@ -88,12 +96,16 @@ def _():
 
                 # Tjek filstørrelsen før upload gemmes
                 if len(uploaded_banner.file.read()) > x.max_banner_size:
-                    response.status = 413  # Statuskode 413 betyder "Request Entity Too Large"  # noqa
+                    response.status = (
+                        413  # Statuskode 413 betyder "Request Entity Too Large"  # noqa
+                    )
                     return {"info": "Billede er for stort"}
 
                 uploaded_banner.file.seek(0)
                 final_banner = str(uuid.uuid4().hex) + ext
-                uploaded_banner.save(f"{rootdir}images/profile_banners/{final_banner}")  # noqa
+                uploaded_banner.save(
+                    f"{rootdir}images/profile_banners/{final_banner}"
+                )  # noqa
 
         else:
             final_banner = "default_banner.png"
@@ -115,15 +127,17 @@ def _():
             "user_total_followers": 0,
             "user_total_following": 0,
             "user_total_recipes": 0,
-            "user_total_collections": 0
+            "user_total_collections": 0,
         }
 
         values = ""
         for key in user:
-            values += f':{key},'
+            values += f":{key},"
         values = values.rstrip(",")
 
-        total_rows_inserted = db.execute(f"INSERT INTO users VALUES({values})", user).rowcount  # noqa
+        total_rows_inserted = db.execute(
+            f"INSERT INTO users VALUES({values})", user
+        ).rowcount  # noqa
         db.commit()
 
         if total_rows_inserted != 1:
