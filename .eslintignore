@@ -1,2 +1,11 @@
 /tailwindcss
 /js/purify.js
+/dist
+/.quasar
+/node_modules
+**/node_modules
+node_modules/
+**/node_modules/**/*.*
+**/node_modules/**
+.eslintrc.js
+babel.config.js
