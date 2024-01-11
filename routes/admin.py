@@ -25,8 +25,7 @@ def _():
                 response.status = 303  # fordi 303 bruges til redirecting
                 response.set_header("Location", "/")
                 return
-        else:
-            # der var ingen cookie
+        else:  # der var ingen cookie
             response.status = 303  # fordi 303 bruges til redirecting
             response.set_header("Location", "/")
             return

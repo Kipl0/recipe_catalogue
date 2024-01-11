@@ -1,6 +1,5 @@
 
 function create_recipe() {
-
     const create_recipe_btn = document.getElementById("create_recipe_btn")
 
     create_recipe_btn.addEventListener("click", async function() {

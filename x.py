@@ -59,7 +59,26 @@ def validate_user_jwt(user_jwt):
 # ###########################################
 #    Validate inputs, og user ved register
 # ###########################################
-BLACKLIST = ["'", '"', ';', '!', '?', '--', '/*', '*/', '(', ')', '<', '>', 'OR 1=1', 'OR TRUE', 'UNION', 'UNION SELECT', 'DROP', 'DELETE']  # noqa
+BLACKLIST = [
+    "'",
+    '"',
+    ";",
+    "!",
+    "?",
+    "--",
+    "/*",
+    "*/",
+    "(",
+    ")",
+    "<",
+    ">",
+    "OR 1=1",
+    "OR TRUE",
+    "UNION",
+    "UNION SELECT",
+    "DROP",
+    "DELETE",
+]  # noqa
 
 
 def check_blacklist(input_str):
@@ -148,7 +167,6 @@ def validate_confirm_password():
 # -------------------------------
 USERNAME_MIN = 3
 USERNAME_MAX = 20
-# USERNAME_REGEX = "^[a-zA-Z0-9_]*$" #kun engelske bogstaver og tallene fra 0-9
 
 
 def validate_username():
